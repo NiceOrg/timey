@@ -1,5 +1,8 @@
 export default {
   target: 'static',
+  env: {
+    api: 'https://dog.ceo/api',
+  },
   head: {
     title: 'timey',
     meta: [
