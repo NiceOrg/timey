@@ -1,12 +1,3 @@
 <template>
-  <div class="page-option">settings</div>
+  <div class="page-option">Settings</div>
 </template>
-
-<script>
-export default {
-    layout:'app-layout'
-}
-</script>
-
-<style>
-</style>

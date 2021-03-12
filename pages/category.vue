@@ -1,21 +1,9 @@
 <template>
-  <div class="page-category">
-      category
-  </div>
+  <div class="page-category">category</div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
-<style>
-
-</style>
-<!--
-name:String
-tasks:List<Task>
-
-
--->
+<style></style>

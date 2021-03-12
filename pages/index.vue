@@ -1,16 +1,55 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">timey</h1>
-      <div class="links">
-        <a-button type="primary" @click="showModal"> Open Modal </a-button>
-        <a-modal v-model="visible" title="Basic Modal" @ok="handleOk">
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </a-modal>
-      </div>
+  <div class="page-login">
+    <div class="title">Time Tracker</div>
+    <div class="login">
+      <a-form-model
+        layout="inline"
+        :model="formInline"
+        @submit="handleSubmit"
+        @submit.native.prevent
+      >
+        <a-form-model-item>
+          <a-input v-model="formInline.user" placeholder="Username">
+            <a-icon
+              slot="prefix"
+              type="user"
+              style="color: rgba(0, 0, 0, 0.25)"
+            />
+          </a-input>
+        </a-form-model-item>
+        <br />
+        <a-form-model-item>
+          <a-input
+            v-model="formInline.password"
+            type="password"
+            placeholder="Password"
+          >
+            <a-icon
+              slot="prefix"
+              type="lock"
+              style="color: rgba(0, 0, 0, 0.25)"
+            />
+          </a-input>
+        </a-form-model-item>
+        <br />
+        <a-form-model-item>
+          <a-button
+            type="primary"
+            html-type="submit"
+            :disabled="formInline.user === '' || formInline.password === ''"
+          >
+            Log in
+          </a-button>
+        </a-form-model-item>
+      </a-form-model>
+    </div>
+    <div class="create-account">
+      <a-button>
+        <NuxtLink to="/create-account">Create account</NuxtLink>
+      </a-button>
+    </div>
+    <div class="nolog">
+      <NuxtLink to="/dashboard">Continue without signing in</NuxtLink>
     </div>
   </div>
 </template>
@@ -19,50 +58,22 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  layout: 'auth',
   data() {
     return {
-      visible: false,
+      formInline: {
+        user: '',
+        password: '',
+      },
     }
   },
+  mounted() {
+    console.log('si authentifié -> redirect vers dashboard')
+  },
   methods: {
-    showModal() {
-      this.visible = true
-    },
-    handleOk() {
-      this.visible = false
+    handleSubmit() {
+      console.log(this.formInline)
     },
   },
 })
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

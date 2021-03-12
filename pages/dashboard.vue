@@ -14,20 +14,17 @@
 
 <script>
 export default {
-  layout:'app-layout',
   data() {
     return {
       visible: false,
-    };
+    }
   },
   methods: {
     hide() {
-      console.log(111);
-      this.visible = false;
+      this.visible = false
     },
   },
 }
 </script>
 
-<style>
-</style>
+<style></style>
