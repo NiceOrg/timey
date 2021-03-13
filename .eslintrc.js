@@ -1,3 +1,7 @@
+const rules = require('./.eslintrc.rules.js')
+
+// try standard-with-typescript
+
 module.exports = {
   root: true,
   env: {
@@ -12,6 +16,5 @@ module.exports = {
     'plugin:nuxt/recommended',
   ],
   plugins: ['prettier'],
-  // add your custom rules here
-  rules: {},
+  rules,
 }
