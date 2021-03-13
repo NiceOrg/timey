@@ -1,5 +1,9 @@
 # Timey
 
+[![Website Up](https://img.shields.io/website/https/timey-tt.netlify.app.svg)](https://timey-tt.netlify.app)
+
+[![Project license](https://img.shields.io/badge/license-GPL-blue)](https://github.com/NiceOrg/timey/blob/master/LICENSE)
+
 ![logo](docs/logo.svg)
 
 > Personal time tracker
@@ -14,4 +18,13 @@ npm run build # build for production
 
 ## Thanks
 
+- [Eslint](https://eslint.org) : super tool to find & fix problems
+- [Vue](https://vuejs.org) : when I need a front framework, this is the one I choose <3
+- [Repo-checker](https://github.com/Shuunen/repo-checker) : eslint cover /src code and this tool the rest ^^
+- [Nyc](https://github.com/istanbuljs/nyc) : simple & effective cli for code coverage
+- [Npm-run-all](https://github.com/mysticatea/npm-run-all) : to keep my npm scripts clean & readable
+- [Mocha](https://github.com/mochajs/mocha) : great test runner easy to setup & use
+- [Github](https://github.com) : for all their great work year after year, pushing OSS forward
+- [Travis-ci.com](https://travis-ci.com) : for providing free continuous deployments
+- [Shields.io](https://shields.io) : for the nice badges on top of this readme
 - [Oleg Turbaba](https://www.iconfinder.com/icons/3507737/alarm_clock_iconoteka_on_time_timer_icon): for the alarm icon
