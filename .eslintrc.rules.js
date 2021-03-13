@@ -8,6 +8,7 @@ module.exports = {
   curly: ['error', 'multi'],
   'capitalized-comments': 'off',
   'max-statements-per-line': 'off',
+  'max-len': ['error', { code: 150, ignoreUrls: true }],
   '@typescript-eslint/consistent-type-assertions': 'off',
   '@typescript-eslint/no-confusing-void-expression': 'off',
 }

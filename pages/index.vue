@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <Logo />
-      <h1 class="title">timey</h1>
+      <img src="~/assets/icons/logo.svg" class="logo" alt="logo" style="min-width: 30rem" />
       <div class="links">
         <a-button type="primary" @click="showModal"> Open Modal </a-button>
         <a-modal v-model="visible" title="Basic Modal" @ok="handleOk">
