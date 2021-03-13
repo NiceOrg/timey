@@ -56,21 +56,22 @@
 
 <script>
 export default {
-  layout:"auth-layout",
+  layout: 'auth-layout',
   data() {
     return {
       formInline: {
         user: '',
         password: '',
       },
-    };
+    }
   },
   methods: {
-    handleSubmit(e) {
-      console.log(this.formInline);
+    handleSubmit() {
+      // eslint-disable-next-line no-console
+      console.log(this.formInline)
     },
   },
-};
+}
 </script>
 
 <style>

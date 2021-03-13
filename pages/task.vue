@@ -1,18 +1,12 @@
 <template>
-  <div class="page-task">
-      task
-  </div>
+  <div class="page-task">task</div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
-<style>
-
-</style>
+<style></style>
 <!--
 name:String
 time:date

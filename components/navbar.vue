@@ -19,9 +19,9 @@ export default {
   data() {
     return {
       current: ['dashboard'],
-    };
+    }
   },
-};
+}
 </script>
 
 <style>

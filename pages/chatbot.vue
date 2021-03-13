@@ -1,15 +1,11 @@
 <template>
-  <div class="page-chatbot">
-    chatbot
-  </div>
+  <div class="page-chatbot">chatbot</div>
 </template>
 
 <script>
 export default {
-    layout:'app-layout'
+  layout: 'app-layout',
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
