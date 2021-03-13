@@ -4,6 +4,7 @@
     "dbaeumer.vscode-eslint",
     "richie5um2.vscode-sort-json",
     "streetsidesoftware.code-spell-checker",
-    "streetsidesoftware.code-spell-checker-french"
+    "streetsidesoftware.code-spell-checker-french",
+    "ryanluker.vscode-coverage-gutters"
   ]
 }

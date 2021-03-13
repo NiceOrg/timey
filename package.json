@@ -58,7 +58,8 @@
     "postversion": "git push && git push --tags",
     "preversion": "npm run ci",
     "start": "npm run dev",
-    "test": "mocha",
+    "test": "nyc mocha",
+    "test:watch": "nodemon --quiet --watch services --watch tests --exec npm test --ext .ts",
     "update": "npx npm-check-updates -u"
   },
   "version": "1.0.0"
