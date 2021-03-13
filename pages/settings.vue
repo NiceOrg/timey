@@ -4,9 +4,8 @@
 
 <script>
 export default {
-    layout:'app-layout'
+  layout: 'app-layout',
 }
 </script>
 
-<style>
-</style>
+<style></style>

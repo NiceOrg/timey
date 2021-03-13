@@ -1,23 +1,3 @@
-<!--<template>
-  <div class="page-create-account">
-    <h1 class="title">Create account</h1>
-    <div class="content">
-      <form name="connection" action="" method="post">
-        <label class="form-label" for="email"> Email: </label>
-        <input class="form-field" name="email" id="email" />
-        <label class="form-label" for="password"> Password: </label>
-        <input class="form-field" name="password" id="password" />
-        <label class="form-label" for="password"> Password: </label>
-        <input class="form-field" name="password" id="password" />
-        <input class="form-button" type="submit" value="Submit" />
-      </form>
-    </div>
-    <div class="create-account">
-      <button><NuxtLink to="/login">Back</NuxtLink></button>
-    </div>
-  </div>
-</template> -->
-
 <template>
   <div class="page-create-account">
     <div class="title">Create account</div>
@@ -56,36 +36,36 @@
   </div>
 </template>
 
-
 <script>
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export default {
-  layout:"auth-layout",
+  layout: 'auth-layout',
   data() {
-    let checkUsername = (rule, value, callback) => {
+    const checkUsername = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('Please input an username'));
+        return callback(new Error('Please input an username'))
       }
-      callback();
-    };
-    let validatePass = (rule, value, callback) => {
+      callback()
+    }
+    const validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input the password'));
+        callback(new Error('Please input the password'))
       } else {
         if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass');
+          this.$refs.ruleForm.validateField('checkPass')
         }
-        callback();
+        callback()
       }
-    };
-    let validatePass2 = (rule, value, callback) => {
+    }
+    const validatePass2 = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input the password again'));
+        callback(new Error('Please input the password again'))
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error("Two inputs don't match!"));
+        callback(new Error("Two inputs don't match!"))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     return {
       ruleForm: {
         pass: '',
@@ -101,14 +81,14 @@ export default {
         labelCol: { span: 4 },
         wrapperCol: { span: 14 },
       },
-    };
+    }
   },
   methods: {
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     },
   },
-};
+}
 </script>
 
 <style>
