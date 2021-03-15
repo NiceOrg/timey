@@ -6,13 +6,6 @@ body {
   height: 100%;
 }
 
-.ant-layout-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .ant-layout-header {
   color: white;
   text-align: center;

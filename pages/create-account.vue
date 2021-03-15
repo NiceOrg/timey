@@ -28,7 +28,7 @@
         <a-button type="primary" @click="submitForm('ruleForm')">
           Submit
         </a-button>
-        <NuxtLink to="/login"
+        <NuxtLink to="/"
           ><a-button style="margin-left: 10px">Back</a-button></NuxtLink
         >
       </a-form-model-item>
@@ -93,26 +93,5 @@ export default {
 </script>
 
 <style scoped>
-.creation {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-}
 
-.submit {
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-}
-
-.title {
-  font-weight: 300;
-  font-size: 25px;
-}
 </style>
