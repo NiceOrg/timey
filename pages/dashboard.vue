@@ -1,27 +1,21 @@
 <template>
   <div class="page-dashboard">
-    <a-popover v-model="visible" trigger="click">
-      <a slot="content" @click="hide"><NuxtLink to="/task">Create new task</NuxtLink></a>
-      <a slot="content" @click="hide"><NuxtLink to="/category">Create new category</NuxtLink></a>
-      <a-button type="primary"> <a-icon type="plus" /> </a-button>
-    </a-popover>
+    <task-list />
+    <task-add />
   </div>
 </template>
 
-<script>
-export default {
-  layout: 'app-layout',
-  data() {
-    return {
-      visible: false,
-    }
-  },
-  methods: {
-    hide() {
-      this.visible = false
-    },
-  },
-}
-</script>
+<script lang="ts">
+import Vue from 'vue'
 
-<style></style>
+export default Vue.extend({
+  layout: 'app-layout',
+})
+</script>
+>
+
+<style>
+.no-bullets {
+  list-style-type: none;
+}
+</style>
