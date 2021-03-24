@@ -4,6 +4,9 @@
       <div class="main-info">
         <div class="task-name">{{ task.name }}</div>
         <div class="time-passed">{{ printTime(task.timestamp) }}</div>
+        <div class="tags">
+          <tag-list :task="task" />
+        </div>
         <div class="more-options">
           <a-popover trigger="click" placement="leftTop">
             <a slot="content">Edit <br /></a>
@@ -58,6 +61,7 @@ export default Vue.extend({
 <style>
 .task-name,
 .time-passed,
+.tags,
 .more-options {
   display: inline;
 }
@@ -73,6 +77,11 @@ export default Vue.extend({
 }
 
 .time-passed {
+  position: relative;
+  left: 5%;
+}
+
+.tags {
   position: relative;
   left: 5%;
 }
