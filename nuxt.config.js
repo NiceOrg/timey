@@ -1,8 +1,11 @@
 export default {
-  // Target: https://go.nuxtjs.dev/config-target
+  server: {
+    port: 8000, // default: 3000
+  },
   target: 'static',
-
-  // Global page headers: https://go.nuxtjs.dev/config-head
+  env: {
+    api: 'http://localhost:8001/',
+  },
   head: {
     title: 'timey',
     meta: [
@@ -12,35 +15,15 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['ant-design-vue/dist/antd.css'],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+  css: ['ant-design-vue/dist/antd.css', '@/assets/styles/main.css'],
   plugins: ['@/plugins/antd-ui'],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build',
-  ],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
-  ],
-
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
+  buildModules: ['@nuxt/typescript-build'],
+  modules: ['@nuxtjs/pwa'],
   pwa: {
     manifest: {
       lang: 'en',
     },
   },
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 }
