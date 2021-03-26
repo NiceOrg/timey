@@ -1,6 +1,6 @@
 <template>
   <div class="comp-task-list">
-    <task v-for="task in tasks" :key="task.id" :task="task" @click.native="toggleStopwatch(task)" />
+    <task v-for="task in tasks" :key="task.id" :task="task" @click.native="tasksService.toggle(task)" />
   </div>
 </template>
 
@@ -12,22 +12,14 @@ import { tasksService } from '~/services/tasks.service'
 export default Vue.extend({
   data() {
     return {
-      tasks: [],
+      tasks: [] as Task[],
+      tasksService,
     }
   },
   mounted() {
-    this.tasks = tasksService.getTasks()
-    this.detectTaskChanges()
-  },
-  methods: {
-    toggleStopwatch(task: Task) {
-      tasksService.toggleStopwatch(task)
-    },
-    detectTaskChanges() {
-      window.addEventListener('tasks-changed', (event) => {
-        this.tasks = event.detail.storage
-      })
-    },
+    this.tasks = tasksService.tasks.map((task) => new Task(task.id, task.name, task.seconds))
+    console.log(this.tasks)
+    // this.detectTaskChanges()
   },
 })
 </script>

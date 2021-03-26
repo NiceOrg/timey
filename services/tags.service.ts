@@ -1,4 +1,4 @@
-import { localStorageService } from './local-storage.service'
+import { localStorageService } from './storage.service'
 import { Tag } from '~/models/tag.model'
 import { Task } from '~/models/task.model'
 
@@ -31,9 +31,9 @@ class TagsService {
 
     tags.forEach((tag) => {
       if (tag.id === data.id)
-        tag.taskList.forEach((id, i) => {
+        tag.tasks.forEach((id, i) => {
           if (id === task.id) {
-            tag.taskList.splice(i, 1)
+            tag.tasks.splice(i, 1)
             localStorageService.storeData(tagsService.DATASTORED_NAME, tags)
             ret = true
           }
@@ -47,7 +47,7 @@ class TagsService {
 
     tags.forEach((tag) => {
       if (tag.id === data.id) {
-        tag.taskList.push(task.id)
+        tag.tasks.push(task.id)
         localStorageService.storeData(tagsService.DATASTORED_NAME, tags)
       }
     })

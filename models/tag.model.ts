@@ -1,17 +1,19 @@
-export class Tag {
-  id = -1
-  name = ''
-  taskList: number[] = [1, 2]
-  color: string = '#ccc'
+import { Task } from './task.model'
 
-  constructor(id: number, name: string, taskList: number[], color: string) {
+export class Tag {
+  id: number
+  name: string
+  tasks: number[]
+  color: string
+
+  constructor(id = -1, name = '', tasks = [], color = '#ccc') {
     this.id = id
     this.name = name
-    this.taskList = taskList
+    this.tasks = tasks
     this.color = color
   }
 
-  static class(obj: any) {
-    return new Tag(obj.id, obj.name, obj.taskList, obj.color)
+  addTask(task: Task) {
+    this.tasks.push(task.id)
   }
 }

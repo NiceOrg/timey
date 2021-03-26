@@ -1,5 +1,5 @@
 <template>
-  <div class="comp-tag">
+  <div class="comp-tag" @click="stopPropagation($event)">
     <a-popover trigger="click" placement="leftTop">
       <a slot="content"> <a-input v-model="search" type="text" placeholder="filter tags" /> <br /></a>
       <a slot="content">
@@ -25,6 +25,7 @@ import Vue from 'vue'
 import { Tag } from '~/models/tag.model'
 import { Task } from '~/models/task.model'
 import { tagsService } from '~/services/tags.service'
+import { stopPropagation } from '~/utils/event'
 
 export default Vue.extend({
   props: {
@@ -34,6 +35,7 @@ export default Vue.extend({
     return {
       tagList: [],
       search: '',
+      stopPropagation,
     }
   },
   computed: {
@@ -76,10 +78,6 @@ export default Vue.extend({
 >
 
 <style>
-.comp-tag {
-  display: inline;
-}
-
 .ant-list-empty-text {
   display: none;
 }

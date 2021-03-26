@@ -3,10 +3,8 @@
     <template v-if="task">
       <div class="main-info">
         <div class="task-name">{{ task.name }}</div>
-        <div class="time-passed">{{ printTime(task.timestamp) }}</div>
-        <div class="tags">
-          <tag-list :task="task" />
-        </div>
+        <div class="time-passed">{{ task.seconds }}</div>
+        <!-- <tag-list :task="task" /> -->
         <div class="more-options">
           <a-popover trigger="click" placement="leftTop">
             <a slot="content">Edit <br /></a>
@@ -24,35 +22,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Task } from '~/models/task.model'
-import { Timestamp } from '~/models/timestamp.model'
 import { tasksService } from '~/services/tasks.service'
 export default Vue.extend({
   props: {
     task: Task,
   },
-  data() {
-    return {
-      time: '',
-    }
-  },
-  watch: {
-    'task.started'(started: boolean) {
-      if (started) tasksService.startTask(this.task)
-      else tasksService.stopTask(this.task)
-    },
-  },
   methods: {
-    printTime(ts: Timestamp) {
-      let ret = ''
-      ret += ts.hour < 10 ? '0' + ts.hour : ts.hour
-      ret += ':'
-      ret += ts.min < 10 ? '0' + ts.min : ts.min
-      ret += ':'
-      ret += ts.sec < 10 ? '0' + ts.sec : ts.sec
-      return ret
-    },
     deleteTask() {
-      tasksService.deleteTask(this.task)
+      //   tasksService.deleteTask(this.task)
     },
   },
 })
@@ -61,7 +38,6 @@ export default Vue.extend({
 <style>
 .task-name,
 .time-passed,
-.tags,
 .more-options {
   display: inline;
 }
@@ -81,11 +57,6 @@ export default Vue.extend({
   left: 5%;
 }
 
-.tags {
-  position: relative;
-  left: 5%;
-}
-
 .more-options {
   float: right;
 }
@@ -97,5 +68,11 @@ export default Vue.extend({
 
 .estimation {
   height: 12px;
+}
+
+.comp-tag {
+  display: inline;
+  position: relative;
+  left: 5%;
 }
 </style>

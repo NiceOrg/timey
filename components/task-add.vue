@@ -13,23 +13,22 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Task } from '~/models/task.model'
-import { Timestamp } from '~/models/timestamp.model'
 import { tasksService } from '~/services/tasks.service'
 
 export default Vue.extend({
   data() {
     return {
       show: false,
-      newTask: new Task(-1, '', new Timestamp(0, 0, 0, 0, 0)),
+      newTask: new Task(),
     }
   },
   methods: {
     showForm() {
       this.show = true
     },
-    addTask(e) {
-      e.preventDefault()
-      tasksService.addTask(this.newTask)
+    addTask(event: Event) {
+      event.preventDefault()
+      // tasksService.addTask(this.newTask)
       this.show = false
     },
   },

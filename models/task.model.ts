@@ -1,24 +1,16 @@
-import { Timestamp } from './timestamp.model'
-
 export class Task {
-  id = -1
-  name = ''
+  id: number
+  name: string
   started: boolean = false
+  seconds: number
 
-  timestamp: Timestamp
-  //  estimation: Date = new Date()
-
-  constructor(id: number, name: string, ts: Timestamp) {
+  constructor(id = -1, name = '', seconds = 0) {
     this.id = id
     this.name = name
-    this.timestamp = ts
+    this.seconds = seconds
   }
 
-  public setTimeStamp(ts: Timestamp) {
-    this.timestamp = ts
-  }
-
-  static class(obj: any) {
-    return new Task(obj.id, obj.name, Timestamp.class(obj.timestamp))
+  toggle() {
+    this.started = !this.started
   }
 }
