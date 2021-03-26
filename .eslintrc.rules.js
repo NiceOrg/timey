@@ -5,7 +5,7 @@ module.exports = {
   'no-console': 'off',
   'func-names': ['error', 'always'],
   'object-curly-spacing': ['error', 'always'],
-  curly: ['error', 'multi'],
+  curly: 'error',
   'capitalized-comments': 'off',
   'max-statements-per-line': 'off',
   'max-len': ['error', { code: 150, ignoreUrls: true }],
