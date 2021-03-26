@@ -17,7 +17,7 @@
     <div class="submit">
       <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
         <a-button type="primary" @click="submitForm('ruleForm')"> Submit </a-button>
-        <NuxtLink to="/login"><a-button style="margin-left: 10px">Back</a-button></NuxtLink>
+        <NuxtLink to="/index"><a-button style="margin-left: 10px">Back</a-button></NuxtLink>
       </a-form-model-item>
     </div>
   </div>
