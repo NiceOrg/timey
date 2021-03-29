@@ -1,22 +1,22 @@
 <template>
   <div class="page-login">
-    <div class="title">Time Tracker</div>
+    <div class="title">Timey</div>
     <div class="login">
-      <a-form-model layout="inline" :model="formInline" @submit="handleSubmit" @submit.native.prevent>
+      <a-form-model layout="inline" :model="form" @submit="handleSubmit" @submit.native.prevent>
         <a-form-model-item>
-          <a-input v-model="formInline.user" placeholder="Username">
+          <a-input v-model="form.user" placeholder="Username">
             <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
           </a-input>
         </a-form-model-item>
         <br />
         <a-form-model-item>
-          <a-input v-model="formInline.password" type="password" placeholder="Password">
+          <a-input v-model="form.password" type="password" placeholder="Password">
             <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
           </a-input>
         </a-form-model-item>
         <br />
         <a-form-model-item>
-          <a-button type="primary" html-type="submit" :disabled="formInline.user === '' || formInline.password === ''"> Log in </a-button>
+          <a-button type="primary" html-type="submit" :disabled="form.user === '' || form.password === ''"> Log in </a-button>
         </a-form-model-item>
       </a-form-model>
     </div>
@@ -34,7 +34,7 @@ export default {
   layout: 'auth-layout',
   data() {
     return {
-      formInline: {
+      form: {
         user: '',
         password: '',
       },
@@ -42,52 +42,26 @@ export default {
   },
   methods: {
     handleSubmit() {
-      // eslint-disable-next-line no-console
-      console.log(this.formInline)
+      console.log(this.form)
     },
   },
 }
 </script>
 
-<style>
+<style scoped>
+.page-login {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .login {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
 }
 
-.create-account {
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-}
-
-.nolog {
-  position: absolute;
-  top: 75%;
-  left: 50%;
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  position: absolute;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-  top: 0%;
-  left: 50%;
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
+.ant-form-item {
+  margin-right: 0px;
 }
 </style>
