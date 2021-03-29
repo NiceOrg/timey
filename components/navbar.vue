@@ -34,4 +34,9 @@ export default Vue.extend({
   text-align: center;
   width: 33%;
 }
+
+.comp-navbar {
+  top: 0;
+  width: 100%;
+}
 </style>
