@@ -23,6 +23,7 @@
     <div class="create-account">
       <a-button><NuxtLink to="/create-account">Create account</NuxtLink></a-button>
     </div>
+    <google-signin />
     <div class="nolog">
       <NuxtLink to="/dashboard">Continue without signing in</NuxtLink>
     </div>
