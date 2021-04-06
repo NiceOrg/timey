@@ -1,9 +1,12 @@
 <template>
-  <div class="page-dashboard"></div>
+  <div class="page-dashboard">
+    <task-list />
+    <task-add />
+  </div>
 </template>
 
-<script lang="ts">
-</script>
-
 <style>
+.no-bullets {
+  list-style-type: none;
+}
 </style>
