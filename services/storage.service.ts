@@ -1,15 +1,15 @@
 let target = {} as any
-if (typeof localStorage !== 'undefined') target = localStorage
+if (typeof localStorage !== 'undefined') {
+  target = localStorage
+}
 
 class StorageService {
-  constructor() {
-    // this.set('tasks', [{ "id": 1, "name": "Faire de la guitare", "started": false, "seconds": 78 }, { "id": 2, "name": "Faire du sport", "started": false, "seconds": 0 }])
-  }
-
   get(key: string) {
     const data = target[key]
-    if (!data) return
-    return (data[0] === '{' || data[0] === '[') ? JSON.parse(data) : data
+    if (!data) {
+      return
+    }
+    return data[0] === '{' || data[0] === '[' ? JSON.parse(data) : data
   }
 
   set(key: string, data: any) {
