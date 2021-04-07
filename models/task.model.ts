@@ -25,4 +25,14 @@ export class Task {
 
     return hours + ':' + minutes + ':' + seconds
   }
+
+  public static compareSeconds(t1: Task, t2: Task) {
+    if (t1.seconds > t2.seconds) {
+      return -1
+    }
+    if (t1.seconds < t2.seconds) {
+      return 1
+    }
+    return 0
+  }
 }
