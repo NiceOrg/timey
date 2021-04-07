@@ -9,4 +9,8 @@
 .no-bullets {
   list-style-type: none;
 }
+
+.page-dashboard {
+  overflow-y: auto;
+}
 </style>
