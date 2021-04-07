@@ -4,9 +4,15 @@
       <a-menu-item key="dashboard">
         <NuxtLink to="/dashboard"><a-icon type="home" />Dashboard</NuxtLink>
       </a-menu-item>
-      <a-menu-item key="report">
-        <NuxtLink to="/report"><a-icon type="message" />Rapport</NuxtLink>
-      </a-menu-item>
+      <a-sub-menu>
+        <span slot="title" class="submenu-title-wrapper"><a-icon type="message" />Rapports</span>
+        <a-menu-item key="report-task">
+          <NuxtLink to="/report-task"><a-icon type="message" />Par tâche</NuxtLink>
+        </a-menu-item>
+        <a-menu-item key="report-tag">
+          <NuxtLink to="/report-tag"><a-icon type="message" />Par tag</NuxtLink>
+        </a-menu-item>
+      </a-sub-menu>
       <a-menu-item key="settings">
         <NuxtLink to="/settings"><a-icon type="setting" />Options</NuxtLink>
       </a-menu-item>
@@ -30,7 +36,8 @@ export default Vue.extend({
 </script>
 
 <style>
-.ant-menu-item {
+.ant-menu-horizontal > .ant-menu-item,
+.ant-menu-horizontal > .ant-menu-submenu {
   text-align: center;
   width: 33%;
 }
