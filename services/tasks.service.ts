@@ -7,12 +7,13 @@ const STORE_KEY = 'tasks'
 class TasksService {
   public tasks = [] as Task[]
   private activeTask!: Task | undefined
+  public timer
 
   public constructor() {
     const rawTasks = storageService.get(STORE_KEY) || []
     this.tasks = rawTasks.map((task: Task) => new Task(task.id, task.name, task.seconds, task.started))
     this.activeTask = this.tasks.find((task: Task) => task.started)
-    setInterval(() => this.everySeconds(), 1000)
+    this.timer = setInterval(() => this.everySeconds(), 1000)
   }
 
   public toggle(task: Task) {
@@ -47,6 +48,11 @@ class TasksService {
     this.tasks.splice(index, 1)
     this.save()
     message.success('Task deleted.')
+  }
+
+  public clearTimer() {
+    console.log('DONE')
+    clearInterval(this.timer)
   }
 
   private save() {
