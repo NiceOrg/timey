@@ -1,4 +1,9 @@
+import { Button, Form, Icon, Input, Menu, Popover } from 'ant-design-vue'
 import Vue from 'vue'
-import Antd from 'ant-design-vue/lib'
 
-Vue.use(Antd)
+Vue.use(Button)
+Vue.use(Icon)
+Vue.use(Menu)
+Vue.use(Popover)
+Vue.use(Form)
+Vue.use(Input)
