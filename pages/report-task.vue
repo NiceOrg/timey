@@ -53,14 +53,13 @@ export default Vue.extend({
 }
 
 .task-reported {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0 0.6rem;
 }
 
 .progression-bar {
-  border: 1px solid black;
-  height: 30px;
-  border-radius: 20px;
+  border: 0.1rem solid black;
+  height: 1.9rem;
+  border-radius: 1rem;
   background-color: #e4f6c0;
 }
 </style>

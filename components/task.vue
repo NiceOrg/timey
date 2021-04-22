@@ -3,6 +3,7 @@
     <template v-if="task">
       <div class="task-name">{{ task.name }}</div>
       <div class="time-passed">{{ task.getTime() }}</div>
+      <tag-list :task="task" />
       <div class="more-options" @click="stopPropagation($event)">
         <a-popover trigger="click" placement="leftTop">
           <a slot="content">Edit <br /></a>
@@ -25,7 +26,11 @@ import { TASK_DELETE } from '~/plugins/tasks.client'
 
 export default Vue.extend({
   props: {
-    task: Task,
+    task: {
+      default: () => new Task(),
+      type: Task,
+      required: true,
+    },
   },
   data() {
     return {
@@ -40,18 +45,19 @@ export default Vue.extend({
 <style scoped>
 .comp-task {
   border: 1px solid black;
-  margin-bottom: 5px;
-  padding-top: 5px;
+  margin-bottom: 0.3rem;
+  padding-top: 0.3rem;
 }
 
 .task-name {
   display: inline;
   float: left;
   width: 60%;
-  padding-left: 5px;
+  padding-left: 0.3rem;
 }
 
-.time-passed {
+.time-passed,
+.comp-tag {
   display: inline;
   position: relative;
   left: 5%;
@@ -63,6 +69,6 @@ export default Vue.extend({
 }
 
 .estimation {
-  height: 5px;
+  height: 0.3rem;
 }
 </style>
