@@ -16,7 +16,7 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   css: ['ant-design-vue/dist/antd.css', '@/assets/styles/main.css'],
-  plugins: ['@/plugins/antd-ui'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/tasks.client', '@/plugins/timer.client'],
   components: true,
   buildModules: ['@nuxt/typescript-build'],
   modules: ['@nuxtjs/pwa'],
