@@ -1,25 +1,30 @@
 <template>
   <div class="comp-task-list">
-    <task v-for="task in tasks" :key="task.id" :task="task" @click.native="tasksService.toggle(task)" />
+    <task v-for="task in tasks" :key="task.id" :task="task" @click.native="emit(TASK_TOGGLE, task)" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Task } from '~/models/task.model'
-import { tasksService } from '~/services/tasks.service'
-import { eventBus } from '~/utils/event'
+import { on, emit } from '~/node_modules/shuutils/dist/src'
+import { TASK_TOGGLE, TASK_SEND, TASK_GET } from '~/plugins/tasks.client'
 
 export default Vue.extend({
   data() {
     return {
       tasks: [] as Task[],
-      tasksService,
+      emit,
+      TASK_TOGGLE,
     }
   },
-  mounted() {
-    this.tasks = tasksService.tasks
-    eventBus.$on('tasks-update', (tasks: Task[]) => (this.tasks = tasks))
+  created() {
+    on(TASK_SEND, (tasks: Task[]) => {
+      this.tasks = tasks
+    })
+  },
+  beforeMount() {
+    emit(TASK_GET)
   },
 })
 </script>
