@@ -3,13 +3,14 @@ export class Task {
   name: string
   started: boolean
   seconds: number
-  timeout: any
+  tags: number[]
 
-  public constructor(id = -1, name = '', seconds = 0, started = false) {
+  constructor(id = -1, name = '', seconds = 0, started = false, tags = [] as number[]) {
     this.id = id
     this.name = name
     this.seconds = seconds
     this.started = started
+    this.tags = tags
   }
 
   public getTime(): String {
