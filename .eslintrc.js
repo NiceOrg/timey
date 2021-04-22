@@ -9,7 +9,7 @@ module.exports = {
     mocha: true,
     node: true,
   },
-  extends: ['@nuxtjs/eslint-config-typescript', 'plugin:prettier/recommended', 'plugin:nuxt/recommended'],
-  plugins: ['prettier'],
+  extends: ['plugin:unicorn/recommended', '@nuxtjs/eslint-config-typescript', 'plugin:prettier/recommended', 'plugin:nuxt/recommended'],
+  plugins: ['unicorn', 'prettier'],
   rules,
 }
