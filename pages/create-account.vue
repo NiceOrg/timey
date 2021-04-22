@@ -29,36 +29,36 @@
 
 <script>
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
+const checkUsername = (rule, value, callback) => {
+  if (!value) {
+    return callback(new Error('Please input an username'))
+  }
+  callback()
+}
+const validatePass = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('Please input the password'))
+  } else {
+    if (this.ruleForm.checkPass !== '') {
+      this.$refs.ruleForm.validateField('checkPass')
+    }
+    callback()
+  }
+}
+const validatePass2 = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('Please input the password again'))
+  } else if (value !== this.ruleForm.pass) {
+    callback(new Error("Two inputs don't match!"))
+  } else {
+    callback()
+  }
+}
+
 export default {
   layout: 'auth-layout',
   data() {
-    const checkUsername = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('Please input an username'))
-      }
-
-      callback()
-    }
-    const validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please input the password'))
-      } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass')
-        }
-
-        callback()
-      }
-    }
-    const validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please input the password again'))
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("Two inputs don't match!"))
-      } else {
-        callback()
-      }
-    }
     return {
       ruleForm: {
         pass: '',
