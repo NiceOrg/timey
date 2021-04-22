@@ -62,6 +62,6 @@ export default {
 }
 
 .ant-form-item {
-  margin-right: 0px;
+  margin-right: 0rem;
 }
 </style>
