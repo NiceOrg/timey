@@ -18,22 +18,30 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Task } from '~/models/task.model'
-import { tasksService } from '~/services/tasks.service'
+import { on, emit } from '~/node_modules/shuutils/dist/src'
+import { TASK_GET, TASK_SEND } from '~/plugins/tasks.client'
+
 export default Vue.extend({
   data() {
     return {
       orderedTasks: [] as Task[],
     }
   },
-  mounted() {
-    this.orderedTasks = tasksService.tasks
-      .map((task: Task) => new Task(task.id, task.name, task.seconds, task.started))
-      .sort(Task.compareSeconds)
-      .slice(0, 10)
+  created() {
+    on(TASK_SEND, (tasks: Task[]) => this.orderTasks(tasks))
+  },
+  beforeMount() {
+    emit(TASK_GET)
   },
   methods: {
     progressionBarSize(task: Task) {
       return (task.seconds / this.orderedTasks[0].seconds) * 100 + '%'
+    },
+    orderTasks(tasks: Task[]) {
+      this.orderedTasks = tasks
+        .map((task: Task) => new Task(task.id, task.name, task.seconds, task.started))
+        .sort(Task.compareSeconds)
+        .slice(0, 10)
     },
   },
 })

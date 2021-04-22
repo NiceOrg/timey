@@ -6,7 +6,7 @@
       <div class="more-options" @click="stopPropagation($event)">
         <a-popover trigger="click" placement="leftTop">
           <a slot="content">Edit <br /></a>
-          <a slot="content" @click="tasksService.deleteTask(task)">Delete<br /></a>
+          <a slot="content" @click="emit(TASK_DELETE, task)">Delete<br /></a>
           <a slot="content">Archive</a>
           <a-icon type="more" />
         </a-popover>
@@ -19,8 +19,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Task } from '~/models/task.model'
-import { tasksService } from '~/services/tasks.service'
 import { stopPropagation } from '~/utils/event'
+import { emit } from '~/node_modules/shuutils/dist/src'
+import { TASK_DELETE } from '~/plugins/tasks.client'
 
 export default Vue.extend({
   props: {
@@ -29,7 +30,8 @@ export default Vue.extend({
   data() {
     return {
       stopPropagation,
-      tasksService,
+      emit,
+      TASK_DELETE,
     }
   },
 })

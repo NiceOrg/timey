@@ -12,7 +12,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Task } from '~/models/task.model'
-import { tasksService } from '~/services/tasks.service'
+import { emit } from '~/node_modules/shuutils/dist/src'
+import { TASK_ADD } from '~/plugins/tasks.client'
 
 export default Vue.extend({
   data() {
@@ -24,7 +25,7 @@ export default Vue.extend({
   methods: {
     addTask(event: Event) {
       event.preventDefault()
-      tasksService.addTask(this.newTask)
+      emit(TASK_ADD, this.newTask)
       this.show = false
       this.newTask = new Task()
     },
