@@ -12,7 +12,7 @@ describe('tags', () => {
       const tag = new Tag(1, 'brightTag', '#000000')
       equal(tag.isColorBright(), false)
     })
-    it('default constructor', () => {
+    it('Instantiate new tag with default params', () => {
       const tag = new Tag()
       equal(tag.id, -1)
       equal(tag.name, '')
@@ -31,9 +31,6 @@ describe('tags', () => {
       const customTag = new Tag(1, 'customTag', '#abcde')
       tagsPlugin.add(customTag)
       equal(tagsPlugin.getTags().pop(), customTag)
-    })
-    it('get tag from local storage', () => {
-      // TODO : test rawTags.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
     })
   })
 })

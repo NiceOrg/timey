@@ -11,8 +11,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { emit } from 'shuutils'
 import { Task } from '~/models/task.model'
-import { emit } from '~/node_modules/shuutils/dist/src'
 import { TASK_ADD } from '~/plugins/tasks.client'
 
 export default Vue.extend({

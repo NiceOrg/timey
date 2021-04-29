@@ -26,9 +26,8 @@ class TagsPlugin {
 
   /* istanbul ignore next */
   private async load() {
-    const TagsRaw = ((await storage.get(STORE_KEY)) as Tag[]) || []
-    this.tags = TagsRaw.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
-    this.send()
+    const tagsRaw = ((await storage.get(STORE_KEY)) as Tag[]) || []
+    this.tags = tagsRaw.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
   }
 
   public add(data: Tag) {

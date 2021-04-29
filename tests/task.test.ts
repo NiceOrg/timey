@@ -5,7 +5,7 @@ import { Tag } from '../models/tag.model'
 
 describe('tasks', () => {
   describe('task model', () => {
-    it('default constructor', () => {
+    it('Instantiate new task with default params', () => {
       const task = new Task()
       equal(task.id, -1)
       equal(task.name, '')
@@ -14,7 +14,7 @@ describe('tasks', () => {
       deepEqual(task.tags, [])
     })
     it('get time', () => {
-      const task = new Task(1, 'aTask', 60, false, [])
+      const task = new Task(1, 'aTask', 60)
       equal(task.getTime(), '00:01:00')
       task.seconds = 3661
       equal(task.getTime(), '01:01:01')
@@ -22,11 +22,11 @@ describe('tasks', () => {
       equal(task.getTime(), '25:59:59')
     })
     it('compare two tasks', () => {
-      const task1 = new Task(1, 'oneTask', 60, false, [])
-      const task1Bis = new Task(2, 'similarTask', 60, false, [])
+      const task1 = new Task(1, 'oneTask', 60)
+      const task1Bis = new Task(2, 'similarTask', 60)
       equal(Task.compareSeconds(task1, task1Bis), 0)
 
-      const task2 = new Task(3, 'greaterTask', 600, false, [])
+      const task2 = new Task(3, 'greaterTask', 600)
       equal(Task.compareSeconds(task1, task2), 1)
       equal(Task.compareSeconds(task2, task1), -1)
     })
@@ -43,27 +43,27 @@ describe('tasks', () => {
       const task = new Task()
       tasksPlugin.add(task)
       equal(tasksPlugin.getTasks().pop(), task)
-      const customTask = new Task(1, 'addTask', 0, false, [])
+      const customTask = new Task(1, 'addTask')
       tasksPlugin.add(customTask)
       equal(tasksPlugin.getTasks().pop(), customTask)
     })
     it('delete task from tasks', () => {
-      const task = new Task(1, 'deleteTask', 0, false, [])
+      const task = new Task(1, 'deleteTask')
       tasksPlugin.add(task)
       equal(tasksPlugin.getTasks().includes(task), true)
       tasksPlugin.delete(task)
       equal(tasksPlugin.getTasks().includes(task), false)
     })
     it('delete active task from tasks', () => {
-      const task = new Task(1, 'deleteActiveTask', 0, true, [])
+      const task = new Task(1, 'deleteActiveTask')
       tasksPlugin.add(task)
       tasksPlugin.delete(task)
       equal(tasksPlugin.getTasks().includes(task), false)
       equal(tasksPlugin.getActiveTask(), undefined)
     })
     it('delete non existing task', () => {
-      const task = new Task(1, 'nonExistingTask', 0, false, [])
-      const addedTask = new Task(1, 'addedTask', 0, false, [])
+      const task = new Task(1, 'nonExistingTask')
+      const addedTask = new Task(1, 'addedTask')
 
       tasksPlugin.add(addedTask)
       tasksPlugin.delete(task)
@@ -71,7 +71,7 @@ describe('tasks', () => {
       equal(tasksPlugin.getTasks().pop(), addedTask)
     })
     it('add tag to a task', () => {
-      const task = new Task(1, 'addTagToTask', 0, false, [])
+      const task = new Task(1, 'addTagToTask')
       tasksPlugin.add(task)
 
       const tag = new Tag(10, 'addTag', '#ccc')
@@ -80,13 +80,13 @@ describe('tasks', () => {
       equal(tasksPlugin.getTasks().pop()?.tags.includes(tag.id), true)
     })
     it('add tag to a non existing task', () => {
-      const task = new Task(1, 'nonExistingTask', 0, false, [])
+      const task = new Task(1, 'nonExistingTask')
       const tag = new Tag(10, 'tagToNoTask', '#ccc')
       tasksPlugin.addTag(task, tag)
       equal(tasksPlugin.getTasks().includes(task), false)
     })
     it('delete tag from task', () => {
-      const task = new Task(1, 'deleteTagFromTask', 0, false, [])
+      const task = new Task(1, 'deleteTagFromTask')
       const tag = new Tag(10, 'tagDeleted', '#ccc')
       tasksPlugin.add(task)
       tasksPlugin.addTag(task, tag)
@@ -108,7 +108,7 @@ describe('tasks', () => {
       tasksPlugin.delete(task)
     })
     it("delete tag that doesn't belong to a task", () => {
-      const task = new Task(1, 'TaskThatHasNotTag', 0, false, [])
+      const task = new Task(1, 'TaskThatHasNotTag')
       const tag = new Tag(10, 'ThatTag', '#ccc')
       const otherTag = new Tag(666, 'ThisTag', '#ccc')
 
@@ -121,7 +121,7 @@ describe('tasks', () => {
       tasksPlugin.delete(task)
     })
     it('delete tag from a non existing task', () => {
-      const task = new Task(1, 'nonExistingTask', 0, false, [])
+      const task = new Task(1, 'nonExistingTask')
       const tag = new Tag(10, 'tagToNoTask', '#ccc')
       equal(tasksPlugin.deleteTag(task, tag), false)
     })
@@ -130,8 +130,8 @@ describe('tasks', () => {
       equal(tasksPlugin.increment(), undefined)
     })
     it('toggle tasks', () => {
-      const task1 = new Task(1, 'toggleTask1', 0, false, [])
-      const task2 = new Task(1, 'toggleTask2', 0, false, [])
+      const task1 = new Task(1, 'toggleTask1')
+      const task2 = new Task(1, 'toggleTask2')
       tasksPlugin.add(task1)
       tasksPlugin.add(task2)
 
@@ -142,7 +142,7 @@ describe('tasks', () => {
       tasksPlugin.delete(task2)
     })
     it('add a second to an active task', () => {
-      const task = new Task(1, 'activeTask', 55, false, [])
+      const task = new Task(1, 'activeTask', 55)
       tasksPlugin.add(task)
 
       tasksPlugin.toggle(task)
