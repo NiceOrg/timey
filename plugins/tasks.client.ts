@@ -38,9 +38,8 @@ class TasksPlugin {
 
   /* istanbul ignore next */
   private async load() {
-    const tasksRaw = await storage.get(STORE_KEY)
+    const tasksRaw = (await storage.get(STORE_KEY)) || []
     this.tasks = tasksRaw.map((task: Task) => new Task(task.id, task.name, task.seconds, task.started, task.tags))
-    this.send()
   }
 
   public toggle(task: Task) {
@@ -73,7 +72,7 @@ class TasksPlugin {
       this.activeTask = undefined
     }
     const index = this.tasks.findIndex((task) => task.id === data.id)
-    if (index === undefined || index === -1) {
+    if (index === -1) {
       return
     }
     this.tasks.splice(index, 1)
