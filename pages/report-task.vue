@@ -7,7 +7,7 @@
         <a-icon v-else-if="index == 2" theme="filled" type="crown" :style="{ color: '#6A3805' }" />
         <template v-else> #{{ index + 1 }} </template>
 
-        <strong>{{ task.name }}</strong> {{ task.getTime() }}
+        <strong>{{ task.name }}</strong> {{ tasksPlugin.getTime(task.seconds) }}
         <div class="progression-bar" :style="{ width: progressionBarSize(task) }"></div>
         <br />
       </template>
@@ -19,12 +19,13 @@
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
 import { Task } from '~/models/task.model'
-import { TASK_GET, TASK_SEND } from '~/plugins/tasks.client'
+import { TASK_GET, TASK_SEND, tasksPlugin } from '~/plugins/tasks.client'
 
 export default Vue.extend({
   data() {
     return {
       orderedTasks: [] as Task[],
+      tasksPlugin,
     }
   },
   created() {

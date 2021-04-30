@@ -13,14 +13,6 @@ describe('tasks', () => {
       equal(task.started, false)
       deepEqual(task.tags, [])
     })
-    it('get time', () => {
-      const task = new Task(1, 'aTask', 60)
-      equal(task.getTime(), '00:01:00')
-      task.seconds = 3661
-      equal(task.getTime(), '01:01:01')
-      task.seconds = 93599
-      equal(task.getTime(), '25:59:59')
-    })
     it('compare two tasks', () => {
       const task1 = new Task(1, 'oneTask', 60)
       const task1Bis = new Task(2, 'similarTask', 60)
@@ -42,10 +34,10 @@ describe('tasks', () => {
     it('add task to tasks', () => {
       const task = new Task()
       tasksPlugin.add(task)
-      equal(tasksPlugin.getTasks().pop(), task)
+      deepEqual(tasksPlugin.getTasks().pop(), task)
       const customTask = new Task(1, 'addTask')
       tasksPlugin.add(customTask)
-      equal(tasksPlugin.getTasks().pop(), customTask)
+      deepEqual(tasksPlugin.getTasks().pop(), customTask)
     })
     it('delete task from tasks', () => {
       const task = new Task(1, 'deleteTask')
@@ -53,6 +45,25 @@ describe('tasks', () => {
       equal(tasksPlugin.getTasks().includes(task), true)
       tasksPlugin.delete(task)
       equal(tasksPlugin.getTasks().includes(task), false)
+    })
+    it('add and delete multiple tasks', () => {
+      const task1 = new Task(0)
+      const task2 = new Task(1)
+      const task3 = new Task(2)
+
+      tasksPlugin.addAll([task1, task2, task3])
+
+      deepEqual(tasksPlugin.getTasks(), [task1, task2, task3])
+      tasksPlugin.deleteAll([task1, task2, task3])
+      equal(tasksPlugin.getTasks().pop(), undefined)
+    })
+    it('get time', () => {
+      const task = new Task(1, 'aTask', 60, false, [])
+      equal(tasksPlugin.getTime(task.seconds), '00:01:00')
+      task.seconds = 3661
+      equal(tasksPlugin.getTime(task.seconds), '01:01:01')
+      task.seconds = 93599
+      equal(tasksPlugin.getTime(task.seconds), '25:59:59')
     })
     it('delete active task from tasks', () => {
       const task = new Task(1, 'deleteActiveTask')
@@ -77,7 +88,7 @@ describe('tasks', () => {
       const tag = new Tag(10, 'addTag', '#ccc')
       tasksPlugin.addTag(task, tag)
 
-      equal(tasksPlugin.getTasks().pop()?.tags.includes(tag.id), true)
+      equal(tasksPlugin.getTasks().pop()?.tags.includes(tag), true)
     })
     it('add tag to a non existing task', () => {
       const task = new Task(1, 'nonExistingTask')
@@ -94,7 +105,7 @@ describe('tasks', () => {
         tasksPlugin
           .getTasks()
           .find((t: Task) => t === task)
-          ?.tags.includes(tag.id),
+          ?.tags.includes(tag),
         true
       )
       equal(tasksPlugin.deleteTag(task, tag), true)
@@ -102,7 +113,7 @@ describe('tasks', () => {
         tasksPlugin
           .getTasks()
           .find((t: Task) => t === task)!
-          .tags.includes(tag.id),
+          .tags.includes(tag),
         false
       )
       tasksPlugin.delete(task)
@@ -150,6 +161,16 @@ describe('tasks', () => {
       equal(tasksPlugin.getActiveTask()!.seconds, 56)
 
       tasksPlugin.delete(task)
+    })
+    it('generate IDs', () => {
+      const task = new Task()
+      const task2 = new Task()
+      const resultTask = new Task()
+      tasksPlugin.addAll([task, resultTask, task2])
+      equal(tasksPlugin.getTasks().find((t: Task) => t === resultTask)!.id, 1)
+      tasksPlugin.delete(resultTask)
+      tasksPlugin.add(resultTask)
+      equal(tasksPlugin.getTasks().find((t: Task) => t === resultTask)!.id, 3)
     })
   })
 })

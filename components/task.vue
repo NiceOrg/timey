@@ -2,7 +2,7 @@
   <div class="comp-task" :style="[task.started ? { backgroundColor: 'lightgreen' } : { backgroundColor: '' }]">
     <template v-if="task">
       <div class="task-name">{{ task.name }}</div>
-      <div class="time-passed">{{ task.getTime() }}</div>
+      <div class="time-passed">{{ tasksPlugin.getTime(task.seconds) }}</div>
       <tag-list :task="task" />
       <div class="more-options" @click="stopPropagation($event)">
         <a-popover trigger="click" placement="leftTop">
@@ -22,7 +22,7 @@ import Vue from 'vue'
 import { emit } from 'shuutils'
 import { Task } from '~/models/task.model'
 import { stopPropagation } from '~/utils/event'
-import { TASK_DELETE } from '~/plugins/tasks.client'
+import { TASK_DELETE, tasksPlugin } from '~/plugins/tasks.client'
 
 export default Vue.extend({
   props: {
@@ -37,6 +37,7 @@ export default Vue.extend({
       stopPropagation,
       emit,
       TASK_DELETE,
+      tasksPlugin,
     }
   },
 })

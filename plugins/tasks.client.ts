@@ -39,7 +39,16 @@ class TasksPlugin {
   /* istanbul ignore next */
   private async load() {
     const tasksRaw = (await storage.get(STORE_KEY)) || []
-    this.tasks = tasksRaw.map((task: Task) => new Task(task.id, task.name, task.seconds, task.started, task.tags))
+    this.tasks = tasksRaw.map(
+      (task: Task) =>
+        new Task(
+          task.id,
+          task.name,
+          task.seconds,
+          task.started,
+          task.tags.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
+        )
+    )
   }
 
   public toggle(task: Task) {
@@ -62,9 +71,15 @@ class TasksPlugin {
   }
 
   public add(task: Task) {
-    task.id = Date.now()
+    task.id = this.getLastId() + 1
     this.tasks.push(task)
     this.save()
+  }
+
+  public addAll(tasks: Task[]) {
+    for (const task of tasks) {
+      this.add(task)
+    }
   }
 
   public delete(data: Task) {
@@ -80,26 +95,58 @@ class TasksPlugin {
     message.success('Task deleted.')
   }
 
+  public deleteAll(tasks: Task[]) {
+    for (const task of tasks) {
+      this.delete(task)
+    }
+  }
+
   public addTag(task: Task, tag: Tag) {
-    this.tasks.find((t: Task) => t.id === task.id)?.tags.push(tag.id)
+    this.tasks.find((t: Task) => t.id === task.id)?.tags.push(tag)
     this.save()
   }
 
   public deleteTag(task: Task, tag: Tag): Boolean {
     const taskFound = this.tasks.find((tk: Task) => tk.id === task.id)
-    const index = taskFound?.tags.indexOf(tag.id)
-
+    const index = taskFound?.tags.findIndex((t: Tag) => t.id === tag.id)
     if (index === undefined || index === -1) {
       return false
     }
-
     taskFound!.tags.splice(index!, 1)
     this.save()
     return true
   }
 
+  public deleteAllTag(data: Tag) {
+    const tasks = this.tasks
+    for (const task of tasks) {
+      this.deleteTag(task, data)
+    }
+  }
+
   public getActiveTask() {
     return this.activeTask
+  }
+
+  public getTime(totalSeconds: number): String {
+    let hours = Math.floor(totalSeconds / 3600).toString()
+    totalSeconds %= 3600
+    let minutes = Math.floor(totalSeconds / 60).toString()
+    let seconds = (totalSeconds % 60).toString()
+
+    minutes = String(minutes).padStart(2, '0')
+    hours = String(hours).padStart(2, '0')
+    seconds = String(seconds).padStart(2, '0')
+
+    return hours + ':' + minutes + ':' + seconds
+  }
+
+  public getLastId(): number {
+    const maxId = this.tasks[this.tasks.length - 1]
+    if (maxId === undefined) {
+      return -1
+    }
+    return maxId.id
   }
 
   private save() {
