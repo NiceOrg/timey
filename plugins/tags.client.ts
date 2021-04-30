@@ -1,5 +1,6 @@
 import { emit, on, storage } from 'shuutils'
 import { Tag } from '../models/tag.model'
+import { tasksPlugin } from './tasks.client'
 
 const STORE_KEY = 'tags'
 export const TAG_SEND = 'tags-send'
@@ -31,11 +32,41 @@ class TagsPlugin {
   }
 
   public add(data: Tag) {
-    data.id = Date.now()
+    data.id = this.getLastId() + 1
     data.color = this.generateRandomColor()
 
     this.tags.push(data)
     this.save()
+  }
+
+  public addAll(tags: Tag[]) {
+    for (const tag of tags) {
+      this.add(tag)
+    }
+  }
+
+  public delete(tag: Tag) {
+    const index = this.tags.findIndex((tg: Tag) => tg.id === tag.id)
+    if (index === -1) {
+      return false
+    }
+    this.tags.splice(index, 1)
+    this.save()
+    tasksPlugin.deleteAllTag(tag)
+  }
+
+  public deleteAll(tags: Tag[]) {
+    for (const tag of tags) {
+      this.delete(tag)
+    }
+  }
+
+  public getLastId(): number {
+    const maxId = this.tags[this.tags.length - 1]
+    if (maxId === undefined) {
+      return -1
+    }
+    return maxId.id
   }
 
   private generateRandomColor() {
