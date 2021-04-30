@@ -34,8 +34,6 @@ class TagsPlugin {
 
   public add(data: Tag) {
     data.id = this.getLastId() + 1
-    data.color = this.generateRandomColor()
-
     this.tags.push(data)
     this.save()
   }
@@ -44,6 +42,16 @@ class TagsPlugin {
     for (const tag of tags) {
       this.add(tag)
     }
+  }
+
+  public update(tag: Tag) {
+    const index = this.tags.findIndex((tg: Tag) => tg.id === tag.id)
+    if (index === -1) {
+      this.add(tag)
+      return
+    }
+    this.tags[index] = tag
+    this.save()
   }
 
   public delete(tag: Tag) {
@@ -70,7 +78,8 @@ class TagsPlugin {
     return maxId.id
   }
 
-  private generateRandomColor() {
+  /* istanbul ignore next */
+  public generateRandomColor() {
     const letters = '0123456789ABCDEF'
     let color = '#'
     for (let index = 0; index < 6; index++) {

@@ -1,9 +1,9 @@
 <template>
-  <div class="comp-task" :style="[task.started ? { backgroundColor: 'lightgreen' } : { backgroundColor: '' }]">
+  <div class="comp-task" :class="{ active: task.started }">
     <template v-if="task">
       <div class="task-name">{{ task.name }}</div>
       <div class="time-passed">{{ tasksPlugin.getTime(task.seconds) }}</div>
-      <tag-list :task="task" />
+      <tags-list :task="task" />
       <div class="more-options" @click="stopPropagation($event)">
         <a-popover trigger="click" placement="leftTop">
           <a slot="content">Éditer <br /></a>
@@ -70,7 +70,9 @@ export default Vue.extend({
   width: 60%;
   padding-left: 0.3rem;
 }
-
+.active {
+  background-color: lightgreen;
+}
 .time-passed,
 .comp-tag {
   display: inline;

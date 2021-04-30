@@ -27,7 +27,7 @@ import { on, emit } from 'shuutils'
 import { Tag } from '~/models/tag.model'
 import { Task } from '~/models/task.model'
 import { stopPropagation } from '~/utils/event'
-import { TAG_ADD, TAG_GET, TAG_SEND } from '~/plugins/tags.client'
+import { tagsPlugin, TAG_ADD, TAG_GET, TAG_SEND } from '~/plugins/tags.client'
 import { TASK_ADD_TAG, TASK_DELETE_TAG } from '~/plugins/tasks.client'
 
 export default Vue.extend({
@@ -82,7 +82,7 @@ export default Vue.extend({
       return false
     },
     addTag() {
-      const tag = new Tag(-1, this.tagSearched)
+      const tag = new Tag(-1, this.tagSearched, tagsPlugin.generateRandomColor())
       const task = this.task
       emit(TAG_ADD, tag)
       emit(TASK_ADD_TAG, { task, tag })
