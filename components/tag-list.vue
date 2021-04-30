@@ -2,7 +2,7 @@
   <div class="comp-tag" @click="stopPropagation($event)">
     <a-popover trigger="click" placement="leftTop">
       <a slot="content">
-        <a-input v-model="search" type="text" placeholder="filter tags" /> <br />
+        <a-input v-model="tagSearched" type="text" placeholder="filter tags" /> <br />
         <a-list class="tag-list" item-layout="horizontal" :data-source="filteredTagList">
           <a-list-item slot="renderItem" slot-scope="item" @click="updateTaskTags(item)">
             <a-list-item-meta>
@@ -12,7 +12,7 @@
             <div v-if="isTagChecked(item)"><a-icon type="check" /></div>
           </a-list-item>
         </a-list>
-        <span v-if="showCreateTag" @click="addTag()">create new tag '{{ search }}'<br /></span>
+        <span v-if="showCreateTag" @click="addTag()">create new tag '{{ tagSearched }}'<br /></span>
         <span>Edit tags</span>
       </a>
       <a-icon v-if="firstTag === undefined" type="plus" />
@@ -41,22 +41,22 @@ export default Vue.extend({
   data() {
     return {
       tags: [] as Tag[],
-      search: '',
+      tagSearched: '',
       stopPropagation,
     }
   },
   computed: {
     firstTag(): Tag | undefined {
-      return this.tags.find((tag: Tag) => tag.id === this.task.tags[0])
+      return this.tags.find((tag: Tag) => tag.id === this.task.tags[0]?.id)
     },
     tagStyling(): any {
       return { background: this.firstTag!.color, color: this.firstTag!.isColorBright() ? 'black' : 'white' }
     },
     filteredTagList(): Tag[] {
-      return this.tags.filter((tag: Tag) => tag.name.toLowerCase().includes(this.search.toLowerCase()))
+      return this.tags.filter((tag: Tag) => tag.name.toLowerCase().includes(this.tagSearched.toLowerCase()))
     },
     showCreateTag(): boolean {
-      if (this.tags.some((tag) => tag.name === this.search) || this.search === '') {
+      if (this.tags.some((tag) => tag.name === this.tagSearched) || this.tagSearched === '') {
         return false
       }
       return true
@@ -80,14 +80,17 @@ export default Vue.extend({
       }
     },
     isTagChecked(tag: Tag) {
-      return this.task.tags.includes(tag.id)
+      if (this.task.tags.find((t: Tag) => t.id === tag.id) !== undefined) {
+        return true
+      }
+      return false
     },
     addTag() {
-      const tag = new Tag(-1, this.search)
+      const tag = new Tag(-1, this.tagSearched)
       const task = this.task
       emit(TAG_ADD, tag)
       emit(TASK_ADD_TAG, { task, tag })
-      this.search = ''
+      this.tagSearched = ''
     },
   },
 })

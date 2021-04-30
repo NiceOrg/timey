@@ -24,13 +24,47 @@ describe('tags', () => {
     it('get empty tags', () => {
       deepEqual(tagsPlugin.getTags(), [])
     })
-    it('add tag to tags', () => {
+    it('add tag', () => {
       const tag = new Tag()
       tagsPlugin.add(tag)
       equal(tagsPlugin.getTags().pop(), tag)
       const customTag = new Tag(1, 'customTag', '#abcde')
       tagsPlugin.add(customTag)
       equal(tagsPlugin.getTags().pop(), customTag)
+    })
+    it('delete a tag', () => {
+      const tag = new Tag(0)
+      tagsPlugin.add(tag)
+      tagsPlugin.delete(tag)
+      equal(tagsPlugin.getTags().pop(), undefined)
+    })
+    it('add and delete multiple tags', () => {
+      const tag1 = new Tag(0)
+      const tag2 = new Tag(1)
+      const tag3 = new Tag(2)
+
+      tagsPlugin.addAll([tag1, tag2, tag3])
+
+      deepEqual(tagsPlugin.getTags(), [tag1, tag2, tag3])
+      tagsPlugin.deleteAll([tag1, tag2, tag3])
+      equal(tagsPlugin.getTags().pop(), undefined)
+    })
+    it('delete non existing tag', () => {
+      const tag = new Tag(0)
+      const tag2 = new Tag(1)
+      tagsPlugin.add(tag)
+      tagsPlugin.delete(tag2)
+      equal(tagsPlugin.getTags().pop(), tag)
+    })
+    it('generate IDs', () => {
+      const tag = new Tag()
+      const tag2 = new Tag()
+      const resultTag = new Tag()
+      tagsPlugin.addAll([tag, resultTag, tag2])
+      equal(tagsPlugin.getTags().find((t: Tag) => t === resultTag)!.id, 1)
+      tagsPlugin.delete(resultTag)
+      tagsPlugin.add(resultTag)
+      equal(tagsPlugin.getTags().find((t: Tag) => t === resultTag)!.id, 3)
     })
   })
 })
