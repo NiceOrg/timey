@@ -8,7 +8,7 @@
         <template v-else> #{{ index + 1 }} </template>
 
         <strong>{{ task.name }}</strong> {{ tasksPlugin.getTime(task.seconds) }}
-        <div class="progression-bar" :style="{ width: progressionBarSize(task) }"></div>
+        <div class="progression-bar" :style="progressionBarSize(task)"></div>
         <br />
       </template>
     </div>
@@ -33,8 +33,8 @@ export default Vue.extend({
     emit(TASK_GET)
   },
   methods: {
-    progressionBarSize(task: Task) {
-      return (task.seconds / this.orderedTasks[0].seconds) * 100 + '%'
+    progressionBarSize(task: Task): any {
+      return { width: (task.seconds / this.orderedTasks[0].seconds) * 100 + '%' }
     },
     orderTasks(tasks: Task[]) {
       this.orderedTasks = tasks

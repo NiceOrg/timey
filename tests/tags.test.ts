@@ -65,6 +65,15 @@ describe('tags', () => {
       tagsPlugin.deleteAll([tag1, tag2, tag3])
       equal(tagsPlugin.getTags().pop(), undefined)
     })
+    it('update', () => {
+      const tag = new Tag()
+      tagsPlugin.update(tag)
+      equal(tagsPlugin.getTags()[0].id, 0)
+      tag.name = 'updated'
+      tagsPlugin.update(tag)
+      equal(tagsPlugin.getTags()[0].name, 'updated')
+      tagsPlugin.delete(tag)
+    })
     it('delete non existing tag', () => {
       const tag = new Tag(0)
       const tag2 = new Tag(1)
