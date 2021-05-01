@@ -7,6 +7,7 @@ module.exports = {
   'object-curly-spacing': ['error', 'always'],
   curly: 'error',
   'capitalized-comments': 'off',
+  'unicorn/prefer-module': 'off',
   'max-statements-per-line': 'off',
   'max-len': ['error', { code: 150, ignoreUrls: true }],
   '@typescript-eslint/consistent-type-assertions': 'off',
