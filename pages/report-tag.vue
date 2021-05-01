@@ -1,6 +1,8 @@
 <template>
   <div class="page-report-tag">
-    <pie-chart v-if="dataLoaded" class="chart" :chart-data="dataCollection" :options="options" />
+    <client-only>
+      <pie-chart v-if="dataLoaded" class="chart" :data="chartData" :options="chartOptions" />
+    </client-only>
   </div>
 </template>
 
@@ -15,8 +17,8 @@ import { tasksPlugin, TASK_GET, TASK_SEND } from '~/plugins/tasks.client'
 export default Vue.extend({
   data() {
     return {
-      dataCollection: {} as Object,
-      options: {} as Object,
+      chartData: {},
+      chartOptions: {},
       reportData: new Map<string, TagExtended>(),
       tasks: [] as Task[],
       dataLoaded: false,
@@ -41,7 +43,8 @@ export default Vue.extend({
         backgroundColor.push(value.tag.color)
         data.push(value.seconds)
       }
-      this.dataCollection = {
+      console.log('labels ?', labels)
+      this.chartData = {
         labels,
         datasets: [
           {
@@ -54,7 +57,7 @@ export default Vue.extend({
       this.dataLoaded = true
     },
     fillOptions() {
-      this.options = {
+      this.chartOptions = {
         legend: {
           align: 'center',
           position: 'bottom',

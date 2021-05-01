@@ -1,20 +1,28 @@
-<script lang="ts">
-import { Pie } from 'vue-chartjs'
+<template>
+  <canvas ref="chart" width="400" height="400"></canvas>
+</template>
 
-export default {
-  extends: Pie,
+<script lang="ts">
+import Vue from 'vue'
+import { Chart, ChartData, ChartItem, ChartOptions, registerables } from 'chart.js'
+
+export default Vue.extend({
   props: {
-    chartData: {
-      default: () => {},
-      type: Object,
+    data: {
+      type: Object as () => ChartData,
+      default: undefined,
     },
     options: {
-      default: () => {},
-      type: Object,
+      type: Object as () => ChartOptions,
+      default: undefined,
     },
   },
   mounted(): void {
-    this.renderChart(this.chartData, this.options)
+    Chart.register(...registerables)
+    const element = this.$refs.chart as HTMLCanvasElement
+    const item = element.getContext('2d') as ChartItem
+    const { data, options } = this
+    new Chart(item, { type: 'pie', data, options }) // eslint-disable-line no-new
   },
-}
+})
 </script>
