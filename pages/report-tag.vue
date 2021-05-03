@@ -25,13 +25,15 @@ export default Vue.extend({
     }
   },
   created() {
-    on(TASK_SEND, (tasks: Task[]) => (this.tasks = tasks))
+    on(TASK_SEND, (tasks: Task[]) => {
+      this.tasks = tasks
+      if (typeof tasks !== 'undefined' && tasks.length > 0) {
+        this.generateChart()
+      }
+    })
   },
   mounted() {
     emit(TASK_GET)
-    this.reportData = reportPlugin.generateReportData(this.tasks)
-    this.fillOptions()
-    this.fillData(this.reportData)
   },
   methods: {
     fillData(tagsMap: Map<string, TagExtended>) {
@@ -43,7 +45,6 @@ export default Vue.extend({
         backgroundColor.push(value.tag.color)
         data.push(value.seconds)
       }
-      console.log('labels ?', labels)
       this.chartData = {
         labels,
         datasets: [
@@ -71,6 +72,11 @@ export default Vue.extend({
           },
         },
       }
+    },
+    generateChart() {
+      this.reportData = reportPlugin.generateReportData(this.tasks)
+      this.fillOptions()
+      this.fillData(this.reportData)
     },
   },
 })

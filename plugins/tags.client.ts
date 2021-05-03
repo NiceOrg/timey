@@ -29,6 +29,7 @@ class TagsPlugin {
   private async load() {
     const tagsRaw = ((await storage.get(STORE_KEY)) as Tag[]) || []
     this.tags = tagsRaw.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
+    this.send()
   }
 
   public add(data: Tag) {
