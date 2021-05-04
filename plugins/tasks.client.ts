@@ -49,6 +49,7 @@ class TasksPlugin {
           task.tags.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
         )
     )
+    this.send()
   }
 
   public toggle(task: Task) {

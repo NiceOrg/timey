@@ -1,6 +1,7 @@
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
 import { Tag } from '../models/tag.model'
 import { tagsPlugin } from '../plugins/tags.client'
+import { TagExtended } from '../models/tag-extended.models'
 
 describe('tags', () => {
   describe('tag model', () => {
@@ -17,6 +18,20 @@ describe('tags', () => {
       equal(tag.id, -1)
       equal(tag.name, '')
       equal(tag.color, '#ccc')
+    })
+  })
+  describe('tag extended model', () => {
+    it('default constructor', () => {
+      const tagEx = new TagExtended()
+      equal(tagEx.tag.id, -1)
+      equal(tagEx.tag.name, '')
+      equal(tagEx.tag.color, '#ccc')
+      equal(tagEx.seconds, 0)
+    })
+    it('set seconds', () => {
+      const tagEx = new TagExtended()
+      tagEx.setSeconds(66)
+      equal(tagEx.seconds, 66)
     })
   })
 

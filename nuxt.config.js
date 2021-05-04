@@ -25,5 +25,9 @@ export default {
       lang: 'en',
     },
   },
-  build: {},
+  build: {
+    babel: {
+      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]],
+    },
+  },
 }
