@@ -24,16 +24,10 @@ export default Vue.extend({
       dataLoaded: false,
     }
   },
-  created() {
-    on(TASK_SEND, (tasks: Task[]) => {
-      this.tasks = tasks
-      if (typeof tasks !== 'undefined' && tasks.length > 0) {
-        this.generateChart()
-      }
-    })
-  },
-  mounted() {
+  beforeMount() {
+    on(TASK_SEND, (tasks: Task[]) => (this.tasks = tasks))
     emit(TASK_GET)
+    this.generateChart()
   },
   methods: {
     fillData(tagsMap: Map<string, TagExtended>) {
