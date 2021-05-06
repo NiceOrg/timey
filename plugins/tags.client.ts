@@ -15,12 +15,12 @@ class TagsPlugin {
   }
 
   public constructor() {
+    this.load()
     this.setListeners()
   }
 
   /* istanbul ignore next */
   public setListeners() {
-    on('load', async () => await this.load())
     on(TAG_ADD, (tag: Tag) => this.add(tag))
     on(TAG_GET, () => this.send())
   }

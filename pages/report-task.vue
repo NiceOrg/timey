@@ -28,10 +28,8 @@ export default Vue.extend({
       tasksPlugin,
     }
   },
-  created() {
-    on(TASK_SEND, (tasks: Task[]) => this.orderTasks(tasks))
-  },
   beforeMount() {
+    on(TASK_SEND, (tasks: Task[]) => this.orderTasks(tasks))
     emit(TASK_GET)
   },
   methods: {

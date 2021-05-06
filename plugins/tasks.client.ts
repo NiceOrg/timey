@@ -21,12 +21,12 @@ class TasksPlugin {
   }
 
   public constructor() {
+    this.load()
     this.setListeners()
   }
 
   /* istanbul ignore next */
   private setListeners() {
-    on('load', async () => await this.load())
     on(TASK_ADD, (newTask: Task) => this.add(newTask))
     on(TASK_TOGGLE, (task: Task) => this.toggle(task))
     on(TASK_DELETE, (task: Task) => this.delete(task))

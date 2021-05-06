@@ -18,12 +18,8 @@ export default Vue.extend({
       TASK_TOGGLE,
     }
   },
-  created() {
-    on(TASK_SEND, (tasks: Task[]) => {
-      this.tasks = tasks
-    })
-  },
   beforeMount() {
+    on(TASK_SEND, (tasks: Task[]) => (this.tasks = tasks))
     emit(TASK_GET)
   },
 })

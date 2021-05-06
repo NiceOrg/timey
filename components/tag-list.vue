@@ -62,12 +62,8 @@ export default Vue.extend({
       return true
     },
   },
-  created() {
-    on(TAG_SEND, (tags: Tag[]) => {
-      this.tags = tags
-    })
-  },
   beforeMount() {
+    on(TAG_SEND, (tags: Tag[]) => (this.tags = tags))
     emit(TAG_GET)
   },
   methods: {
