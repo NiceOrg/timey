@@ -9,6 +9,11 @@
       </div>
       <p>Définir une plage horaire de pause fixe</p>
     </div>
+    <div class="parameter" @click="$router.push('/settings/export-data')">
+      <div class="heading">Exporter données</div>
+      <p>Exporter les données au format Excel</p>
+    </div>
+    <div class="about heading">A propos</div>
   </div>
 </template>
 
