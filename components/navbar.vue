@@ -14,7 +14,7 @@
         </a-menu-item>
       </a-sub-menu>
       <a-menu-item key="settings">
-        <NuxtLink to="/settings"><a-icon type="setting" />Options</NuxtLink>
+        <NuxtLink to="/settings/global"><a-icon type="setting" />Options</NuxtLink>
       </a-menu-item>
     </a-menu>
   </div>
