@@ -7,7 +7,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
-import { Task } from '~/models/task.model'
+import { Task } from '~/models/task/task.model'
 import { TASK_TOGGLE, TASK_SEND, TASK_GET } from '~/plugins/tasks.client'
 
 export default Vue.extend({

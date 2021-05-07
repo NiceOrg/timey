@@ -1,13 +1,14 @@
-import { Tag } from './tag.model'
+import { Tag } from '../tag/tag.model'
+import { TaskStatus } from './task-status.enum'
 
 export class Task {
   id: number
   name: string
-  started: boolean
+  started: TaskStatus
   seconds: number
   tags: Tag[]
 
-  constructor(id = -1, name = '', seconds = 0, started = false, tags = [] as Tag[]) {
+  constructor(id = -1, name = '', seconds = 0, started = TaskStatus.stopped, tags = [] as Tag[]) {
     this.id = id
     this.name = name
     this.seconds = seconds

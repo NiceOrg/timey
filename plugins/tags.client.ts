@@ -1,5 +1,5 @@
 import { emit, on, storage } from 'shuutils'
-import { Tag } from '../models/tag.model'
+import { Tag } from '../models/tag/tag.model'
 import { tasksPlugin } from './tasks.client'
 
 const STORE_KEY = 'tags'

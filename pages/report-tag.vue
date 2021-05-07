@@ -8,8 +8,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { TagExtended } from '~/models/tag-extended.models'
-import { Task } from '~/models/task.model'
+import { TagExtended } from '~/models/tag/tag-extended.models'
+import { Task } from '~/models/task/task.model'
 import { emit, on } from '~/node_modules/shuutils/dist/src'
 import { reportPlugin } from '~/plugins/report.client'
 import { tasksPlugin, TASK_GET, TASK_SEND } from '~/plugins/tasks.client'

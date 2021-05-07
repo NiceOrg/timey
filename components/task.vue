@@ -1,5 +1,5 @@
 <template>
-  <div class="comp-task" :style="[task.started ? { backgroundColor: 'lightgreen' } : { backgroundColor: '' }]">
+  <div class="comp-task" :style="taskStatusStyling">
     <template v-if="task">
       <div class="task-name">{{ task.name }}</div>
       <div class="time-passed">{{ tasksPlugin.getTime(task.seconds) }}</div>
@@ -20,9 +20,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit } from 'shuutils'
-import { Task } from '~/models/task.model'
+import { Task } from '~/models/task/task.model'
 import { stopPropagation } from '~/utils/event'
 import { TASK_DELETE, tasksPlugin } from '~/plugins/tasks.client'
+import { TaskStatus } from '~/models/task/task-status.enum'
 
 export default Vue.extend({
   props: {
@@ -38,7 +39,22 @@ export default Vue.extend({
       emit,
       TASK_DELETE,
       tasksPlugin,
+      TaskStatus,
     }
+  },
+  computed: {
+    taskStatusStyling(): any {
+      let color = 'white'
+      switch (this.task.started) {
+        case TaskStatus.started:
+          color = 'lightgreen'
+          break
+        case TaskStatus.paused:
+          color = 'yellow'
+          break
+      }
+      return { background: color }
+    },
   },
 })
 </script>
