@@ -46,7 +46,8 @@ class TasksPlugin {
           task.name,
           task.seconds,
           task.started,
-          task.tags.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
+          task.tags.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color)),
+          task.estimation
         )
     )
     this.send()

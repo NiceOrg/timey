@@ -12,7 +12,9 @@
           <a-icon type="more" />
         </a-popover>
       </div>
-      <div class="estimation" />
+      <div class="estimation">
+        <div class="progression" :style="{ width: estimation }"></div>
+      </div>
     </template>
   </div>
 </template>
@@ -39,6 +41,18 @@ export default Vue.extend({
       TASK_DELETE,
       tasksPlugin,
     }
+  },
+  computed: {
+    estimation(): string {
+      if (this.task.estimation === -1) {
+        return '0%'
+      }
+      const ratio = this.task.seconds / this.task.estimation
+      if (ratio > 1) {
+        return '100%'
+      }
+      return ratio * 100 + '%'
+    },
   },
 })
 </script>
@@ -71,5 +85,10 @@ export default Vue.extend({
 
 .estimation {
   height: 0.3rem;
+}
+
+.progression {
+  background-color: var(--dark-gray, black);
+  height: inherit;
 }
 </style>

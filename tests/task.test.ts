@@ -1,3 +1,4 @@
+// eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
 import { Task } from '../models/task.model'
 import { tasksPlugin } from '../plugins/tasks.client'
@@ -11,6 +12,7 @@ describe('tasks', () => {
       equal(task.name, '')
       equal(task.seconds, 0)
       equal(task.started, false)
+      equal(task.estimation, -1)
       deepEqual(task.tags, [])
     })
     it('compare two tasks', () => {

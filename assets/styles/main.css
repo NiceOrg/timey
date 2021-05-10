@@ -1,3 +1,11 @@
+body {
+  --dark-gray-blue: #656581;
+  --gray-blue: #aaaabc;
+  --gray: #bfbfbf;
+  --dark-blue: #667997;
+  --dark-gray: #424242;
+}
+
 #__nuxt, #__layout {
   height:100%
 }

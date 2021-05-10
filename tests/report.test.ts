@@ -1,3 +1,4 @@
+// eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual } from 'assert'
 import { Task } from '../models/task.model'
 import { tasksPlugin } from '../plugins/tasks.client'

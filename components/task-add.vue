@@ -1,11 +1,12 @@
 <template>
   <div class="comp-task-add">
-    <a-form v-if="show" v-model="newTask" layout="inline" @submit="addTask">
-      <a-input v-model="newTask.name" style="width: 25%" size="small" placeholder="Nom tâche"> </a-input>
-      <a-button type="primary" html-type="submit" shape="circle" size="small"> OK </a-button>
-    </a-form>
-    <a-button v-if="show == false" type="primary" shape="circle" icon="plus" @click="show = true" />
-    <a-button v-else type="danger" shape="circle" icon="minus" @click="show = false" />
+    <a-button type="primary" shape="circle" icon="plus" @click="visible = true" />
+    <a-modal title="Ajouter une tâche" :visible="visible" @ok="add" @cancel="visible = false">
+      Nom :
+      <a-input v-model="newTask.name"> </a-input>
+      Estimation (facultatif) :
+      <a-input v-model="estimation"> </a-input>
+    </a-modal>
   </div>
 </template>
 
@@ -18,16 +19,18 @@ import { TASK_ADD } from '~/plugins/tasks.client'
 export default Vue.extend({
   data() {
     return {
-      show: false,
+      visible: false,
+      estimation: '',
       newTask: new Task(),
     }
   },
   methods: {
-    addTask(event: Event) {
-      event.preventDefault()
+    add() {
+      const [hours, minutes] = this.estimation.split('h')
+      this.newTask.estimation = Number(hours) * 3600 + Number(minutes) * 60 || -1
       emit(TASK_ADD, this.newTask)
-      this.show = false
       this.newTask = new Task()
+      this.visible = false
     },
   },
 })
