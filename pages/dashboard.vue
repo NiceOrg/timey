@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .no-bullets {
   list-style-type: none;
 }

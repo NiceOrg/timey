@@ -25,7 +25,7 @@ export default Vue.extend({
 })
 </script>
 
-<style>
+<style scoped>
 .comp-task-list {
   margin-top: 10px;
   margin-left: 10px;

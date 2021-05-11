@@ -46,7 +46,7 @@ export default Vue.extend({
 })
 </script>
 
-<style>
+<style scoped>
 .page-report-task {
   overflow-y: auto;
 }

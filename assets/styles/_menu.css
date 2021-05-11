@@ -1,0 +1,5 @@
+.ant-menu-horizontal > .ant-menu-item,
+.ant-menu-horizontal > .ant-menu-submenu {
+  text-align: center;
+  width: 33%;
+}
