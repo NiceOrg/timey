@@ -35,13 +35,7 @@ export default Vue.extend({
 })
 </script>
 
-<style>
-.ant-menu-horizontal > .ant-menu-item,
-.ant-menu-horizontal > .ant-menu-submenu {
-  text-align: center;
-  width: 33%;
-}
-
+<style scoped>
 .comp-navbar {
   top: 0;
   width: 100%;

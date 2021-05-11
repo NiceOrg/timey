@@ -1,0 +1,36 @@
+.authentication {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.send {
+  margin-bottom: 2rem;
+  width: 100%;
+  text-align: center;
+}
+
+.form {
+  text-align: center;
+}
+
+.submit-button {
+  border-radius: 20px;
+  width: 60%;
+  background-color: #f63959;
+  color: white;
+  border: none;
+  font-weight: 500;
+}
+
+.send a {
+  color: var(--gray-blue, gray);
+}
+
+.white {
+  display: inline;
+  color: white;
+}

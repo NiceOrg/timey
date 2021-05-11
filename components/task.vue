@@ -6,9 +6,9 @@
       <tag-list :task="task" />
       <div class="more-options" @click="stopPropagation($event)">
         <a-popover trigger="click" placement="leftTop">
-          <a slot="content">Edit <br /></a>
-          <a slot="content" @click="emit(TASK_DELETE, task)">Delete<br /></a>
-          <a slot="content">Archive</a>
+          <a slot="content">Éditer <br /></a>
+          <a slot="content" @click="emit(TASK_DELETE, task)">Supprimer<br /></a>
+          <a slot="content">Archiver</a>
           <a-icon type="more" />
         </a-popover>
       </div>

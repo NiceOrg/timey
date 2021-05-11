@@ -1,0 +1,20 @@
+body {
+  --dark-gray-blue: #656581;
+  --gray-blue: #aaaabc;
+  --gray: #bfbfbf;
+  --dark-blue: #667997;
+  --dark-gray: #424242;
+}
+
+#__nuxt, #__layout {
+  height:100%
+}
+
+.icon {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.block {
+  margin: 1rem 0 1rem 0;
+}

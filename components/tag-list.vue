@@ -12,8 +12,8 @@
             <div v-if="isTagChecked(item)"><a-icon type="check" /></div>
           </a-list-item>
         </a-list>
-        <span v-if="showCreateTag" @click="addTag()">create new tag '{{ tagSearched }}'<br /></span>
-        <span>Edit tags</span>
+        <span v-if="showCreateTag" @click="addTag()">Créer nouveau tag '{{ tagSearched }}'<br /></span>
+        <span>Éditer les tags</span>
       </a>
       <a-icon v-if="firstTag === undefined" type="plus" />
       <a-avatar v-else class="tag-logo" size="small" :style="tagStyling"> {{ firstTag.name.charAt(0).toUpperCase() }}</a-avatar>
@@ -92,11 +92,7 @@ export default Vue.extend({
 })
 </script>
 
-<style>
-.ant-list-empty-text {
-  display: none;
-}
-
+<style scoped>
 .tag-list {
   border-bottom: 0.1rem solid #e8e8e8;
   overflow: auto;

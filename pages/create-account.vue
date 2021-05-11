@@ -1,109 +1,72 @@
 <template>
-  <div class="page-create-account">
-    <div class="title">Create account</div>
+  <div class="page-create-account authentication">
+    <div class="title create-account-header">Inscription</div>
     <div class="form">
-      <a-form-model ref="ruleForm" :model="ruleForm" :rules="rules" v-bind="layout">
-        <a-form-model-item has-feedback prop="username">
-          <a-input v-model.number="ruleForm.username" placeholder="Username">
-            <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
+      <a-form-model layout="inline" :model="form">
+        <a-form-model-item>
+          <a-input v-model="form.user" size="small" placeholder="nom d'utilisateur">
+            <a-icon slot="prefix" type="user" style="color: white" />
           </a-input>
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="pass">
-          <a-input v-model="ruleForm.pass" type="password" autocomplete="off" placeholder="Password">
-            <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
+        <a-form-model-item>
+          <a-input v-model="form.email" size="small" placeholder="email">
+            <a-icon slot="prefix" type="mail" style="color: white" />
           </a-input>
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="checkPass">
-          <a-input v-model="ruleForm.checkPass" type="password" autocomplete="off" placeholder="Repeat password">
-            <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
-          </a-input>
+        <a-form-model-item>
+          <a-input v-model="form.password" type="password" size="small" placeholder="mot de passe">
+            <a-icon slot="prefix" type="lock" style="color: white"
+          /></a-input>
+        </a-form-model-item>
+        <a-form-model-item>
+          <a-input v-model="form.repPassword" type="password" size="small" placeholder="répéter le mot de passe">
+            <a-icon slot="prefix" type="lock" style="color: white"
+          /></a-input>
         </a-form-model-item>
       </a-form-model>
-      <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
-        <a-button type="primary" @click="submitForm('ruleForm')"> Submit </a-button>
-        <NuxtLink to="/"><a-button style="margin-left: 10px">Back</a-button></NuxtLink>
-      </a-form-model-item>
+    </div>
+    <div class="send">
+      <a-button class="submit-button block" type="primary" html-type="submit">S'inscrire</a-button>
+      <h4>
+        <NuxtLink to="/"
+          >Déjà un compte ?
+          <div class="white">Se connecter</div></NuxtLink
+        >
+      </h4>
+      <h4>
+        <NuxtLink to="/dashboard"
+          >Continuez sans vous connecter
+          <div class="white">ici</div></NuxtLink
+        >
+      </h4>
     </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable @typescript-eslint/no-unused-vars */
-const checkUsername = (rule, value, callback) => {
-  if (!value) {
-    return callback(new Error('Please input an username'))
-  }
-  callback()
-}
-const validatePass = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Please input the password'))
-    return
-  }
-  if (this.ruleForm.checkPass !== '') {
-    this.$refs.ruleForm.validateField('checkPass')
-  }
-  callback()
-}
-
-const validatePass2 = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Please input the password again'))
-    return
-  }
-  if (value !== this.ruleForm.pass) {
-    callback(new Error("Two inputs don't match!"))
-    return
-  }
-  callback()
-}
-
 export default {
   layout: 'auth-layout',
   data() {
     return {
-      ruleForm: {
-        pass: '',
-        checkPass: '',
-        username: '',
-      },
-      rules: {
-        pass: [{ validator: validatePass, trigger: 'change' }],
-        checkPass: [{ validator: validatePass2, trigger: 'change' }],
-        username: [{ validator: checkUsername, trigger: 'change' }],
-      },
-      layout: {
-        labelCol: { span: 4 },
-        wrapperCol: { span: 14 },
+      form: {
+        user: '',
+        email: '',
+        password: '',
+        repPassword: '',
       },
     }
   },
   methods: {
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
+    handleSubmit() {
+      console.log(this.form)
     },
   },
 }
 </script>
 
 <style scoped>
-.page-create-account {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.ant-form-item {
-  margin-bottom: 0px;
-}
-
 .title {
-  font-size: 50px;
-}
-
-.form {
-  margin-top: 30px;
+  font-size: 3.5rem;
+  margin-top: 5rem;
 }
 </style>
