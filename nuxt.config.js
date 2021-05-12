@@ -3,6 +3,7 @@ export default {
     port: 8000, // default: 3000
   },
   target: 'static',
+  ssr: false,
   env: {
     api: 'http://localhost:8001/',
   },
