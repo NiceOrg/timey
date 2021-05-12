@@ -13,7 +13,7 @@
           </a-list-item>
         </a-list>
         <span v-if="showCreateTag" @click="addTag()">Créer nouveau tag '{{ tagSearched }}'<br /></span>
-        <span>Éditer les tags</span>
+        <span><NuxtLink to="/tags-edition">Edit tags</NuxtLink></span>
       </a>
       <a-icon v-if="firstTag === undefined" type="plus" />
       <a-avatar v-else class="tag-logo" size="small" :style="tagStyling"> {{ firstTag.name.charAt(0).toUpperCase() }}</a-avatar>
