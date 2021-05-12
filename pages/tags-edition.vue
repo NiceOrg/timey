@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="tags-filter">
-      <a-input v-model="search" type="text" placeholder="filter tags" />
+      <a-input v-model="filter" type="text" placeholder="filter tags" />
     </div>
     <div class="tags-add">
       <a-button type="primary" @click="showNewTag = !showNewTag">Add new tag </a-button>
@@ -28,19 +28,22 @@ export default Vue.extend({
     return {
       tags: [] as Tag[],
       tagsPlugin,
-      search: '',
+      filter: '',
       newTag: new Tag() as Tag,
       showNewTag: false,
     }
   },
   computed: {
     filteredTagList(): Tag[] {
-      return this.tags.filter((tag: Tag) => tag.name.toLowerCase().includes(this.search.toLowerCase()))
+      if (this.filter.length === 0) {
+        return this.tags
+      }
+      return this.tags.filter((tag: Tag) => tag.name.toLowerCase().includes(this.filter.toLowerCase()))
     },
   },
   created() {
     on(TAG_SEND, (tags: Tag[]) => {
-      this.tags = tags
+      this.tags = [...tags]
     })
   },
   beforeMount() {
