@@ -13,8 +13,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit } from 'shuutils'
-import { Task } from '~/models/task.model'
-import { TASK_ADD } from '~/plugins/tasks.client'
+import { Task } from '~/models'
+import { TASK_ADD } from '~/plugins'
 
 export default Vue.extend({
   data() {

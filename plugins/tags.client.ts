@@ -1,8 +1,8 @@
 import { emit, on, storage } from 'shuutils'
-import { Tag } from '../models/tag.model'
+import { Tag } from '../models/tag/tag.model'
 import { tasksPlugin } from './tasks.client'
 
-const STORE_KEY = 'tags'
+export const TAG_STORE_KEY = 'tags'
 export const TAG_SEND = 'tags-send'
 export const TAG_ADD = 'tag-add'
 export const TAG_GET = 'tag-get'
@@ -27,7 +27,7 @@ class TagsPlugin {
 
   /* istanbul ignore next */
   private async load() {
-    const tagsRaw = ((await storage.get(STORE_KEY)) as Tag[]) || []
+    const tagsRaw = ((await storage.get(TAG_STORE_KEY)) as Tag[]) || []
     this.tags = tagsRaw.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
     this.send()
   }
@@ -89,7 +89,7 @@ class TagsPlugin {
   }
 
   private save() {
-    storage.set(STORE_KEY, this.tags)
+    storage.set(TAG_STORE_KEY, this.tags)
     this.send()
   }
 

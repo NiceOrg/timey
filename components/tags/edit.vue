@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Tag } from '~/models/tag.model'
+import { Tag } from '~/models'
 import { tagsPlugin } from '~/plugins/tags.client'
 
 export default Vue.extend({

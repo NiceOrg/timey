@@ -1,8 +1,7 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
-import { Task } from '../models/task.model'
-import { tasksPlugin } from '../plugins/tasks.client'
-import { Tag } from '../models/tag.model'
+import { Task, Tag, TaskStatus } from '../models'
+import { tasksPlugin } from '../plugins'
 
 describe('tasks', () => {
   describe('task model', () => {
@@ -11,8 +10,8 @@ describe('tasks', () => {
       equal(task.id, -1)
       equal(task.name, '')
       equal(task.seconds, 0)
-      equal(task.started, false)
       equal(task.estimation, -1)
+      equal(task.started, TaskStatus.stopped)
       deepEqual(task.tags, [])
     })
     it('compare two tasks', () => {
@@ -60,7 +59,7 @@ describe('tasks', () => {
       equal(tasksPlugin.getTasks().pop(), undefined)
     })
     it('get time', () => {
-      const task = new Task(1, 'aTask', 60, false, [])
+      const task = new Task(1, 'aTask', 60, TaskStatus.stopped, [])
       equal(tasksPlugin.getTime(task.seconds), '00:01:00')
       task.seconds = 3661
       equal(tasksPlugin.getTime(task.seconds), '01:01:01')
@@ -138,6 +137,19 @@ describe('tasks', () => {
       const tag = new Tag(10, 'tagToNoTask', '#ccc')
       equal(tasksPlugin.deleteTag(task, tag), false)
     })
+    it('delete multiple tags', () => {
+      const task1 = new Task(1, 'task1')
+      const task2 = new Task(1, 'task2')
+      const tag = new Tag(10, 'tagToNoTask', '#ccc')
+
+      tasksPlugin.add(task1)
+      tasksPlugin.add(task2)
+      tasksPlugin.addTag(task1, tag)
+      tasksPlugin.addTag(task2, tag)
+      tasksPlugin.deleteAllTag(tag)
+      equal(task1.tags.pop(), undefined)
+      tasksPlugin.deleteAll([task1, task2])
+    })
     it('timer does nothing if no active task', () => {
       equal(tasksPlugin.getActiveTask(), undefined)
       equal(tasksPlugin.increment(), undefined)
@@ -147,12 +159,44 @@ describe('tasks', () => {
       const task2 = new Task(1, 'toggleTask2')
       tasksPlugin.add(task1)
       tasksPlugin.add(task2)
-
       tasksPlugin.toggle(task1)
       equal(tasksPlugin.getActiveTask(), task1)
-
+      tasksPlugin.toggle(task1)
+      equal(tasksPlugin.getActiveTask(), undefined)
       tasksPlugin.delete(task1)
       tasksPlugin.delete(task2)
+    })
+    it('update active task', () => {
+      const task = new Task(1, 'task', 0)
+      const activeTask = new Task(2, 'activeTask', 0)
+      tasksPlugin.add(task)
+      tasksPlugin.add(activeTask)
+      tasksPlugin.toggle(activeTask)
+      tasksPlugin.updateActiveTaskStatus(TaskStatus.paused)
+      equal(tasksPlugin.getActiveTask()?.started, TaskStatus.paused)
+      tasksPlugin.toggle(activeTask)
+      equal(tasksPlugin.getActiveTask()?.started, TaskStatus.started)
+      tasksPlugin.updateActiveTaskStatus(TaskStatus.started)
+      equal(tasksPlugin.getActiveTask()?.started, TaskStatus.started)
+      tasksPlugin.delete(task)
+      tasksPlugin.delete(activeTask)
+    })
+    it('update non existing active task', () => {
+      const task = new Task(1, 'task', 0)
+      tasksPlugin.add(task)
+
+      tasksPlugin.updateActiveTaskStatus(TaskStatus.paused)
+      equal(tasksPlugin.getActiveTask()?.started, undefined)
+      tasksPlugin.delete(task)
+    })
+    it('check for active task', () => {
+      const task = new Task(1, 'task', 0)
+      const activeTask = new Task(2, 'activeTask', 0, TaskStatus.started)
+      tasksPlugin.add(task)
+      tasksPlugin.add(activeTask)
+      tasksPlugin.checkActiveTask()
+      equal(tasksPlugin.getActiveTask(), activeTask)
+      tasksPlugin.deleteAll([task, activeTask])
     })
     it('add a second to an active task', () => {
       const task = new Task(1, 'activeTask', 55)
@@ -173,6 +217,10 @@ describe('tasks', () => {
       tasksPlugin.delete(resultTask)
       tasksPlugin.add(resultTask)
       equal(tasksPlugin.getTasks().find((t: Task) => t === resultTask)!.id, 3)
+      tasksPlugin.deleteAll([task, task2, resultTask])
+    })
+    it('get empty task', () => {
+      deepEqual(tasksPlugin.getTasks(), [])
     })
   })
 })

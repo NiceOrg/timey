@@ -1,8 +1,7 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
-import { Tag } from '../models/tag.model'
+import { Tag, TagExtended } from '../models/'
 import { tagsPlugin } from '../plugins/tags.client'
-import { TagExtended } from '../models/tag-extended.models'
 
 describe('tags', () => {
   describe('tag model', () => {
