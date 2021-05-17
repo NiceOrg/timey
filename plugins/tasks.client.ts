@@ -1,9 +1,9 @@
 import { message } from 'ant-design-vue'
 import { emit, on, storage } from 'shuutils'
-import { Tag } from '../models/tag.model'
-import { Task } from '../models/task.model'
+import { Tag, Task, TaskStatus } from '../models'
+import { TICK } from './timer.client'
 
-export const STORE_KEY = 'tasks'
+export const TASK_STORE_KEY = 'tasks'
 export const TASK_ADD = 'task-add'
 export const TASK_TOGGLE = 'task-toggle'
 export const TASK_DELETE = 'task-delete'
@@ -33,12 +33,12 @@ class TasksPlugin {
     on(TASK_DELETE_TAG, ({ task, tag }) => this.deleteTag(task, tag))
     on(TASK_ADD_TAG, ({ task, tag }) => this.addTag(task, tag))
     on(TASK_GET, () => this.send())
-    on('tick', () => this.increment())
+    on(TICK, () => this.increment())
   }
 
   /* istanbul ignore next */
   private async load() {
-    const tasksRaw = (await storage.get(STORE_KEY)) || []
+    const tasksRaw = (await storage.get(TASK_STORE_KEY)) || []
     this.tasks = tasksRaw.map(
       (task: Task) =>
         new Task(
@@ -50,23 +50,41 @@ class TasksPlugin {
           task.estimation
         )
     )
+    this.checkActiveTask()
     this.send()
+  }
+
+  public checkActiveTask() {
+    this.activeTask = this.tasks.find((task: Task) => task.started === TaskStatus.started)
   }
 
   public toggle(task: Task) {
     for (const t of this.tasks) {
-      t.started = t.id === task.id ? !task.started : false
+      if (t.id !== task.id) {
+        t.started = TaskStatus.stopped
+      } else {
+        task.started = [TaskStatus.stopped, TaskStatus.paused].includes(task.started) ? TaskStatus.started : TaskStatus.stopped
+      }
+      this.activeTask = task.started === TaskStatus.started ? task : undefined
+      this.save()
     }
-    this.activeTask = task.started ? task : undefined
+  }
+
+  public updateActiveTaskStatus(taskStatus: TaskStatus) {
+    if (this.activeTask === undefined) {
+      return
+    }
+    this.activeTask = this.tasks.find((task: Task) => task.id === this.activeTask!.id)
+    this.activeTask!.started = taskStatus === TaskStatus.paused ? TaskStatus.paused : TaskStatus.started
     this.save()
   }
 
+  /* istanbul ignore next */
   public increment() {
-    if (!this.activeTask) {
+    if (!this.activeTask || this.activeTask.started === TaskStatus.paused) {
       return
     }
     this.activeTask.seconds++
-    /* istanbul ignore next */
     if (Math.round(Date.now() / 1000) % 10 === 0) {
       this.save()
     }
@@ -85,7 +103,7 @@ class TasksPlugin {
   }
 
   public delete(data: Task) {
-    if (data.started) {
+    if (data.started === TaskStatus.started || data.started === TaskStatus.paused) {
       this.activeTask = undefined
     }
     const index = this.tasks.findIndex((task) => task.id === data.id)
@@ -152,7 +170,7 @@ class TasksPlugin {
   }
 
   private save() {
-    storage.set(STORE_KEY, this.tasks)
+    storage.set(TASK_STORE_KEY, this.tasks)
     this.send()
   }
 

@@ -20,7 +20,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
-import { Tag } from '~/models/tag.model'
+import { Tag } from '~/models'
 import { TAG_SEND, TAG_GET, tagsPlugin } from '~/plugins/tags.client'
 
 export default Vue.extend({

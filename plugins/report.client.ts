@@ -1,6 +1,4 @@
-import { Tag } from '../models/tag.model'
-import { Task } from '../models/task.model'
-import { TagExtended } from '../models/tag-extended.models'
+import { Tag, Task, TagExtended } from '../models'
 
 class ReportPlugin {
   public sortTasks(tasks: Task[], max: number) {

@@ -24,11 +24,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
-import { Tag } from '~/models/tag.model'
-import { Task } from '~/models/task.model'
-import { stopPropagation } from '~/utils/event'
-import { tagsPlugin, TAG_ADD, TAG_GET, TAG_SEND } from '~/plugins/tags.client'
-import { TASK_ADD_TAG, TASK_DELETE_TAG } from '~/plugins/tasks.client'
+import { Tag, Task } from '~/models'
+import { stopPropagation } from '~/utils'
+import { tagsPlugin, TAG_ADD, TAG_GET, TAG_SEND, TASK_ADD_TAG, TASK_DELETE_TAG } from '~/plugins'
 
 export default Vue.extend({
   props: {

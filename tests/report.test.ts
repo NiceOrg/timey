@@ -1,11 +1,7 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual } from 'assert'
-import { Task } from '../models/task.model'
-import { tasksPlugin } from '../plugins/tasks.client'
-import { reportPlugin } from '../plugins/report.client'
-import { Tag } from '../models/tag.model'
-import { tagsPlugin } from '../plugins/tags.client'
-import { TagExtended } from '../models/tag-extended.models'
+import { Task, Tag, TagExtended } from '../models'
+import { tasksPlugin, reportPlugin, tagsPlugin } from '../plugins'
 
 describe('report', () => {
   const sport = new Task(1, 'do sport', 20)
