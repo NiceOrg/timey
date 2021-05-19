@@ -5,6 +5,7 @@ import { TICK } from './timer.client'
 
 export const TASK_STORE_KEY = 'tasks'
 export const TASK_ADD = 'task-add'
+export const TASK_UPDATE = 'task-update'
 export const TASK_TOGGLE = 'task-toggle'
 export const TASK_DELETE = 'task-delete'
 export const TASK_GET = 'task-get'
@@ -28,6 +29,7 @@ class TasksPlugin {
   /* istanbul ignore next */
   private setListeners() {
     on(TASK_ADD, (newTask: Task) => this.add(newTask))
+    on(TASK_UPDATE, (task: Task) => this.update(task))
     on(TASK_TOGGLE, (task: Task) => this.toggle(task))
     on(TASK_DELETE, (task: Task) => this.delete(task))
     on(TASK_DELETE_TAG, ({ task, tag }) => this.deleteTag(task, tag))
@@ -119,6 +121,17 @@ class TasksPlugin {
     for (const task of tasks) {
       this.delete(task)
     }
+  }
+
+  public update(task: Task) {
+    const index = this.tasks.findIndex((tk: Task) => tk.id === task.id)
+    if (index === -1) {
+      this.add(task)
+      return
+    }
+    this.tasks[index].name = task.name
+    this.tasks[index].estimation = task.estimation
+    this.save()
   }
 
   public addTag(task: Task, tag: Tag) {
