@@ -1,22 +1,24 @@
 <template>
   <div class="comp-tag" @click="stopPropagation($event)">
-    <a-popover trigger="click" placement="leftTop">
+    <a-popover trigger="click" placement="bottomRight" arrow-point-at-center>
       <a slot="content">
-        <a-input v-model="tagSearched" type="text" placeholder="filter tags" /> <br />
+        <a-input v-model="tagSearched" class="tag-input font" type="text" placeholder="filter tags" />
         <a-list class="tag-list" item-layout="horizontal" :data-source="filteredTagList">
           <a-list-item slot="renderItem" slot-scope="item" @click="updateTaskTags(item)">
             <a-list-item-meta>
-              <a slot="title">{{ item.name }}</a>
-              <a-avatar slot="avatar" :style="{ background: item.color }" />
+              <a slot="title" class="tag-name font">{{ item.name }}</a>
+              <a-avatar slot="avatar" size="large" :style="{ background: item.color }" />
             </a-list-item-meta>
             <div v-if="isTagChecked(item)"><a-icon type="check" /></div>
           </a-list-item>
         </a-list>
-        <span v-if="showCreateTag" @click="addTag()">Créer nouveau tag '{{ tagSearched }}'<br /></span>
-        <span><NuxtLink to="/tags-edition">Edit tags</NuxtLink></span>
+        <div class="tag-options">
+          <div v-if="showCreateTag" class="font wrap-overflow" @click="addTag()">Créer nouveau tag '{{ tagSearched }}'</div>
+          <NuxtLink to="/tags-edition"><div class="font">Éditer les tags</div></NuxtLink>
+        </div>
       </a>
       <a-icon v-if="firstTag === undefined" type="plus" />
-      <a-avatar v-else class="tag-logo" size="small" :style="tagStyling"> {{ firstTag.name.charAt(0).toUpperCase() }}</a-avatar>
+      <a-avatar v-else class="tag-logo font" :style="tagStyling"> {{ firstTag.name.charAt(0).toUpperCase() }}</a-avatar>
     </a-popover>
   </div>
 </template>
@@ -95,10 +97,39 @@ export default Vue.extend({
   border-bottom: 0.1rem solid #e8e8e8;
   overflow: auto;
   padding-right: 0.5rem;
-  height: 10.5rem;
+  height: 12rem;
+}
+
+.tag-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .tag-logo {
+  box-shadow: 0px 0px 2px black;
+}
+
+.tag-input {
+  height: 40px;
+  box-shadow: 0px 0px 2px;
+  z-index: 1;
+}
+
+.font {
   font-weight: 500;
+  font-size: 20px;
+  color: var(--dark-gray-blue, gray);
+}
+
+.tag-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrap-overflow {
+  overflow-wrap: anywhere;
 }
 </style>

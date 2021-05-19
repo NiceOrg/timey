@@ -23,7 +23,11 @@ import { tagsPlugin } from '~/plugins/tags.client'
 
 export default Vue.extend({
   props: {
-    tag: Tag,
+    tag: {
+      default: () => new Tag(),
+      type: Tag,
+      required: true,
+    },
   },
   data() {
     return {

@@ -1,21 +1,24 @@
 <template>
   <div class="comp-task" :style="taskStatusStyling">
-    <template v-if="task">
+    <div class="task">
       <div class="task-name">{{ task.name }}</div>
       <div class="time-passed">{{ tasksPlugin.getTime(task.seconds) }}</div>
       <tags-list :task="task" />
       <div class="more-options" @click="stopPropagation($event)">
-        <a-popover trigger="click" placement="leftTop">
-          <a slot="content">Éditer <br /></a>
-          <a slot="content" @click="emit(TASK_DELETE, task)">Supprimer<br /></a>
-          <a slot="content">Archiver</a>
+        <a-popover v-model="visibleOptions" trigger="click" placement="bottomRight" arrow-point-at-center>
+          <a slot="content" class="options-style font" @click="visibleOptions = false">
+            <a-divider class="block" />
+            Archiver
+            <a-divider class="block" />
+            <div @click="emit(TASK_DELETE, task)">Supprimer</div>
+          </a>
           <a-icon type="more" />
         </a-popover>
       </div>
-      <div class="estimation">
-        <div class="progression" :style="{ width: estimation }"></div>
-      </div>
-    </template>
+    </div>
+    <div class="estimation">
+      <div class="progression" :style="{ width: estimation }"></div>
+    </div>
   </div>
 </template>
 
@@ -41,11 +44,12 @@ export default Vue.extend({
       TASK_DELETE,
       tasksPlugin,
       TaskStatus,
+      visibleOptions: false,
     }
   },
   computed: {
     estimation(): string {
-      if (this.task.estimation === -1) {
+      if (this.task.estimation < 1) {
         return '0%'
       }
       const ratio = this.task.seconds / this.task.estimation
@@ -55,13 +59,16 @@ export default Vue.extend({
       return ratio * 100 + '%'
     },
     taskStatusStyling(): any {
-      let color = 'white'
+      let color = '#e8f4f8;'
       switch (this.task.started) {
         case TaskStatus.started:
-          color = 'lightgreen'
+          color = '#86c5da'
           break
         case TaskStatus.paused:
-          color = 'yellow'
+          color = '#ffff99'
+          break
+        case TaskStatus.stopped:
+          color = '#e8f4f8'
           break
       }
       return { background: color }
@@ -72,30 +79,46 @@ export default Vue.extend({
 
 <style scoped>
 .comp-task {
-  border: 1px solid black;
-  margin-bottom: 0.3rem;
-  padding-top: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #e8f4f8;
+  border: 1px solid grey;
+  border-radius: 13px;
+  box-shadow: 1px 1px 5px;
+  margin-bottom: 1rem;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3rem;
 }
 
 .task-name {
-  display: inline;
-  float: left;
-  width: 60%;
-  padding-left: 0.3rem;
-}
-.active {
-  background-color: lightgreen;
-}
-.time-passed,
-.comp-tag {
-  display: inline;
-  position: relative;
-  left: 5%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 50%;
+  padding-left: 1rem;
+  font-weight: 500;
 }
 
 .more-options {
   display: inline;
   float: right;
+  padding-right: 0.5rem;
+}
+
+.options-style {
+  font-size: 20px;
+}
+
+.block {
+  margin: 0.5rem 0;
 }
 
 .estimation {
@@ -103,7 +126,15 @@ export default Vue.extend({
 }
 
 .progression {
-  background-color: var(--dark-gray, black);
+  background-color: var(grey, grey);
   height: inherit;
+}
+
+.font {
+  font-weight: 700;
+}
+
+.more-options a {
+  color: var(--gray-blue, gray);
 }
 </style>
