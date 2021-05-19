@@ -18,3 +18,7 @@ body {
 .block {
   margin: 1rem 0 1rem 0;
 }
+
+p {
+  margin: 0
+}
