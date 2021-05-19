@@ -9,7 +9,7 @@ export class Task {
   tags: Tag[]
   estimation: number
 
-  constructor(id = -1, name = '', seconds = 0, started = TaskStatus.stopped, tags = [] as Tag[], estimation = -1) {
+  constructor(id = -1, name = '', seconds = 0, started = TaskStatus.stopped, tags = [] as Tag[], estimation = 0) {
     this.id = id
     this.name = name
     this.seconds = seconds

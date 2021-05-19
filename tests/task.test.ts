@@ -10,7 +10,7 @@ describe('tasks', () => {
       equal(task.id, -1)
       equal(task.name, '')
       equal(task.seconds, 0)
-      equal(task.estimation, -1)
+      equal(task.estimation, 0)
       equal(task.started, TaskStatus.stopped)
       deepEqual(task.tags, [])
     })
@@ -57,6 +57,14 @@ describe('tasks', () => {
       deepEqual(tasksPlugin.getTasks(), [task1, task2, task3])
       tasksPlugin.deleteAll([task1, task2, task3])
       equal(tasksPlugin.getTasks().pop(), undefined)
+    })
+    it('update task', () => {
+      const task = new Task(0)
+      tasksPlugin.update(task)
+      deepEqual(tasksPlugin.getTasks()[0], task)
+      task.name = 'updated'
+      tasksPlugin.update(task)
+      equal(tasksPlugin.getTasks().pop()!.name, task.name)
     })
     it('get time', () => {
       const task = new Task(1, 'aTask', 60, TaskStatus.stopped, [])

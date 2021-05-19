@@ -2,12 +2,27 @@
   <div class="page-dashboard">
     <tasksList />
     <div class="footer">
-      <!-- Will be changed in next MR -->
-      <task-add />
+      <div class="comp-task-add">
+        <a-button class="button-add" shape="circle" icon="plus" @click="showEdit = true" />
+        <a-modal v-model="showEdit" title="Ajouter une tâche" :footer="null">
+          <tasksEdit v-if="showEdit" @closeContent="showEdit = false" />
+        </a-modal>
+      </div>
       <div class="foot" />
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+  data() {
+    return {
+      showEdit: false,
+    }
+  },
+})
+</script>
 
 <style scoped>
 .no-bullets {
@@ -27,6 +42,19 @@
   width: 100%;
   border-top: 1px var(--dark-gray-blue, grey);
   box-shadow: 1px -1px 4px;
+}
+
+.comp-task-add {
+  position: absolute;
+  bottom: 1rem;
+  left: 44%;
+}
+
+.button-add {
+  box-shadow: 0px 0px 8px;
+  color: grey;
+  width: 60px;
+  height: 60px;
 }
 
 .footer {

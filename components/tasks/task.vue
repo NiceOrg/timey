@@ -7,6 +7,10 @@
       <div class="more-options" @click="stopPropagation($event)">
         <a-popover v-model="visibleOptions" trigger="click" placement="bottomRight" arrow-point-at-center>
           <a slot="content" class="options-style font" @click="visibleOptions = false">
+            <div @click="showEdit = true">Edit</div>
+            <a-modal v-model="showEdit" title="Éditer une tâche" :footer="null">
+              <tasksEdit v-if="showEdit" :task="task" @closeContent="showEdit = false" />
+            </a-modal>
             <a-divider class="block" />
             Archiver
             <a-divider class="block" />
@@ -45,6 +49,7 @@ export default Vue.extend({
       tasksPlugin,
       TaskStatus,
       visibleOptions: false,
+      showEdit: false,
     }
   },
   computed: {
