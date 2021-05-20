@@ -20,7 +20,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
-import { Tag } from '~/models'
+import { Navbar, Tag } from '~/models'
 import { TAG_SEND, TAG_GET, tagsPlugin } from '~/plugins/tags.client'
 
 export default Vue.extend({
@@ -41,13 +41,10 @@ export default Vue.extend({
       return this.tags.filter((tag: Tag) => tag.name.toLowerCase().includes(this.filter.toLowerCase()))
     },
   },
-  created() {
-    on(TAG_SEND, (tags: Tag[]) => {
-      this.tags = [...tags]
-    })
-  },
   beforeMount() {
+    on(TAG_SEND, (tags: Tag[]) => (this.tags = [...tags]))
     emit(TAG_GET)
+    emit('navbarSettings', new Navbar('Édition des tags', true))
   },
 })
 </script>

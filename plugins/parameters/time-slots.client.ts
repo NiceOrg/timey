@@ -16,7 +16,6 @@ class TimeSlotsPlugin {
   }
 
   constructor() {
-    console.log(TICK_TIME_SLOT)
     this.load()
     this.setListeners()
   }

@@ -27,12 +27,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
-import { TimeSlots } from '~/models'
-import { timeSlotsPlugin, TIME_SLOT_GET, TIME_SLOT_SEND, PARAMETER_NAME } from '~/plugins'
+import { Navbar, TimeSlots } from '~/models'
+import { timeSlotsPlugin, TIME_SLOT_GET, TIME_SLOT_SEND } from '~/plugins'
 import { hours, minutes } from '~/utils'
 
 export default Vue.extend({
-  layout: 'settings',
   data() {
     return {
       timeSlots: {} as TimeSlots,
@@ -43,7 +42,8 @@ export default Vue.extend({
   beforeMount() {
     on(TIME_SLOT_SEND, (timeSlots: TimeSlots) => (this.timeSlots = timeSlots))
     emit(TIME_SLOT_GET)
-    emit(PARAMETER_NAME, this.timeSlots.name)
+    emit('navbarSettings', new Navbar('Plage horaire', true))
+
     this.pauseTimeStamp = this.convertTimestampsToStrings(this.timeSlots.pause)
     this.resumeTimeStamp = this.convertTimestampsToStrings(this.timeSlots.resume)
   },

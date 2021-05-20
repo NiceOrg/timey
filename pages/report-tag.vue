@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
-import { TagExtended, Task } from '~/models'
+import { Navbar, TagExtended, Task } from '~/models'
 import { reportPlugin, tasksPlugin, TASK_GET, TASK_SEND } from '~/plugins'
 
 export default Vue.extend({
@@ -25,6 +25,7 @@ export default Vue.extend({
   beforeMount() {
     on(TASK_SEND, (tasks: Task[]) => (this.tasks = tasks))
     emit(TASK_GET)
+    emit('navbarSettings', new Navbar('Rapport des tags', false))
     this.generateChart()
   },
   methods: {

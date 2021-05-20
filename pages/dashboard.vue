@@ -15,11 +15,16 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { emit } from 'shuutils'
+import { Navbar } from '~/models'
 export default Vue.extend({
   data() {
     return {
       showEdit: false,
     }
+  },
+  beforeMount() {
+    emit('navbarSettings', new Navbar('Dashboard', false))
   },
 })
 </script>
