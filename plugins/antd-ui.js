@@ -15,6 +15,8 @@ import {
   Divider,
   Checkbox,
   InputNumber,
+  Radio,
+  Drawer,
 } from 'ant-design-vue'
 
 import Vue from 'vue'
@@ -35,3 +37,5 @@ Vue.use(TimePicker)
 Vue.use(Divider)
 Vue.use(Checkbox)
 Vue.use(InputNumber)
+Vue.use(Radio)
+Vue.use(Drawer)

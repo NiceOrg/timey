@@ -1,6 +1,6 @@
 <template>
   <div class="page-settings">
-    <div class="parameter" @click="$router.push('/settings/time-slots')">
+    <div class="parameter highlight" @click="$router.push('/settings/time-slots')">
       <div class="flex heading">
         Plage horaire
         <div class="switch" @click="stopPropagation($event)">
@@ -9,6 +9,10 @@
       </div>
       <p>Définir une plage horaire de pause fixe</p>
     </div>
+    <div class="parameter" @click="$router.push('/tags-edition')">
+      <div class="flex heading">Édition de tags</div>
+      <p>Éditer ou créer vos tags</p>
+    </div>
   </div>
 </template>
 
@@ -16,11 +20,10 @@
 import Vue from 'vue'
 import { emit } from 'shuutils'
 import { stopPropagation } from '~/utils'
-import { timeSlotsPlugin, PARAMETER_NAME } from '~/plugins'
-import { TimeSlots } from '~/models'
+import { timeSlotsPlugin } from '~/plugins'
+import { Navbar, TimeSlots } from '~/models'
 
 export default Vue.extend({
-  layout: 'settings',
   data() {
     return {
       timeSlots: {} as TimeSlots,
@@ -28,7 +31,7 @@ export default Vue.extend({
     }
   },
   beforeMount() {
-    emit(PARAMETER_NAME, 'Settings')
+    emit('navbarSettings', new Navbar('Options', false))
     this.timeSlots = timeSlotsPlugin.getTimeSlots()
   },
   methods: {
@@ -61,6 +64,9 @@ export default Vue.extend({
   margin-right: 1rem;
 }
 .parameter:hover {
+  background: #ededed;
+}
+.highlight {
   background: #ededed;
 }
 .about {

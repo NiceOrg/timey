@@ -3,3 +3,44 @@
   text-align: center;
   width: 33%;
 }
+
+.ant-menu-item-selected {
+  background-color: #f1f1f1 !important;
+}
+
+.ant-menu-item > a, .ant-menu-item > a:hover {
+  color:black;
+  font-weight: 400;
+}
+
+.ant-menu-item-selected > a, .ant-menu-item-selected > a:hover {
+  color:black;
+  font-weight: 500;
+}
+
+.ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after {
+  border-right: 3px solid var(--dark-gray-blue);
+}
+
+.ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
+  color:black;
+}
+
+.ant-menu-submenu {
+  color:black;
+  font-weight: 00;
+}
+
+.ant-menu-submenu-selected {
+  background-color: #f1f1f1 !important;
+  color: black;
+  font-weight: 500;
+}
+
+.ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before {
+  background: black !important;
+}
+
+.ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after {
+  background: black !important;
+}
