@@ -5,7 +5,7 @@
       <div class="comp-task-add">
         <a-button class="button-add" shape="circle" icon="plus" @click="showEdit = true" />
         <a-modal v-model="showEdit" title="Ajouter une tâche" :footer="null">
-          <tasksEdit v-if="showEdit" @closeContent="showEdit = false" />
+          <tasksEdit v-if="showEdit" />
         </a-modal>
       </div>
       <div class="foot" />
@@ -15,8 +15,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { emit } from 'shuutils'
+import { emit, on } from 'shuutils'
 import { Navbar } from '~/models'
+import { NAVBAR, CLOSE_CONTENT } from '~/plugins'
 export default Vue.extend({
   data() {
     return {
@@ -24,7 +25,8 @@ export default Vue.extend({
     }
   },
   beforeMount() {
-    emit('navbarSettings', new Navbar('Dashboard', false))
+    emit(NAVBAR, new Navbar({ title: 'Dashboard', isSearch: true }))
+    on(CLOSE_CONTENT, () => (this.showEdit = false))
   },
 })
 </script>

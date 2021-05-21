@@ -18,8 +18,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { emit } from 'shuutils'
 import { Tag } from '~/models'
 import { tagsPlugin } from '~/plugins/tags.client'
+import { CLOSE_CONTENT, TAG_EDITION_UPDATE } from '~/plugins'
 
 export default Vue.extend({
   props: {
@@ -49,7 +51,7 @@ export default Vue.extend({
       this.form.validateFields((error, values) => {
         if (!error) {
           const tag = new Tag(this.tag.id, values.name, values.color)
-          this.$emit('updateTag', tag)
+          emit(TAG_EDITION_UPDATE, tag)
           this.close()
         }
       })
@@ -59,7 +61,7 @@ export default Vue.extend({
       this.form.setFieldsValue({ color: this.newTag.color })
     },
     close() {
-      this.$emit('closeContent')
+      emit(CLOSE_CONTENT)
     },
   },
 })

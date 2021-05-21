@@ -20,7 +20,7 @@
 import Vue from 'vue'
 import { emit } from 'shuutils'
 import { stopPropagation } from '~/utils'
-import { timeSlotsPlugin } from '~/plugins'
+import { NAVBAR, timeSlotsPlugin } from '~/plugins'
 import { Navbar, TimeSlots } from '~/models'
 
 export default Vue.extend({
@@ -31,7 +31,7 @@ export default Vue.extend({
     }
   },
   beforeMount() {
-    emit('navbarSettings', new Navbar('Options', false))
+    emit(NAVBAR, new Navbar({ title: 'Options' }))
     this.timeSlots = timeSlotsPlugin.getTimeSlots()
   },
   methods: {

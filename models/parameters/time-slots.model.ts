@@ -1,4 +1,4 @@
-import { TIME_SLOT_STORE_KEY } from '../../plugins/parameters/time-slots.client'
+import { TIME_SLOT_STORE_KEY } from '../../plugins'
 
 export class TimeSlots {
   key = TIME_SLOT_STORE_KEY

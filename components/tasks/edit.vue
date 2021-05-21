@@ -29,7 +29,7 @@
 import Vue from 'vue'
 import { emit } from 'shuutils'
 import { Task } from '~/models'
-import { TASK_UPDATE } from '~/plugins'
+import { CLOSE_CONTENT, TASK_UPDATE } from '~/plugins'
 
 export default Vue.extend({
   props: {
@@ -68,7 +68,7 @@ export default Vue.extend({
       })
     },
     close() {
-      this.$emit('closeContent')
+      emit(CLOSE_CONTENT)
     },
   },
 })

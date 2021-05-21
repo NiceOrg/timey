@@ -1,21 +1,24 @@
 <template>
   <div class="comp-navbar">
     <div class="top-menu">
-      <a-button v-show="!settings.isSetting" class="navbar-button" @click="$emit('toggleContent')">
+      <a-button v-show="!settings.isSetting" class="navbar-button" @click="emit(NAVBAR_TOGGLE_MENU)">
         <a-icon :type="open ? 'menu-unfold' : 'menu-fold'" />
       </a-button>
       <a-button v-show="settings.isSetting" class="navbar-button" @click="() => $router.go(-1)">
         <a-icon type="caret-left" />
       </a-button>
       <h2 class="top-title">{{ settings.title }}</h2>
-      <div class="top-right"></div>
+      <a-icon v-show="settings.isSearch" type="search" class="search-buton" @click="$emit('toggleContent')" />
+      <div v-show="!settings.isSearch" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { emit } from 'shuutils'
 import { Navbar } from '../models/'
+import { NAVBAR_TOGGLE_MENU } from '~/plugins'
 
 export default Vue.extend({
   props: {
@@ -27,6 +30,12 @@ export default Vue.extend({
       type: Navbar,
       default: undefined,
     },
+  },
+  data() {
+    return {
+      NAVBAR_TOGGLE_MENU,
+      emit,
+    }
   },
 })
 </script>
@@ -59,5 +68,10 @@ export default Vue.extend({
 
 .drawer {
   z-index: 3000;
+}
+
+.search-buton {
+  margin-right: 1rem;
+  font-size: 25px;
 }
 </style>
