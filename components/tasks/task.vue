@@ -9,7 +9,7 @@
           <a slot="content" class="options-style font" @click="visibleOptions = false">
             <div @click="showEdit = true">Edit</div>
             <a-modal v-model="showEdit" title="Éditer une tâche" :footer="null">
-              <tasksEdit v-if="showEdit" :task="task" @closeContent="showEdit = false" />
+              <tasksEdit v-if="showEdit" :task="task" />
             </a-modal>
             <a-divider class="block" />
             Archiver
@@ -28,10 +28,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { emit } from 'shuutils'
+import { emit, on } from 'shuutils'
 import { Task, TaskStatus } from '~/models'
 import { stopPropagation } from '~/utils'
-import { TASK_DELETE, tasksPlugin } from '~/plugins'
+import { TASK_DELETE, tasksPlugin, CLOSE_CONTENT } from '~/plugins'
 
 export default Vue.extend({
   props: {
@@ -78,6 +78,9 @@ export default Vue.extend({
       }
       return { background: color }
     },
+  },
+  beforeMount() {
+    on(CLOSE_CONTENT, () => (this.showEdit = false))
   },
 })
 </script>

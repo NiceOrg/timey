@@ -1,8 +1,6 @@
 import { emit, on } from 'shuutils'
 import { inTest } from '../utils'
-
-export const TICK = 'tick'
-export const TICK_TIME_SLOT = 'timeSlotsTick'
+import { TICK, TICK_TIME_SLOT } from './events.client'
 
 const SECOND = 1000
 

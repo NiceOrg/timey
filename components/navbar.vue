@@ -1,63 +1,43 @@
 <template>
   <div class="comp-navbar">
-    <div class="top-menu">
-      <a-button v-show="!settings.isSetting" class="navbar-button" @click="$emit('toggleContent')">
-        <a-icon :type="open ? 'menu-unfold' : 'menu-fold'" />
-      </a-button>
-      <a-button v-show="settings.isSetting" class="navbar-button" @click="() => $router.go(-1)">
-        <a-icon type="caret-left" />
-      </a-button>
-      <h2 class="top-title">{{ settings.title }}</h2>
-      <div class="top-right"></div>
-    </div>
+    <a-menu v-model="current" mode="horizontal">
+      <a-menu-item key="dashboard">
+        <NuxtLink to="/dashboard"><a-icon type="home" />Dashboard</NuxtLink>
+      </a-menu-item>
+      <a-sub-menu>
+        <span slot="title" class="submenu-title-wrapper"><a-icon type="message" />Rapports</span>
+        <a-menu-item key="report-task">
+          <NuxtLink to="/report-task"><a-icon type="message" />Par tâche</NuxtLink>
+        </a-menu-item>
+        <a-menu-item key="report-tag">
+          <NuxtLink to="/report-tag"><a-icon type="message" />Par tag</NuxtLink>
+        </a-menu-item>
+      </a-sub-menu>
+      <a-menu-item key="settings">
+        <NuxtLink to="/settings/global"><a-icon type="setting" />Options</NuxtLink>
+      </a-menu-item>
+    </a-menu>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { Navbar } from '../models/'
-
+const DEFAULT_MENU = 'dashboard'
 export default Vue.extend({
-  props: {
-    open: {
-      type: Boolean,
-      default: false,
-    },
-    settings: {
-      type: Navbar,
-      default: undefined,
-    },
+  data() {
+    return {
+      current: [DEFAULT_MENU],
+    }
+  },
+  created() {
+    this.current = [this.$route.name || DEFAULT_MENU]
   },
 })
 </script>
 
 <style scoped>
-.navbar-button {
-  margin: 0 0 0 0.5rem;
-  color: var(--dark-gray-blue, grey);
-  border-color: var(--dark-gray-blue, grey);
-  box-shadow: 1px 1px 4px;
-}
-
-.menu {
-  width: 100%;
-}
-
 .comp-navbar {
-  padding: 0.5rem 0 0.5rem 0;
-  box-shadow: 1px -1px 6px;
-  z-index: 3;
-}
-
-.top-menu {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  top: 0;
   width: 100%;
-}
-
-.drawer {
-  z-index: 3000;
 }
 </style>

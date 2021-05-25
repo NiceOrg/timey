@@ -9,13 +9,15 @@
         <div class="tag-delete" @click="deleteTag(tag)">Delete</div>
       </div>
     </div>
-    <tags-edit v-if="!showEdit" class="tag-edit" :tag="tag" @updateTag="onTagUpdate" @closeContent="showEdit = true" />
+    <tags-edit v-if="!showEdit" class="tag-edit" :tag="tag" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { on } from 'shuutils'
 import { Tag } from '~/models'
+import { CLOSE_CONTENT } from '~/plugins'
 import { tagsPlugin } from '~/plugins/tags.client'
 export default Vue.extend({
   props: {
@@ -28,10 +30,10 @@ export default Vue.extend({
       showEdit: true,
     }
   },
+  beforeMount() {
+    on(CLOSE_CONTENT, () => (this.showEdit = true))
+  },
   methods: {
-    onTagUpdate(tag: Tag) {
-      this.$emit('updateTag', tag)
-    },
     deleteTag(tag: Tag) {
       tagsPlugin.delete(tag)
     },

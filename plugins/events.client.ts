@@ -1,0 +1,26 @@
+export const TASK_STORE_KEY = 'tasks'
+export const TASK_UPDATE = 'task-update'
+export const TASK_TOGGLE = 'task-toggle'
+export const TASK_DELETE = 'task-delete'
+export const TASK_GET = 'task-get'
+export const TASK_SEND = 'tasks-send'
+export const TASK_DELETE_TAG = 'tasks-delete-tag'
+export const TASK_ADD_TAG = 'tasks-add-tag'
+
+export const TAG_STORE_KEY = 'tags'
+export const TAG_SEND = 'tags-send'
+export const TAG_ADD = 'tag-add'
+export const TAG_GET = 'tag-get'
+
+export const TICK = 'tick'
+export const TICK_TIME_SLOT = 'timeSlotsTick'
+
+export const TIME_SLOT_STORE_KEY = 'time-slots'
+export const TIME_SLOT_SEND = 'time-slots-send'
+export const TIME_SLOT_GET = 'time-slots-get'
+
+export const NAVBAR = 'navbar'
+export const NAVBAR_TOGGLE_MENU = 'navbar-toggle-menu'
+export const NAVBAR_SEARCH = 'navbar-search'
+export const TAG_EDITION_UPDATE = 'tag-update'
+export const CLOSE_CONTENT = 'close-content'

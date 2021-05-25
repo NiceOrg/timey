@@ -1,17 +1,7 @@
 import { message } from 'ant-design-vue'
 import { emit, on, storage } from 'shuutils'
 import { Tag, Task, TaskStatus } from '../models'
-import { TICK } from './timer.client'
-
-export const TASK_STORE_KEY = 'tasks'
-export const TASK_ADD = 'task-add'
-export const TASK_UPDATE = 'task-update'
-export const TASK_TOGGLE = 'task-toggle'
-export const TASK_DELETE = 'task-delete'
-export const TASK_GET = 'task-get'
-export const TASK_SEND = 'tasks-send'
-export const TASK_DELETE_TAG = 'tasks-delete-tag'
-export const TASK_ADD_TAG = 'tasks-add-tag'
+import { TASK_ADD_TAG, TASK_DELETE, TASK_DELETE_TAG, TASK_GET, TASK_SEND, TASK_STORE_KEY, TASK_TOGGLE, TASK_UPDATE, TICK } from './events.client'
 
 class TasksPlugin {
   private tasks = [] as Task[]
@@ -28,7 +18,6 @@ class TasksPlugin {
 
   /* istanbul ignore next */
   private setListeners() {
-    on(TASK_ADD, (newTask: Task) => this.add(newTask))
     on(TASK_UPDATE, (task: Task) => this.update(task))
     on(TASK_TOGGLE, (task: Task) => this.toggle(task))
     on(TASK_DELETE, (task: Task) => this.delete(task))
