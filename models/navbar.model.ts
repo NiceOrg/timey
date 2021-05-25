@@ -1,9 +1,9 @@
 export class Navbar {
-  title: String
-  isSetting: boolean
+  title = 'Default'
+  backButton = false
+  isSearch = false
 
-  constructor(title = 'Default', isSetting = false) {
-    this.title = title
-    this.isSetting = isSetting
+  constructor(data: Partial<Navbar>) {
+    Object.assign(this, data)
   }
 }

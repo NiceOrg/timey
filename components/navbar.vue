@@ -1,43 +1,95 @@
 <template>
   <div class="comp-navbar">
-    <a-menu v-model="current" mode="horizontal">
-      <a-menu-item key="dashboard">
-        <NuxtLink to="/dashboard"><a-icon type="home" />Dashboard</NuxtLink>
-      </a-menu-item>
-      <a-sub-menu>
-        <span slot="title" class="submenu-title-wrapper"><a-icon type="message" />Rapports</span>
-        <a-menu-item key="report-task">
-          <NuxtLink to="/report-task"><a-icon type="message" />Par tâche</NuxtLink>
-        </a-menu-item>
-        <a-menu-item key="report-tag">
-          <NuxtLink to="/report-tag"><a-icon type="message" />Par tag</NuxtLink>
-        </a-menu-item>
-      </a-sub-menu>
-      <a-menu-item key="settings">
-        <NuxtLink to="/settings/global"><a-icon type="setting" />Options</NuxtLink>
-      </a-menu-item>
-    </a-menu>
+    <div v-if="!searchBar" class="navigation">
+      <a-button v-show="!settings.backButton" class="navbar-button" @click="emit(NAVBAR_TOGGLE_MENU)">
+        <a-icon :type="open ? 'menu-unfold' : 'menu-fold'" />
+      </a-button>
+      <a-button v-show="settings.backButton" class="navbar-button" @click="() => $router.go(-1)">
+        <a-icon type="caret-left" />
+      </a-button>
+      <h2 class="top-title">{{ settings.title }}</h2>
+      <a-icon v-show="settings.isSearch" type="search" class="search-buton" @click="searchBar = true" />
+      <div v-show="!settings.isSearch" />
+    </div>
+    <div v-if="searchBar" class="search">
+      <a-icon type="arrow-left" class="return-arrow" @click="searchBar = false" />
+      <a-input v-model="filter" type="text" class="input-filter" placeholder="Rechercher une tâche" @change="emit(NAVBAR_SEARCH, filter)"></a-input>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-const DEFAULT_MENU = 'dashboard'
+import { emit } from 'shuutils'
+import { Navbar } from '../models/'
+import { NAVBAR_TOGGLE_MENU, NAVBAR_SEARCH } from '~/plugins'
+
 export default Vue.extend({
+  props: {
+    open: {
+      type: Boolean,
+      default: false,
+    },
+    settings: {
+      type: Navbar,
+      default: undefined,
+    },
+  },
   data() {
     return {
-      current: [DEFAULT_MENU],
+      NAVBAR_TOGGLE_MENU,
+      NAVBAR_SEARCH,
+      emit,
+      searchBar: false,
+      filter: '',
     }
-  },
-  created() {
-    this.current = [this.$route.name || DEFAULT_MENU]
   },
 })
 </script>
 
 <style scoped>
+.navbar-button {
+  margin: 0 0 0 0.5rem;
+  color: var(--dark-gray-blue, grey);
+  border-color: var(--dark-gray-blue, grey);
+  box-shadow: 1px 1px 4px;
+}
+
 .comp-navbar {
-  top: 0;
+  padding: 0.5rem 0 0.5rem 0;
+  box-shadow: 1px -1px 6px;
+  z-index: 3;
+}
+
+.navigation {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
+}
+
+.search {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-buton {
+  margin-right: 1rem;
+  font-size: 25px;
+}
+
+.input-filter {
+  font-size: 19px;
+  font-weight: 500;
+  width: 80%;
+}
+
+.return-arrow {
+  margin: 0 0.5rem;
+  font-size: 1.6rem;
 }
 </style>

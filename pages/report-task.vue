@@ -19,7 +19,7 @@
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
 import { Navbar, Task } from '~/models'
-import { TASK_GET, TASK_SEND, tasksPlugin } from '~/plugins'
+import { TASK_GET, TASK_SEND, tasksPlugin, NAVBAR } from '~/plugins'
 
 export default Vue.extend({
   data() {
@@ -31,7 +31,7 @@ export default Vue.extend({
   beforeMount() {
     on(TASK_SEND, (tasks: Task[]) => this.orderTasks(tasks))
     emit(TASK_GET)
-    emit('navbarSettings', new Navbar('Rapport des tâches', false))
+    emit(NAVBAR, new Navbar({ title: 'Rapport des tâches' }))
   },
   methods: {
     progressionBarSize(task: Task): any {

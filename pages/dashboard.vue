@@ -1,6 +1,7 @@
 <template>
   <div class="page-dashboard">
-    <tasksList :tasks="tasks" />
+    <a-input v-if="showFilter" v-model="filter" type="text" class="task-filter" placeholder="Filtrer tâches" />
+    <tasksList :tasks="filterTask" />
     <div class="footer">
       <div class="comp-task-add">
         <a-button class="button-add" shape="circle" icon="plus" @click="showEdit = true" />
@@ -16,20 +17,33 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
-import { Task } from '~/models'
-import { CLOSE_CONTENT, TASK_SEND, TASK_GET } from '~/plugins'
+import { Navbar, Task } from '~/models'
+import { NAVBAR, CLOSE_CONTENT, NAVBAR_SEARCH, TASK_SEND, TASK_GET } from '~/plugins'
 export default Vue.extend({
   data() {
     return {
       showEdit: false,
+      showFilter: false,
+      filter: '',
       tasks: [] as Task[],
     }
   },
+  computed: {
+    filterTask(): Task[] {
+      if (this.filter.length === 0) {
+        return this.tasks
+      }
+      return this.tasks.filter((task: Task) => task.name.toLowerCase().includes(this.filter.toLowerCase()))
+    },
+  },
+
   beforeMount() {
     on(TASK_SEND, (tasks: Task[]) => (this.tasks = [...tasks]))
     on(CLOSE_CONTENT, () => (this.showEdit = false))
+    on(NAVBAR_SEARCH, (search: string) => (this.filter = search))
 
     emit(TASK_GET)
+    emit(NAVBAR, new Navbar({ title: 'Dashboard', isSearch: true }))
   },
 })
 </script>
@@ -45,6 +59,11 @@ export default Vue.extend({
   justify-content: space-between;
   overflow-y: auto;
   height: inherit;
+}
+
+.task-filter {
+  width: 40%;
+  margin: 0.6rem 0.5rem 0 auto;
 }
 
 .foot {
