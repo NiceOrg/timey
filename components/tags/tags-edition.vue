@@ -46,6 +46,7 @@ export default Vue.extend({
     on(TAG_EDITION_UPDATE, (tag: Tag) => tagsPlugin.update(tag))
     on(CLOSE_CONTENT, () => (this.showNewTag = false))
     emit(TAG_GET)
+    // emit(NAVBAR, new Navbar({ title: 'Édition des tags', isSetting: true }))
   },
 })
 </script>

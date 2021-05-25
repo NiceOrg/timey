@@ -9,21 +9,22 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { on, emit } from 'shuutils'
-import { Task } from '~/models'
-import { TASK_TOGGLE, TASK_SEND, TASK_GET } from '~/plugins'
+import { emit } from 'shuutils'
+import { TASK_TOGGLE } from '~/plugins'
 
 export default Vue.extend({
+  props: {
+    tasks: {
+      default: () => [],
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      tasks: [] as Task[],
       emit,
       TASK_TOGGLE,
     }
-  },
-  beforeMount() {
-    on(TASK_SEND, (tasks: Task[]) => (this.tasks = [...tasks]))
-    emit(TASK_GET)
   },
 })
 </script>

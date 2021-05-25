@@ -1,11 +1,7 @@
 import { emit, on, storage } from 'shuutils'
 import { Tag } from '../models/tag/tag.model'
+import { TAG_ADD, TAG_GET, TAG_STORE_KEY, TAG_SEND } from './events.client'
 import { tasksPlugin } from './tasks.client'
-
-export const TAG_STORE_KEY = 'tags'
-export const TAG_SEND = 'tags-send'
-export const TAG_ADD = 'tag-add'
-export const TAG_GET = 'tag-get'
 
 class TagsPlugin {
   private tags = [] as Tag[]

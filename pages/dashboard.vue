@@ -1,11 +1,11 @@
 <template>
   <div class="page-dashboard">
-    <tasksList />
+    <tasksList :tasks="tasks" />
     <div class="footer">
       <div class="comp-task-add">
         <a-button class="button-add" shape="circle" icon="plus" @click="showEdit = true" />
         <a-modal v-model="showEdit" title="Ajouter une tâche" :footer="null">
-          <tasksEdit v-if="showEdit" @closeContent="showEdit = false" />
+          <tasksEdit v-if="showEdit" />
         </a-modal>
       </div>
       <div class="foot" />
@@ -15,16 +15,21 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { emit } from 'shuutils'
-import { Navbar } from '~/models'
+import { emit, on } from 'shuutils'
+import { Task } from '~/models'
+import { CLOSE_CONTENT, TASK_SEND, TASK_GET } from '~/plugins'
 export default Vue.extend({
   data() {
     return {
       showEdit: false,
+      tasks: [] as Task[],
     }
   },
   beforeMount() {
-    emit('navbarSettings', new Navbar('Dashboard', false))
+    on(TASK_SEND, (tasks: Task[]) => (this.tasks = [...tasks]))
+    on(CLOSE_CONTENT, () => (this.showEdit = false))
+
+    emit(TASK_GET)
   },
 })
 </script>

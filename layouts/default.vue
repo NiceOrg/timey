@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <navbar :settings="navbarSettings" :open="open" @toggleContent="open = !open" />
+    <navbar :settings="navbarSettings" :open="open" />
     <div
       class="content"
       :style="{
@@ -45,6 +45,7 @@
 import Vue from 'vue'
 import { on } from 'shuutils'
 import { Navbar } from '~/models'
+import { NAVBAR, NAVBAR_TOGGLE_MENU } from '~/plugins'
 const DEFAULT_MENU = 'dashboard'
 export default Vue.extend({
   data() {
@@ -56,7 +57,8 @@ export default Vue.extend({
   },
   beforeMount() {
     this.current = [this.$route.name || DEFAULT_MENU]
-    on('navbarSettings', (settings: Navbar) => (this.navbarSettings = settings))
+    on(NAVBAR, (settings: Navbar) => (this.navbarSettings = settings))
+    on(NAVBAR_TOGGLE_MENU, () => (this.open = !this.open))
   },
   methods: {
     closeNavbar() {

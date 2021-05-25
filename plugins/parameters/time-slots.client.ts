@@ -2,11 +2,7 @@ import { emit, on, storage } from 'shuutils'
 import { tasksPlugin } from '..'
 import { TaskStatus, TimeSlots } from '../../models'
 import { hours, minutes } from '../../utils'
-import { TICK_TIME_SLOT } from '../timer.client'
-
-export const TIME_SLOT_STORE_KEY = 'time-slots'
-export const TIME_SLOT_SEND = 'time-slots-send'
-export const TIME_SLOT_GET = 'time-slots-get'
+import { TICK_TIME_SLOT, TIME_SLOT_GET, TIME_SLOT_SEND, TIME_SLOT_STORE_KEY } from '../events.client'
 
 class TimeSlotsPlugin {
   private timeSlots = {} as TimeSlots
