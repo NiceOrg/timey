@@ -13,6 +13,13 @@
       <div class="flex heading">Édition de tags</div>
       <p>Éditer ou créer vos tags</p>
     </div>
+    <a-popconfirm title="Le document va être téléchargé, continuer ? " ok-text="Oui" cancel-text="Non" @confirm="exportPlugin.downloadCSV()">
+      <div class="parameter highlight">
+        <div class="heading">Exporter données</div>
+        <p>Exporter les données au format Excel</p>
+      </div>
+    </a-popconfirm>
+    <div class="about heading">A propos</div>
   </div>
 </template>
 
@@ -20,7 +27,7 @@
 import Vue from 'vue'
 import { emit } from 'shuutils'
 import { stopPropagation } from '~/utils'
-import { timeSlotsPlugin } from '~/plugins'
+import { timeSlotsPlugin, exportPlugin } from '~/plugins'
 import { Navbar, TimeSlots } from '~/models'
 
 export default Vue.extend({
@@ -28,6 +35,7 @@ export default Vue.extend({
     return {
       timeSlots: {} as TimeSlots,
       stopPropagation,
+      exportPlugin,
     }
   },
   beforeMount() {

@@ -17,6 +17,7 @@ import {
   InputNumber,
   Radio,
   Drawer,
+  Popconfirm,
 } from 'ant-design-vue'
 
 import Vue from 'vue'
@@ -39,3 +40,4 @@ Vue.use(Checkbox)
 Vue.use(InputNumber)
 Vue.use(Radio)
 Vue.use(Drawer)
+Vue.use(Popconfirm)
