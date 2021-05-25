@@ -4,10 +4,6 @@
   width: 33%;
 }
 
-.ant-menu-item-selected {
-  background-color: #f1f1f1 !important;
-}
-
 .ant-menu-item > a, .ant-menu-item > a:hover {
   color:black;
   font-weight: 400;
@@ -32,7 +28,6 @@
 }
 
 .ant-menu-submenu-selected {
-  background-color: #f1f1f1 !important;
   color: black;
   font-weight: 500;
 }
