@@ -20,6 +20,10 @@ export default {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital@1&display=swap',
+      },
     ],
   },
   css: ['ant-design-vue/dist/antd.css', '@/assets/styles/main.css'],

@@ -31,8 +31,8 @@
               <NuxtLink to="/report-tag"><a-icon type="message" />Par tag</NuxtLink>
             </a-menu-item>
           </a-sub-menu>
-          <a-menu-item key="settings-global" @click="closeNavbar">
-            <NuxtLink to="/settings/global"><a-icon type="setting" />Options</NuxtLink>
+          <a-menu-item key="settings" @click="closeNavbar">
+            <NuxtLink to="/settings"><a-icon type="setting" />Options</NuxtLink>
           </a-menu-item>
         </a-menu>
       </a-drawer>
