@@ -9,7 +9,7 @@
           <a slot="content" class="options-style font" @click="visibleOptions = false">
             <div @click="showEdit = true">Edit</div>
             <a-modal v-model="showEdit" title="Éditer une tâche" :footer="null">
-              <tasksEdit v-if="showEdit" :task="task" />
+              <tasks-edit v-if="showEdit" :task="task" />
             </a-modal>
             <a-divider class="block" />
             Archiver
