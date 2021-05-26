@@ -5,23 +5,21 @@
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
           <a-input v-model="form.user" size="small" placeholder="nom d'utilisateur">
-            <a-icon slot="prefix" type="user" style="color: white" />
+            <a-icon slot="prefix" type="user" />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>
           <a-input v-model="form.email" size="small" placeholder="email">
-            <a-icon slot="prefix" type="mail" style="color: white" />
+            <a-icon slot="prefix" type="mail" />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>
-          <a-input v-model="form.password" type="password" size="small" placeholder="mot de passe">
-            <a-icon slot="prefix" type="lock" style="color: white"
-          /></a-input>
+          <a-input v-model="form.password" type="password" size="small" placeholder="mot de passe"> <a-icon slot="prefix" type="lock" /></a-input>
         </a-form-model-item>
         <a-form-model-item>
           <a-input v-model="form.repPassword" type="password" size="small" placeholder="répéter le mot de passe">
-            <a-icon slot="prefix" type="lock" style="color: white"
-          /></a-input>
+            <a-icon slot="prefix" type="lock" />
+          </a-input>
         </a-form-model-item>
       </a-form-model>
     </div>

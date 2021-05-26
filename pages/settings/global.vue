@@ -61,22 +61,25 @@ export default Vue.extend({
   font-weight: 500;
   align-items: center;
 }
+
 .parameter > p {
   margin-bottom: 0;
 }
+
 .flex {
   display: flex;
 }
+
 .switch {
   margin-left: auto;
   margin-right: 1rem;
 }
+
+.highlight,
 .parameter:hover {
   background: #ededed;
 }
-.highlight {
-  background: #ededed;
-}
+
 .about {
   display: flex;
   justify-content: center;

@@ -59,16 +59,8 @@ export default Vue.extend({
   color: var(--dark-blue);
 }
 
-.filter-icon {
-}
-
 .divider {
   margin-top: 0.5rem;
-}
-
-.filters-list {
-  /* border: 1px solid; */
-  /* height: 5rem; */
 }
 
 .tag-filter {

@@ -74,7 +74,7 @@ export default Vue.extend({
 
 .tag-input {
   height: 40px;
-  box-shadow: 0px 0px 2px;
+  box-shadow: 0 0 2px;
   z-index: 1;
 }
 

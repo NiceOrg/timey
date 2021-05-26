@@ -5,12 +5,12 @@
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
           <a-input ref="user" v-model="form.user" size="small" placeholder="nom d'utilisateur">
-            <a-icon slot="prefix" type="user" style="color: white" />
+            <a-icon slot="prefix" type="user" />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>
           <a-input ref="pswd" v-model="form.password" size="small" type="password" placeholder="mot de passe">
-            <a-icon slot="prefix" type="lock" style="color: white" />
+            <a-icon slot="prefix" type="lock" />
           </a-input>
         </a-form-model-item>
       </a-form-model>

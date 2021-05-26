@@ -76,7 +76,7 @@ export default Vue.extend({
 }
 
 .button-add {
-  box-shadow: 0px 0px 8px;
+  box-shadow: 0 0 8px;
   color: grey;
   width: 60px;
   height: 60px;
