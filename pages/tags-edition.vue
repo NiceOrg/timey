@@ -12,7 +12,7 @@
         <div class="tags-table-header-title">{{ tags.length }} tags</div>
         <div class="tags-table-header-sort">Sort</div>
       </div>
-      <tags-tag v-for="tag in filteredTagList" :key="tag.id" :tag="tag" />
+      <tags v-for="tag in filteredTagList" :key="tag.id" :tag="tag" />
     </div>
   </div>
 </template>

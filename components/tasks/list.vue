@@ -2,7 +2,7 @@
   <div class="comp-task-list">
     <div v-show="tasks.length == 0" class="empty-tasks">Appuyer sur le bouton pour ajouter une nouvelle tâche.</div>
     <div v-show="tasks.length !== 0">
-      <tasksTask v-for="task in tasks" :key="task.id" :task="task" @click.native="emit(TASK_TOGGLE, task)" />
+      <tasks v-for="task in tasks" :key="task.id" :task="task" @click.native="emit(TASK_TOGGLE, task)" />
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default Vue.extend({
 .comp-task-list {
   overflow-y: auto;
   height: 100%;
-  padding: 1.5rem 1rem 1rem 1rem;
+  padding: 0.3rem 1rem 1rem 1rem;
 }
 
 .empty-tasks {

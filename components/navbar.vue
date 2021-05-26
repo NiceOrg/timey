@@ -14,6 +14,7 @@
     <div v-if="searchBar" class="search">
       <a-icon type="arrow-left" class="return-arrow" @click="searchBar = false" />
       <a-input v-model="filter" type="text" class="input-filter" placeholder="Rechercher une tâche" @change="emit(NAVBAR_SEARCH, filter)"></a-input>
+      <div v-show="settings.isSearch" />
     </div>
   </div>
 </template>
