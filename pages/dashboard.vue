@@ -1,12 +1,12 @@
 <template>
   <div class="page-dashboard">
-    <a-input v-if="showFilter" v-model="filter" type="text" class="task-filter" placeholder="Filtrer tâches" />
-    <tasksList :tasks="filterTask" />
+    <filters />
+    <tasks-list :tasks="filterTask" />
     <div class="footer">
       <div class="comp-task-add">
         <a-button class="button-add" shape="circle" icon="plus" @click="showEdit = true" />
         <a-modal v-model="showEdit" title="Ajouter une tâche" :footer="null">
-          <tasksEdit v-if="showEdit" />
+          <tasks-edit v-if="showEdit" />
         </a-modal>
       </div>
       <div class="foot" />
@@ -17,53 +17,49 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
-import { Navbar, Task } from '~/models'
-import { NAVBAR, CLOSE_CONTENT, NAVBAR_SEARCH, TASK_SEND, TASK_GET } from '~/plugins'
+import { Filters, Navbar, Tag, Task } from '~/models'
+import { NAVBAR, CLOSE_CONTENT, NAVBAR_SEARCH, TASK_SEND, TASK_GET, FILTERS_SEND, FILTERS_GET, FILTERS_SET_TITLE } from '~/plugins'
 export default Vue.extend({
   data() {
     return {
       showEdit: false,
-      showFilter: false,
-      filter: '',
+      filters: {} as Filters,
       tasks: [] as Task[],
     }
   },
   computed: {
     filterTask(): Task[] {
-      if (this.filter.length === 0) {
-        return this.tasks
+      let taskFiltered = this.tasks
+      if (this.filters.tags.length > 0) {
+        taskFiltered = taskFiltered.filter((task: Task) => task.tags.some((tag: Tag) => this.filters.tags.find((t: Tag) => t.id === tag.id)))
       }
-      return this.tasks.filter((task: Task) => task.name.toLowerCase().includes(this.filter.toLowerCase()))
+      if (this.filters.title !== '') {
+        taskFiltered = taskFiltered.filter((task: Task) => task.name.toLowerCase().includes(this.filters.title.toLowerCase()))
+      }
+      return taskFiltered
     },
   },
 
   beforeMount() {
     on(TASK_SEND, (tasks: Task[]) => (this.tasks = [...tasks]))
+    on(FILTERS_SEND, (filters: Filters) => (this.filters = filters))
     on(CLOSE_CONTENT, () => (this.showEdit = false))
-    on(NAVBAR_SEARCH, (search: string) => (this.filter = search))
+    on(NAVBAR_SEARCH, (search: string) => emit(FILTERS_SET_TITLE, search))
 
     emit(TASK_GET)
+    emit(FILTERS_GET)
     emit(NAVBAR, new Navbar({ title: 'Dashboard', isSearch: true }))
   },
 })
 </script>
 
 <style scoped>
-.no-bullets {
-  list-style-type: none;
-}
-
 .page-dashboard {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
   height: inherit;
-}
-
-.task-filter {
-  width: 40%;
-  margin: 0.6rem 0.5rem 0 auto;
 }
 
 .foot {
