@@ -3,8 +3,12 @@ body {
   --dark-gray-blue: #656581;
   --gray-blue: #aaaabc;
   --gray: #bfbfbf;
+  --light-gray: #f6f8fa;
   --dark-blue: #667997;
   --dark-gray: #424242;
+  --red: #f63959;
+  --white-smoke: #f1f1f1;
+  --yellow: #ff9;
   /* stylelint-enable color-no-hex */
 }
 

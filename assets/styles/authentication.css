@@ -18,9 +18,9 @@
 }
 
 .submit-button {
-  border-radius: 20px;
+  border-radius: 1rem;
   width: 60%;
-  background-color: #f63959;
+  background-color: var(--red, red);
   color: white;
   border: none;
   font-weight: 500;
@@ -31,6 +31,9 @@
 }
 
 .white {
-  display: inline;
   color: white;
+}
+
+.inline {
+  display: inline;
 }

@@ -5,12 +5,12 @@
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
           <a-input ref="user" v-model="form.user" size="small" placeholder="nom d'utilisateur">
-            <a-icon slot="prefix" type="user" />
+            <a-icon slot="prefix" class="white" type="user" />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>
           <a-input ref="pswd" v-model="form.password" size="small" type="password" placeholder="mot de passe">
-            <a-icon slot="prefix" type="lock" />
+            <a-icon slot="prefix" class="white" type="lock" />
           </a-input>
         </a-form-model-item>
       </a-form-model>
@@ -20,13 +20,13 @@
       <h4>
         <NuxtLink to="/create-account"
           >Pas encore de compte ?
-          <div class="white">S'inscrire</div></NuxtLink
+          <div class="white inline">S'inscrire</div></NuxtLink
         >
       </h4>
       <h4>
         <NuxtLink to="/dashboard"
           >Continuez sans vous connecter
-          <div class="white">ici</div></NuxtLink
+          <div class="white inline">ici</div></NuxtLink
         >
       </h4>
     </div>

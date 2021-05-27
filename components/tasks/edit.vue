@@ -77,10 +77,10 @@ export default Vue.extend({
 
 <style>
 .button-add {
-  box-shadow: 0 0 8px;
+  box-shadow: 0 0 0.5rem;
   color: grey;
-  width: 60px;
-  height: 60px;
+  width: 3.2rem;
+  height: 3.2rem;
 }
 
 .days,

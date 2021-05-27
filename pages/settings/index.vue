@@ -75,9 +75,8 @@ export default Vue.extend({
   margin-right: 1rem;
 }
 
-.highlight,
-.parameter:hover {
-  background: #ededed;
+.highlight {
+  background: var(--gray, gray);
 }
 
 .about {

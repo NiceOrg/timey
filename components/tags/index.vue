@@ -44,7 +44,7 @@ export default Vue.extend({
 <style>
 .comp-tag {
   font-weight: 500;
-  font-size: 12px;
+  font-size: 1rem;
 }
 
 .tag-infos {
@@ -53,13 +53,13 @@ export default Vue.extend({
 
 .tag-infos-name {
   display: inline;
-  padding: 2px 10px;
-  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1.2rem;
 }
 
 .tag-infos-menu {
   margin-left: auto;
-  margin-right: 15px;
+  margin-right: 0.8rem;
 }
 
 .tag-edit,
@@ -68,11 +68,7 @@ export default Vue.extend({
 }
 
 .tag-edit {
-  margin-top: 10px;
-}
-
-.tag-edit-color {
-  width: 100px;
+  margin-top: 0.6rem;
 }
 
 .tag-edit-submit {

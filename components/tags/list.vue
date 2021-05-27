@@ -94,7 +94,7 @@ export default Vue.extend({
 
 <style scoped>
 .tag-list {
-  border-bottom: 0.1rem solid #e8e8e8;
+  border-bottom: 0.1rem solid var(--gray, gray);
   overflow: auto;
   padding-right: 0.5rem;
   height: 12rem;
@@ -104,22 +104,22 @@ export default Vue.extend({
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  width: 1px;
+  width: 0.1rem;
 }
 
 .tag-logo {
-  box-shadow: 0 0 2px black;
+  box-shadow: 0 0 0.2rem black;
 }
 
 .tag-input {
-  height: 40px;
-  box-shadow: 0 0 2px;
+  height: 2.2rem;
+  box-shadow: 0 0 0.2rem;
   z-index: 1;
 }
 
 .font {
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1.1rem;
   color: var(--dark-gray-blue, gray);
 }
 

@@ -1,5 +1,7 @@
 .ant-popover-inner-content {
+  /* stylelint-disable unit-disallowed-list */
   max-width: 297px;
+  /* stylelint-enable unit-disallowed-list */
 }
 
 .ant-popover-inner-content a {

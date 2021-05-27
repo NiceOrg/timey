@@ -67,13 +67,13 @@ export default Vue.extend({
       let color = '#e8f4f8;'
       switch (this.task.started) {
         case TaskStatus.started:
-          color = '#86c5da'
+          color = 'var(--gray, gray)'
           break
         case TaskStatus.paused:
-          color = '#ffff99'
+          color = 'var(--yellow, lightyellow)'
           break
         case TaskStatus.stopped:
-          color = '#e8f4f8'
+          color = 'var(--white-smoke, lightgray)'
           break
       }
       return { background: color }
@@ -90,12 +90,12 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #e8f4f8;
-  border: 1px solid grey;
-  border-radius: 13px;
-  box-shadow: 1px 1px 5px;
+  background-color: var(--white-smoke, lightyellow);
+  border: 0.1rem solid grey;
+  border-radius: 0.7rem;
+  box-shadow: 0.1rem 0.1rem 0.3rem;
   margin-bottom: 1rem;
-  font-size: 20px;
+  font-size: 1.2rem;
   overflow: hidden;
 }
 
@@ -122,7 +122,7 @@ export default Vue.extend({
 }
 
 .options-style {
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 
 .block {
@@ -134,7 +134,7 @@ export default Vue.extend({
 }
 
 .progression {
-  background-color: var(grey, grey);
+  background-color: var(--grey, grey);
   height: inherit;
 }
 

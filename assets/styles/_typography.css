@@ -7,8 +7,8 @@ h1,h2,h3,h4 {
 }
 
 .title {
-  font-family: 'New Tegomin';
-  text-shadow: 4px 4px 1px var(--dark-gray-blue, gray);
+  font-family: 'New Tegomin', serif;
+  text-shadow: 0.3rem 0.3rem 0.1rem var(--dark-gray-blue, gray);
   font-size: 6rem;
   margin-top: 3rem;
   color: white;

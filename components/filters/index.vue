@@ -54,9 +54,9 @@ export default Vue.extend({
 <style>
 .filters {
   margin: 0.5rem 0 0 1rem;
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: 500;
-  color: var(--dark-blue);
+  color: var(--dark-blue, lightblue);
 }
 
 .divider {
@@ -64,12 +64,12 @@ export default Vue.extend({
 }
 
 .tag-filter {
-  font-family: 'Source Serif Pro';
+  font-family: 'Source Serif Pro', serif;
   display: inline;
 }
 
 .filter {
   margin-left: 1rem;
-  font-size: 17px;
+  font-size: 1rem;
 }
 </style>
