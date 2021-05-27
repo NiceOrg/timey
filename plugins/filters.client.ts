@@ -42,6 +42,10 @@ class FiltersPlugin {
     this.save()
   }
 
+  public isFilter() {
+    return this.filters.title !== '' || this.filters.tags.length > 0
+  }
+
   public setTitle(title: string) {
     this.filters.title = title
     this.save()

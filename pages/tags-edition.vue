@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="tags-filter">
-      <a-input v-model="filter" type="text" placeholder="filter tags" />
+      <a-input v-model="filter" type="text" placeholder="filtrer tags" />
     </div>
     <div class="tags-add">
       <a-button type="primary" @click="showNewTag = !showNewTag">Add new tag </a-button>

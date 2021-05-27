@@ -1,5 +1,6 @@
 <template>
   <div class="page-report-tag">
+    <div v-if="reportData.size === 0" class="empty-data">Aucune tâche ne possède un tag.</div>
     <client-only>
       <pie-chart v-if="dataLoaded" class="chart" :data="chartData" :options="chartOptions" />
     </client-only>

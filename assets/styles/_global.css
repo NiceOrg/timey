@@ -1,6 +1,7 @@
 body {
   /* stylelint-disable color-no-hex */
   --primary: #656581;
+  --primary-dark: #667997;
   --secondary: #aaaabc;
   --secondary-light: #f1f1f1;
   --ternary: #f63959;
@@ -29,4 +30,15 @@ p {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.empty-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.3rem;
 }

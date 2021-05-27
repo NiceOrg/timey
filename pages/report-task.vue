@@ -1,5 +1,6 @@
 <template>
   <div class="page-report-task">
+    <div v-if="orderedTasks.length === 0" class="empty-data">Aucune tâche n'a été créée ou lancée.</div>
     <div v-for="(task, index) in orderedTasks" :key="task.id" class="task-reported">
       <template v-if="!task.seconds == 0">
         <a-icon v-if="index == 0" theme="filled" type="crown" :style="{ color: '#C9B037' }" />
@@ -42,6 +43,7 @@ export default Vue.extend({
         .map((task: Task) => new Task(task.id, task.name, task.seconds, task.started))
         .sort(Task.compareSeconds)
         .slice(0, 10)
+        .filter((task: Task) => task.seconds > 0)
     },
   },
 })
@@ -50,6 +52,7 @@ export default Vue.extend({
 <style scoped>
 .page-report-task {
   overflow-y: auto;
+  height: 100%;
 }
 
 .task-reported {
