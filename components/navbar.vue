@@ -12,7 +12,7 @@
       <div v-show="!settings.isSearch" />
     </div>
     <div v-if="searchBar" class="search">
-      <a-icon type="arrow-left" class="return-arrow" @click="searchBar = false" />
+      <a-icon type="arrow-left" class="return-arrow" @click="closeSearchBar()" />
       <a-input v-model="filter" type="text" class="input-filter" placeholder="Rechercher une tâche" @change="emit(NAVBAR_SEARCH, filter)"></a-input>
       <div v-show="settings.isSearch" />
     </div>
@@ -44,6 +44,13 @@ export default Vue.extend({
       searchBar: false,
       filter: '',
     }
+  },
+  methods: {
+    closeSearchBar() {
+      this.searchBar = false
+      this.filter = ''
+      this.emit(NAVBAR_SEARCH, this.filter)
+    },
   },
 })
 </script>

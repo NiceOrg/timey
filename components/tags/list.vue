@@ -2,7 +2,7 @@
   <div class="comp-tag" @click="stopPropagation($event)">
     <a-popover trigger="click" placement="bottomRight" arrow-point-at-center>
       <a slot="content">
-        <a-input v-model="tagSearched" class="tag-input font" type="text" placeholder="filter tags" />
+        <a-input v-model="tagSearched" class="tag-input font" type="text" placeholder="ajouter tag" />
         <a-list class="tag-list" item-layout="horizontal" :data-source="filteredTagList">
           <a-list-item slot="renderItem" slot-scope="item" @click="updateTaskTags(item)">
             <a-list-item-meta>

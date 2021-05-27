@@ -24,6 +24,7 @@ describe('filters', () => {
     it('set title', () => {
       filtersPlugin.setTitle('do spo')
       equal(filtersPlugin.getFilters().title, 'do spo')
+      filtersPlugin.setTitle('')
     })
     it('add tag', () => {
       const tag = new Tag(1, 'sport')
@@ -46,6 +47,19 @@ describe('filters', () => {
       deepEqual(filtersPlugin.getFilters().tags, [tag1, tag2, tag3])
       filtersPlugin.deleteAllTags()
       deepEqual(filtersPlugin.getFilters().tags, [])
+    })
+    it('is filter', () => {
+      const tag1 = new Tag(1, 'sport')
+      console.log(filtersPlugin.getFilters())
+      equal(filtersPlugin.isFilter(), false)
+      filtersPlugin.addTag(tag1)
+      equal(filtersPlugin.isFilter(), true)
+      filtersPlugin.deleteTag(tag1)
+      equal(filtersPlugin.isFilter(), false)
+      filtersPlugin.setTitle('recherche')
+      equal(filtersPlugin.isFilter(), true)
+      filtersPlugin.setTitle('')
+      equal(filtersPlugin.isFilter(), false)
     })
   })
 })
