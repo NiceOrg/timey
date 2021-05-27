@@ -90,7 +90,6 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--secondary-light, lightyellow);
   border: 0.1rem solid grey;
   border-radius: 0.7rem;
   box-shadow: 0.1rem 0.1rem 0.3rem;
