@@ -25,6 +25,7 @@
         </a-form-model-item>
       </a-form-model>
     </div>
+    <div class="error-message">{{ message }}</div>
     <div class="send">
       <a-button class="submit-button block" type="primary" @click="createAccount">S'inscrire</a-button>
       <h4>
@@ -56,13 +57,13 @@ export default {
         password: '',
         repPassword: '',
       },
+      message: '',
     }
   },
   methods: {
-    createAccount() {
-      console.log(this.form)
-      const user = new User(this.form.user, this.form.password, this.form.repPassword, this.form.email)
-      timeyService.add(user)
+    async createAccount() {
+      const user = new User({ username: this.form.user, password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
+      this.message = await timeyService.add(user)
     },
   },
 }
@@ -72,5 +73,9 @@ export default {
 .title {
   font-size: 3.5rem;
   margin-top: 5rem;
+}
+
+.error-message {
+  color: var(--ternary, red);
 }
 </style>

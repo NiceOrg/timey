@@ -8,8 +8,10 @@ class TimeyService {
     console.log(data)
   }
 
-  public add(user: User) {
-    console.log(user)
+  public async add(user: User) {
+    const response = await fetch('http://localhost:3000/timey/users', { method: 'POST', body: JSON.stringify(user) })
+    const data = await response.json()
+    return data.message
   }
 }
 export const timeyService = new TimeyService()
