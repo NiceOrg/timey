@@ -7,10 +7,9 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom-width: 1px;
+  border-bottom-width: 0.1rem;
   border-radius: 0;
-
-  color: white;
+  color: var(--font-color-secondary, white);
   font-weight: 700;
   box-shadow: none;
 }
@@ -18,14 +17,11 @@
 .comp-task-edit .ant-form-inline .ant-form-item {
   width: 100%;
   margin: 0;
-
 }
 
-/*https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete?page=1&tab=votes#tab-top*/
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
+/* https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete?page=1&tab=votes#tab-top */
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
   transition: 'color 9999s ease-out, background-color 9999s ease-out';
   transition-delay: 9999s;
 }

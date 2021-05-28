@@ -30,6 +30,7 @@ import Vue from 'vue'
 import { emit } from 'shuutils'
 import { Task } from '~/models'
 import { CLOSE_CONTENT, TASK_UPDATE } from '~/plugins'
+import { ONE_DAY } from '~/utils'
 
 export default Vue.extend({
   props: {
@@ -46,8 +47,8 @@ export default Vue.extend({
     }
   },
   mounted() {
-    const days = Math.floor(this.task.estimation / 86400)
-    let remainer = this.task.estimation % 86400
+    const days = Math.floor(this.task.estimation / ONE_DAY)
+    let remainer = this.task.estimation % ONE_DAY
     const hours = Math.floor(remainer / 3600)
     remainer = remainer % 3600
     const minutes = Math.floor(remainer / 60)
@@ -60,7 +61,7 @@ export default Vue.extend({
       event.preventDefault()
       this.form.validateFields((error, values) => {
         if (!error) {
-          const estimation = this.activateEstimation ? Number(values.days) * 86400 + Number(values.hours) * 3600 + Number(values.minutes) * 60 : 0
+          const estimation = this.activateEstimation ? Number(values.days) * ONE_DAY + Number(values.hours) * 3600 + Number(values.minutes) * 60 : 0
           const task = new Task(this.task.id, values.name, this.task.seconds, this.task.started, this.task.tags, estimation)
           emit(TASK_UPDATE, task)
           this.close()
@@ -76,10 +77,10 @@ export default Vue.extend({
 
 <style>
 .button-add {
-  box-shadow: 0px 0px 8px;
+  box-shadow: 0 0 0.5rem;
   color: grey;
-  width: 60px;
-  height: 60px;
+  width: 3.2rem;
+  height: 3.2rem;
 }
 
 .days,

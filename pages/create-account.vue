@@ -5,23 +5,23 @@
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
           <a-input v-model="form.user" size="small" placeholder="nom d'utilisateur">
-            <a-icon slot="prefix" type="user" style="color: white" />
+            <a-icon slot="prefix" class="secondary-color" type="user" />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>
           <a-input v-model="form.email" size="small" placeholder="email">
-            <a-icon slot="prefix" type="mail" style="color: white" />
+            <a-icon slot="prefix" class="secondary-color" type="mail" />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>
           <a-input v-model="form.password" type="password" size="small" placeholder="mot de passe">
-            <a-icon slot="prefix" type="lock" style="color: white"
+            <a-icon slot="prefix" class="secondary-color" type="lock"
           /></a-input>
         </a-form-model-item>
         <a-form-model-item>
           <a-input v-model="form.repPassword" type="password" size="small" placeholder="répéter le mot de passe">
-            <a-icon slot="prefix" type="lock" style="color: white"
-          /></a-input>
+            <a-icon slot="prefix" class="secondary-color" type="lock" />
+          </a-input>
         </a-form-model-item>
       </a-form-model>
     </div>
@@ -30,13 +30,13 @@
       <h4>
         <NuxtLink to="/"
           >Déjà un compte ?
-          <div class="white">Se connecter</div></NuxtLink
+          <div class="secondary-color inline">Se connecter</div></NuxtLink
         >
       </h4>
       <h4>
         <NuxtLink to="/dashboard"
           >Continuez sans vous connecter
-          <div class="white">ici</div></NuxtLink
+          <div class="secondary-color inline">ici</div></NuxtLink
         >
       </h4>
     </div>

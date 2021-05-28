@@ -1,18 +1,20 @@
 body {
-  --dark-gray-blue: #656581;
-  --gray-blue: #aaaabc;
-  --gray: #bfbfbf;
-  --dark-blue: #667997;
-  --dark-gray: #424242;
+  /* stylelint-disable color-no-hex */
+  --primary: #656581;
+  --secondary: #aaaabc;
+  --secondary-light: #f1f1f1;
+  --ternary: #f63959;
+  --accent: #bfbfbf;
+  --accent-light: #ededed;
+  --task-paused: #ff9;
+  --font-color-primary: black;
+  --font-color-secondary: white;
+  --font-family-title: 'New Tegomin', serif;
+  /* stylelint-enable color-no-hex */
 }
 
 #__nuxt, #__layout {
-  height:100%
-}
-
-.icon {
-  font-size: 1.2rem;
-  color: white;
+  height: 100%;
 }
 
 .block {
@@ -20,5 +22,11 @@ body {
 }
 
 p {
-  margin: 0
+  margin: 0;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

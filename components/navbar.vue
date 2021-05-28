@@ -50,14 +50,13 @@ export default Vue.extend({
 <style scoped>
 .navbar-button {
   margin: 0 0 0 0.5rem;
-  color: var(--dark-gray-blue, grey);
-  border-color: var(--dark-gray-blue, grey);
-  box-shadow: 1px 1px 4px;
+  color: var(--primary, grey);
+  border-color: var(--primary, grey);
 }
 
 .comp-navbar {
   padding: 0.5rem 0 0.5rem 0;
-  box-shadow: 1px -1px 6px;
+  box-shadow: 0.1rem -0.1rem 0.4rem;
   z-index: 3;
 }
 
@@ -79,11 +78,11 @@ export default Vue.extend({
 
 .search-buton {
   margin-right: 1rem;
-  font-size: 25px;
+  font-size: 1.7rem;
 }
 
 .input-filter {
-  font-size: 19px;
+  font-size: 1.3rem;
   font-weight: 500;
   width: 80%;
 }

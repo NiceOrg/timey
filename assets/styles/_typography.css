@@ -1,5 +1,5 @@
 h4 {
-  color: var(--gray-blue, gray);
+  color: var(--secondary, gray);
 }
 
 h1,h2,h3,h4 {
@@ -7,9 +7,9 @@ h1,h2,h3,h4 {
 }
 
 .title {
-  font-family: 'New Tegomin';
-  text-shadow: 4px 4px 1px var(--dark-gray-blue, gray);
+  font-family: var(--font-family-title, serif);
+  text-shadow: 0.3rem 0.3rem 0.1rem var(--primary, gray);
   font-size: 6rem;
   margin-top: 3rem;
-  color: white;
+  color: var(--font-color-secondary, white);
 }
