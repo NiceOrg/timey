@@ -69,8 +69,8 @@ export default Vue.extend({
 .foot {
   height: 3rem;
   width: 100%;
-  border-top: 1px var(--dark-gray-blue, grey);
-  box-shadow: 1px -1px 4px;
+  border-top: 0.1rem var(--primary, grey);
+  box-shadow: 0.1rem -0.1rem 0.2rem;
 }
 
 .comp-task-add {
@@ -80,10 +80,10 @@ export default Vue.extend({
 }
 
 .button-add {
-  box-shadow: 0px 0px 8px;
+  box-shadow: 0 0 0.4rem;
   color: grey;
-  width: 60px;
-  height: 60px;
+  width: 3.8rem;
+  height: 3.8rem;
 }
 
 .footer {

@@ -1,7 +1,7 @@
-.ant-popover-inner-content{
-  max-width: 297px;
+.ant-popover-inner-content {
+  max-width: 19rem;
 }
 
 .ant-popover-inner-content a {
-  color: var(--dark-gray-blue, gray);
+  color: var(--primary, gray);
 }

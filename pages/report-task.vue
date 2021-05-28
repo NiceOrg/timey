@@ -60,6 +60,6 @@ export default Vue.extend({
   border: 0.1rem solid black;
   height: 1.9rem;
   border-radius: 1rem;
-  background-color: #e4f6c0;
+  background-color: var(--secondary, gray);
 }
 </style>

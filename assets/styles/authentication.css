@@ -18,19 +18,22 @@
 }
 
 .submit-button {
-  border-radius: 20px;
+  border-radius: 1rem;
   width: 60%;
-  background-color: #f63959;
-  color: white;
+  background-color: var(--ternary, red);
+  color: var(--font-color-secondary, white);
   border: none;
   font-weight: 500;
 }
 
 .send a {
-  color: var(--gray-blue, gray);
+  color: var(--secondary, gray);
 }
 
-.white {
+.secondary-color {
+  color: var(--font-color-secondary, white);
+}
+
+.inline {
   display: inline;
-  color: white;
 }

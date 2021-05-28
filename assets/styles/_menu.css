@@ -1,41 +1,50 @@
-.ant-menu-horizontal > .ant-menu-item,
-.ant-menu-horizontal > .ant-menu-submenu {
+.ant-menu-submenu {
+  color: var(--font-color-primary, black);
+  font-weight: 00;
+}
+
+.ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
   text-align: center;
   width: 33%;
 }
 
-.ant-menu-item > a, .ant-menu-item > a:hover {
-  color:black;
+.ant-menu-item > a {
+  color: var(--font-color-primary, black);
   font-weight: 400;
 }
 
 .ant-menu-item-selected > a, .ant-menu-item-selected > a:hover {
-  color:black;
+  color: var(--font-color-primary, black);
   font-weight: 500;
 }
 
+.ant-menu-item > a:hover {
+  color: var(--font-color-primary, black);
+  font-weight: 400;
+}
+
+.ant-menu-item-selected {
+  background-color: var(--secondary-light, gray) !important;
+}
+
 .ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after {
-  border-right: 3px solid var(--dark-gray-blue);
+  border-right: 0.2rem solid var(--primary, gray);
 }
 
 .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
-  color:black;
-}
-
-.ant-menu-submenu {
-  color:black;
-  font-weight: 00;
+  color: var(--font-color-primary, black);
 }
 
 .ant-menu-submenu-selected {
-  color: black;
+  background-color: var(--secondary-light, gray) !important;
+  color: var(--font-color-primary, black);
   font-weight: 500;
 }
 
 .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before {
-  background: black !important;
+  background: var(--font-color-primary, black) !important;
 }
 
 .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after {
-  background: black !important;
+  background: var(--font-color-primary, black) !important;
 }

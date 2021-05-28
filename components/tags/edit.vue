@@ -71,4 +71,8 @@ export default Vue.extend({
 .comp-tag-edit .ant-row {
   margin-bottom: 0;
 }
+
+.tag-edit-color {
+  width: 6rem;
+}
 </style>

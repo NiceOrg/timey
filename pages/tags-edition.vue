@@ -61,45 +61,44 @@ export default Vue.extend({
 }
 
 .tags > .comp-tag-edit {
-  background-color: #f6f8fa;
-  border: 1px solid #e1e4e8;
-  border-radius: 6px;
-  font-size: 14px;
-  margin: 5px 10px 20px 10px;
-  padding: 10px 10px;
+  background-color: var(--secondary-light, gray);
+  border: 0.1rem solid var(--accent, gray);
+  border-radius: 0.3rem;
+  margin: 0.3rem 0.7rem 1.4rem 0.7rem;
+  padding: 0.7rem;
 }
 
 .tags-filter {
   display: inline-block;
-  margin: 10px 0px 10px 10px;
+  margin: 0.6rem 0 0.6rem 0.6rem;
   width: 50%;
 }
 
 .tags-table {
-  margin: 5px 10px;
-  border: 1px solid #e1e4e8;
-  border-radius: 6px;
+  margin: 0.3rem 0.6rem;
+  border: 0.1rem solid var(--accent, gray);
+  border-radius: 0.3rem;
 }
 
 .tags-table-header {
   display: flex;
-  font-size: 14px;
-  background-color: #f6f8fa;
-  padding: 10px 0;
+  font-size: 0.9rem;
+  background-color: var(--secondary-light, gray);
+  padding: 0.6rem 0;
 }
 
 .tags-table-header-title {
-  padding-left: 15px;
+  padding-left: 0.9rem;
   font-weight: 600;
 }
 
 .tags-table-header-sort {
   margin-left: auto;
-  margin-right: 15px;
+  margin-right: 0.9rem;
 }
 
 .tags-table > .comp-tag {
-  border-top: 1px solid #e1e4e8;
-  padding: 15px 0 15px 15px;
+  border-top: 0.1rem solid var(--accent, gray);
+  padding: 0.9rem 0 0.9rem 0.9rem;
 }
 </style>

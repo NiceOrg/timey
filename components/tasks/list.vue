@@ -44,6 +44,6 @@ export default Vue.extend({
   height: 100%;
   text-align: center;
   font-style: italic;
-  font-size: 22px;
+  font-size: 1.3rem;
 }
 </style>

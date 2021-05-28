@@ -6,7 +6,7 @@
         <a-list class="tag-list" item-layout="horizontal" :data-source="filteredTagList">
           <a-list-item slot="renderItem" slot-scope="item" @click="updateTaskTags(item)">
             <a-list-item-meta>
-              <a slot="title" class="tag-name font">{{ item.name }}</a>
+              <a slot="title" class="ellipsis font">{{ item.name }}</a>
               <a-avatar slot="avatar" size="large" :style="{ background: item.color }" />
             </a-list-item-meta>
             <div v-if="isTagChecked(item)"><a-icon type="check" /></div>
@@ -94,33 +94,26 @@ export default Vue.extend({
 
 <style scoped>
 .tag-list {
-  border-bottom: 0.1rem solid #e8e8e8;
+  border-bottom: 0.1rem solid var(--accent, gray);
   overflow: auto;
   padding-right: 0.5rem;
   height: 12rem;
 }
 
-.tag-name {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 1px;
-}
-
 .tag-logo {
-  box-shadow: 0px 0px 2px black;
+  box-shadow: 0 0 0.2rem var(--font-color-primary, black);
 }
 
 .tag-input {
-  height: 40px;
-  box-shadow: 0px 0px 2px;
+  height: 2.2rem;
+  box-shadow: 0 0 0.2rem;
   z-index: 1;
 }
 
 .font {
   font-weight: 500;
-  font-size: 20px;
-  color: var(--dark-gray-blue, gray);
+  font-size: 1.1rem;
+  color: var(--primary, gray);
 }
 
 .tag-options {
