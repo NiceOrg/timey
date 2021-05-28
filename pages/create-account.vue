@@ -44,7 +44,8 @@
 </template>
 
 <script>
-import { timeyPlugin } from '~/plugins'
+import { User } from '~/models'
+import { timeyService } from '~/services'
 export default {
   layout: 'auth-layout',
   data() {
@@ -60,7 +61,8 @@ export default {
   methods: {
     createAccount() {
       console.log(this.form)
-      timeyPlugin.getUsers()
+      const user = new User(this.form.user, this.form.password, this.form.repPassword, this.form.email)
+      timeyService.add(user)
     },
   },
 }
