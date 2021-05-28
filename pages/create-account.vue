@@ -26,7 +26,7 @@
       </a-form-model>
     </div>
     <div class="send">
-      <a-button class="submit-button block" type="primary" html-type="submit">S'inscrire</a-button>
+      <a-button class="submit-button block" type="primary" @click="createAccount">S'inscrire</a-button>
       <h4>
         <NuxtLink to="/"
           >Déjà un compte ?
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { timeyPlugin } from '~/plugins'
 export default {
   layout: 'auth-layout',
   data() {
@@ -57,8 +58,9 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    createAccount() {
       console.log(this.form)
+      timeyPlugin.getUsers()
     },
   },
 }
