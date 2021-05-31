@@ -1,17 +1,24 @@
-import { User } from '~/models'
+import { NewUser, User } from '~/models'
 
 /* istanbul ignore next */
 class TimeyService {
+  api = 'http://localhost:3000/timey'
+  usersUrl = this.api + '/users'
+
   public async getAll() {
-    const response = await fetch('http://localhost:3000/timey/users', { method: 'GET' })
+    const response = await fetch(this.usersUrl, { method: 'GET' })
     const data = await response.json()
     console.log(data)
   }
 
-  public async add(user: User) {
-    const response = await fetch('http://localhost:3000/timey/users', { method: 'POST', body: JSON.stringify(user) })
-    const data = await response.json()
-    return data.message
+  public async add(user: NewUser) {
+    const response = await fetch(this.usersUrl, { method: 'POST', body: JSON.stringify(user) })
+    return await response.json()
+  }
+
+  public async authenticate(user: User) {
+    const response = await fetch(this.usersUrl + '/authenticate', { method: 'POST', body: JSON.stringify(user) })
+    return await response.json()
   }
 }
 export const timeyService = new TimeyService()

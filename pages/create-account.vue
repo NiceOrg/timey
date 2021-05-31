@@ -4,11 +4,6 @@
     <div class="form">
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
-          <a-input v-model="form.user" size="small" placeholder="nom d'utilisateur">
-            <a-icon slot="prefix" class="secondary-color" type="user" />
-          </a-input>
-        </a-form-model-item>
-        <a-form-model-item>
           <a-input v-model="form.email" size="small" placeholder="email">
             <a-icon slot="prefix" class="secondary-color" type="mail" />
           </a-input>
@@ -25,7 +20,7 @@
         </a-form-model-item>
       </a-form-model>
     </div>
-    <div class="error-message">{{ message }}</div>
+    <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
       <a-button class="submit-button block" type="primary" @click="createAccount">S'inscrire</a-button>
       <h4>
@@ -45,25 +40,52 @@
 </template>
 
 <script>
-import { User } from '~/models'
+import { NewUser } from '~/models'
 import { timeyService } from '~/services'
 export default {
   layout: 'auth-layout',
   data() {
     return {
       form: {
-        user: '',
         email: '',
         password: '',
         repPassword: '',
       },
-      message: '',
+      errorMessage: '',
     }
   },
   methods: {
     async createAccount() {
-      const user = new User({ username: this.form.user, password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
-      this.message = await timeyService.add(user)
+      try {
+        this.validate()
+      } catch (error) {
+        this.errorMessage = error.message
+        return
+      }
+      const user = new NewUser({
+        password: this.form.password,
+        repeatPassword: this.form.repPassword,
+        email: this.form.email,
+      })
+      const response = await timeyService.add(user)
+      this.errorMessage = response.errorMessage
+      if (response.user) {
+        this.$router.push('/dashboard')
+      }
+    },
+    validate() {
+      if (this.form.email === '') {
+        throw new Error('Veuillez entrer une adresse mail.')
+      }
+      if (this.form.password === '') {
+        throw new Error('Veuillez entrer un mot de passe.')
+      }
+      if (this.form.repPassword === '') {
+        throw new Error('Veuillez confirmer votre mot de passe.')
+      }
+      if (this.form.password !== this.form.repPassword) {
+        throw new Error('Les mots de passes ne correspondent pas.')
+      }
     },
   },
 }
@@ -73,9 +95,5 @@ export default {
 .title {
   font-size: 3.5rem;
   margin-top: 5rem;
-}
-
-.error-message {
-  color: var(--ternary, red);
 }
 </style>
