@@ -58,7 +58,6 @@ export default {
       }
       const user = new User({ email: this.form.email, password: this.form.password })
       const response = await timeyService.authenticate(user)
-      console.log(response)
       this.errorMessage = response.errorMessage
       if (response.user) {
         this.$router.push('/dashboard')

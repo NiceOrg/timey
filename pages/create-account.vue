@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { NewUser } from '~/models'
+import { User } from '~/models'
 import { timeyService } from '~/services'
 export default {
   layout: 'auth-layout',
@@ -62,7 +62,7 @@ export default {
         this.errorMessage = error.message
         return
       }
-      const user = new NewUser({
+      const user = new User({
         password: this.form.password,
         repeatPassword: this.form.repPassword,
         email: this.form.email,

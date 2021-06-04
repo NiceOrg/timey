@@ -1,5 +1,5 @@
 import { environment } from '../../environments/'
-import { NewUser, User } from '~/models'
+import { User } from '~/models'
 
 /* istanbul ignore next */
 class TimeyService {
@@ -11,7 +11,7 @@ class TimeyService {
     console.log(data)
   }
 
-  public async add(user: NewUser) {
+  public async add(user: User) {
     const response = await fetch(this.usersUrl, { method: 'POST', body: JSON.stringify(user) })
     return await response.json()
   }
