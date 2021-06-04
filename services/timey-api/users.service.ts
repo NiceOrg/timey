@@ -1,9 +1,9 @@
+import { environment } from '../../environments/'
 import { NewUser, User } from '~/models'
 
 /* istanbul ignore next */
 class TimeyService {
-  api = 'http://localhost:3000/timey'
-  usersUrl = this.api + '/users'
+  usersUrl = environment.apiUrl + '/users'
 
   public async getAll() {
     const response = await fetch(this.usersUrl, { method: 'GET' })
