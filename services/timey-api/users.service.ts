@@ -1,5 +1,6 @@
 import { environment } from '../../environments/'
-import { User } from '~/models'
+import { User, UserMini } from '~/models'
+import { userPlugin } from '~/plugins'
 
 /* istanbul ignore next */
 class TimeyService {
@@ -13,12 +14,22 @@ class TimeyService {
 
   public async add(user: User) {
     const response = await fetch(this.usersUrl, { method: 'POST', body: JSON.stringify(user) })
-    return await response.json()
+    const data = await response.json()
+    if (data.user) {
+      const user = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
+      userPlugin.setUser(user)
+    }
+    return data
   }
 
   public async authenticate(user: User) {
     const response = await fetch(this.usersUrl + '/authenticate', { method: 'POST', body: JSON.stringify(user) })
-    return await response.json()
+    const data = await response.json()
+    if (data.user) {
+      const user = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
+      userPlugin.setUser(user)
+    }
+    return data
   }
 }
 export const timeyService = new TimeyService()

@@ -62,14 +62,10 @@ export default {
         this.errorMessage = error.message
         return
       }
-      const user = new User({
-        password: this.form.password,
-        repeatPassword: this.form.repPassword,
-        email: this.form.email,
-      })
-      const response = await timeyService.add(user)
-      this.errorMessage = response.errorMessage
-      if (response.user) {
+      const user = new User({ password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
+      const data = await timeyService.add(user)
+      this.errorMessage = data.errorMessage
+      if (data.user) {
         this.$router.push('/dashboard')
       }
     },

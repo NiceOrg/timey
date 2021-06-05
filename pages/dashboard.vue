@@ -19,8 +19,21 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
-import { Filters, Navbar, Tag, Task } from '~/models'
-import { NAVBAR, CLOSE_CONTENT, NAVBAR_SEARCH, TASK_SEND, TASK_GET, FILTERS_SEND, FILTERS_GET, FILTERS_SET_TITLE, filtersPlugin } from '~/plugins'
+import { Filters, Navbar, Tag, Task, User } from '~/models'
+import {
+  NAVBAR,
+  CLOSE_CONTENT,
+  NAVBAR_SEARCH,
+  TASK_SEND,
+  TASK_GET,
+  FILTERS_SEND,
+  FILTERS_GET,
+  FILTERS_SET_TITLE,
+  filtersPlugin,
+  USER_GET,
+  USER_SEND,
+} from '~/plugins'
+
 export default Vue.extend({
   data() {
     return {
@@ -46,10 +59,12 @@ export default Vue.extend({
   beforeMount() {
     on(TASK_SEND, (tasks: Task[]) => (this.tasks = [...tasks]))
     on(FILTERS_SEND, (filters: Filters) => (this.filters = filters))
+    on(USER_SEND, (resp: User) => console.log(resp))
     on(CLOSE_CONTENT, () => (this.showEdit = false))
     on(NAVBAR_SEARCH, (search: string) => emit(FILTERS_SET_TITLE, search))
 
     emit(TASK_GET)
+    emit(USER_GET)
     emit(FILTERS_GET)
     emit(NAVBAR, new Navbar({ title: 'Dashboard', isSearch: true }))
   },
