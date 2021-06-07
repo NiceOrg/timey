@@ -1,8 +1,10 @@
 import { emit, on, storage } from 'shuutils'
 import { tasksPlugin } from '..'
-import { TaskStatus, TimeSlots } from '../../models'
+import { TaskStatus, TimeSlots, User } from '../../models'
 import { hours, minutes } from '../../utils'
-import { TICK_TIME_SLOT, TIME_SLOT_GET, TIME_SLOT_SEND, TIME_SLOT_STORE_KEY } from '../events.client'
+import { authenticationPlugin } from '../authentication.client'
+import { TICK_TIME_SLOT, TIME_SLOT_GET, TIME_SLOT_SEND } from '../events.client'
+import { userPlugin } from '../user.client'
 
 class TimeSlotsPlugin {
   private timeSlots = {} as TimeSlots
@@ -23,16 +25,10 @@ class TimeSlotsPlugin {
   }
 
   /* istanbul ignore next */
-  private async load() {
-    const timeSlotsRaw = ((await storage.get(TIME_SLOT_STORE_KEY)) as TimeSlots) || new TimeSlots({})
-    this.timeSlots = new TimeSlots({
-      key: timeSlotsRaw.key,
-      name: timeSlotsRaw.name,
-      isActive: timeSlotsRaw.isActive,
-      pause: timeSlotsRaw.pause,
-      resume: timeSlotsRaw.resume,
-    })
-    this.save()
+  public async load() {
+    const userDataRaw = ((await storage.get(authenticationPlugin.getUserToken())) as User) || new User({})
+    const timeSlotRaw = userDataRaw.parameters.timeSlot
+    this.timeSlots = new TimeSlots({ name: timeSlotRaw.name, isActive: timeSlotRaw.isActive, pause: timeSlotRaw.pause, resume: timeSlotRaw.resume })
   }
 
   public isActive() {
@@ -64,7 +60,7 @@ class TimeSlotsPlugin {
   }
 
   private save() {
-    storage.set(TIME_SLOT_STORE_KEY, JSON.stringify(this.timeSlots))
+    userPlugin.saveTimeSlots(this.timeSlots)
     this.send()
   }
 

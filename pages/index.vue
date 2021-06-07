@@ -35,7 +35,9 @@
 </template>
 
 <script>
+import { emit, on } from 'shuutils'
 import { User } from '~/models'
+import { authenticationPlugin, AUTHENTICATION_GET, AUTHENTICATION_SEND } from '~/plugins'
 import { timeyService } from '~/services'
 export default {
   layout: 'auth-layout',
@@ -48,19 +50,18 @@ export default {
       errorMessage: '',
     }
   },
+  beforeMount() {
+    this.redirectIfConnected()
+  },
   methods: {
     async authenticate() {
       try {
         this.validate()
+        const user = new User({ email: this.form.email, password: this.form.password })
+        await timeyService.authenticate(user)
+        this.$router.push('/dashboard')
       } catch (error) {
         this.errorMessage = error.message
-        return
-      }
-      const user = new User({ email: this.form.email, password: this.form.password })
-      const response = await timeyService.authenticate(user)
-      this.errorMessage = response.errorMessage
-      if (response.user) {
-        this.$router.push('/dashboard')
       }
     },
     validate() {
@@ -70,6 +71,14 @@ export default {
       if (this.form.password === '') {
         throw new Error('Veuillez entrer un mot de passe.')
       }
+    },
+    redirectIfConnected() {
+      on(AUTHENTICATION_SEND, () => {
+        if (authenticationPlugin.get().authenticated) {
+          this.$router.push('/dashboard')
+        }
+      })
+      emit(AUTHENTICATION_GET)
     },
   },
 }

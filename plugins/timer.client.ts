@@ -12,7 +12,6 @@ class TimerPlugin {
     }
     const timers = [setInterval(() => emit(TICK), SECOND), setInterval(() => emit(TICK_TIME_SLOT), 60 * SECOND)]
     on('beforeunload', () => {
-      console.log('cleaning up timers')
       timers.map((timer) => clearInterval(timer))
     })
   }

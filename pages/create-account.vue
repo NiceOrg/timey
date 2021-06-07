@@ -58,15 +58,11 @@ export default {
     async createAccount() {
       try {
         this.validate()
+        const user = new User({ password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
+        await timeyService.add(user)
+        this.$router.push('/dashboard')
       } catch (error) {
         this.errorMessage = error.message
-        return
-      }
-      const user = new User({ password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
-      const data = await timeyService.add(user)
-      this.errorMessage = data.errorMessage
-      if (data.user) {
-        this.$router.push('/dashboard')
       }
     },
     validate() {

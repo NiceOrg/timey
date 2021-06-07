@@ -1,7 +1,9 @@
 import { message } from 'ant-design-vue'
 import { emit, on, storage } from 'shuutils'
-import { Tag, Task, TaskStatus } from '../models'
-import { TASK_ADD_TAG, TASK_DELETE, TASK_DELETE_TAG, TASK_GET, TASK_SEND, TASK_STORE_KEY, TASK_TOGGLE, TASK_UPDATE, TICK } from './events.client'
+import { Tag, Task, TaskStatus, User } from '../models'
+import { authenticationPlugin } from './authentication.client'
+import { TASK_ADD_TAG, TASK_DELETE, TASK_DELETE_TAG, TASK_GET, TASK_SEND, TASK_TOGGLE, TASK_UPDATE, TICK } from './events.client'
+import { userPlugin } from './user.client'
 
 class TasksPlugin {
   private tasks = [] as Task[]
@@ -28,9 +30,9 @@ class TasksPlugin {
   }
 
   /* istanbul ignore next */
-  private async load() {
-    const tasksRaw = (await storage.get(TASK_STORE_KEY)) || []
-    this.tasks = tasksRaw.map(
+  public async load() {
+    const userDataRaw = ((await storage.get(authenticationPlugin.getUserToken())) as User) || new User({})
+    this.tasks = userDataRaw.tasks.map(
       (task: Task) =>
         new Task(
           task.id,
@@ -42,7 +44,6 @@ class TasksPlugin {
         )
     )
     this.checkActiveTask()
-    this.send()
   }
 
   public checkActiveTask() {
@@ -57,8 +58,8 @@ class TasksPlugin {
         task.started = [TaskStatus.stopped, TaskStatus.paused].includes(task.started) ? TaskStatus.started : TaskStatus.stopped
       }
       this.activeTask = task.started === TaskStatus.started ? task : undefined
-      this.save()
     }
+    this.save()
   }
 
   public updateActiveTaskStatus(taskStatus: TaskStatus) {
@@ -172,7 +173,7 @@ class TasksPlugin {
   }
 
   private save() {
-    storage.set(TASK_STORE_KEY, this.tasks)
+    userPlugin.saveTasks(this.tasks)
     this.send()
   }
 

@@ -1,6 +1,6 @@
 import { environment } from '../../environments/'
 import { User, UserMini } from '~/models'
-import { userPlugin } from '~/plugins'
+import { authenticationPlugin, userPlugin } from '~/plugins'
 
 /* istanbul ignore next */
 class TimeyService {
@@ -15,21 +15,29 @@ class TimeyService {
   public async add(user: User) {
     const response = await fetch(this.usersUrl, { method: 'POST', body: JSON.stringify(user) })
     const data = await response.json()
-    if (data.user) {
-      const user = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
-      userPlugin.setUser(user)
+    if (data.errorMessage) {
+      throw new Error(data.errorMessage)
     }
-    return data
+    authenticationPlugin.connect(data.user._id)
+    const userCreated = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
+    await userPlugin.update(userCreated)
   }
 
   public async authenticate(user: User) {
     const response = await fetch(this.usersUrl + '/authenticate', { method: 'POST', body: JSON.stringify(user) })
     const data = await response.json()
-    if (data.user) {
-      const user = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
-      userPlugin.setUser(user)
+    if (data.errorMessage) {
+      throw new Error(data.errorMessage)
     }
-    return data
+    authenticationPlugin.connect(data.user._id)
+    const userLogged = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
+    await userPlugin.update(userLogged)
+  }
+
+  public async update(user: UserMini) {
+    const response = await fetch(this.usersUrl + '/' + user._id, { method: 'PUT', body: JSON.stringify(user) })
+    const data = await response.json()
+    console.log(data)
   }
 }
 export const timeyService = new TimeyService()
