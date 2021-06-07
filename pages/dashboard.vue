@@ -20,7 +20,18 @@
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
 import { Filters, Navbar, Tag, Task } from '~/models'
-import { NAVBAR, CLOSE_CONTENT, NAVBAR_SEARCH, TASK_SEND, TASK_GET, FILTERS_SEND, FILTERS_GET, FILTERS_SET_TITLE, filtersPlugin } from '~/plugins'
+import {
+  NAVBAR,
+  CLOSE_CONTENT,
+  NAVBAR_SEARCH,
+  TASK_SEND,
+  TASK_GET,
+  FILTERS_SEND,
+  FILTERS_GET,
+  FILTERS_SET_TITLE,
+  filtersPlugin,
+  USER_GET,
+} from '~/plugins'
 
 export default Vue.extend({
   data() {
@@ -50,6 +61,7 @@ export default Vue.extend({
     on(CLOSE_CONTENT, () => (this.showEdit = false))
     on(NAVBAR_SEARCH, (search: string) => emit(FILTERS_SET_TITLE, search))
 
+    emit(USER_GET)
     emit(TASK_GET)
     emit(FILTERS_GET)
     emit(NAVBAR, new Navbar({ title: 'Dashboard', isSearch: true }))

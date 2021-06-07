@@ -20,7 +20,8 @@ class TimeyService {
     }
     authenticationPlugin.connect(data.user._id)
     const userCreated = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
-    await userPlugin.update(userCreated)
+    userPlugin.update(userCreated)
+    await userPlugin.load()
   }
 
   public async authenticate(user: User) {
@@ -31,13 +32,13 @@ class TimeyService {
     }
     authenticationPlugin.connect(data.user._id)
     const userLogged = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
-    await userPlugin.update(userLogged)
+    userPlugin.update(userLogged)
+    await userPlugin.load()
   }
 
   public async update(user: UserMini) {
     const response = await fetch(this.usersUrl + '/' + user._id, { method: 'PUT', body: JSON.stringify(user) })
-    const data = await response.json()
-    console.log(data)
+    await response.json()
   }
 }
 export const timeyService = new TimeyService()

@@ -46,7 +46,7 @@
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
 import { Authentication, Navbar } from '~/models'
-import { NAVBAR, NAVBAR_TOGGLE_MENU, authenticationPlugin, AUTHENTICATION_SEND, AUTHENTICATION_GET } from '~/plugins'
+import { NAVBAR, NAVBAR_TOGGLE_MENU, authenticationPlugin, AUTHENTICATION_SEND, AUTHENTICATION_GET, userPlugin } from '~/plugins'
 
 const DEFAULT_MENU = 'dashboard'
 export default Vue.extend({
@@ -59,6 +59,7 @@ export default Vue.extend({
     }
   },
   beforeMount() {
+    this.navbarSettings = new Navbar({})
     this.current = [this.$route.name || DEFAULT_MENU]
     on(NAVBAR, (settings: Navbar) => (this.navbarSettings = settings))
     on(NAVBAR_TOGGLE_MENU, () => (this.open = !this.open))
@@ -70,8 +71,9 @@ export default Vue.extend({
     closeNavbar() {
       this.open = false
     },
-    disconnect() {
+    async disconnect() {
       authenticationPlugin.disconnect()
+      await userPlugin.load()
       this.$router.push('/')
     },
   },

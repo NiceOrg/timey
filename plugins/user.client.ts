@@ -1,8 +1,11 @@
 import { emit, on, storage } from 'shuutils'
 import { USER_GET, USER_SEND } from './events.client'
 import { authenticationPlugin } from './authentication.client'
-import { Tag, Task, TimeSlots, UserMini } from '~/models'
+import { tasksPlugin } from './tasks.client'
+import { tagsPlugin } from './tags.client'
+import { timeSlotsPlugin } from './parameters/time-slots.client'
 import { timeyService } from '~/services'
+import { Tag, Task, TimeSlots, UserMini } from '~/models'
 
 class UserPlugin {
   private user = new UserMini({})
@@ -23,14 +26,15 @@ class UserPlugin {
 
   /* istanbul ignore next */
   public async load() {
-    // await authenticationPlugin.load()
+    await authenticationPlugin.load()
     const userRaw = ((await storage.get(authenticationPlugin.getUserToken())) as UserMini) || new UserMini({})
     this.user = new UserMini({ _id: userRaw._id, tasks: userRaw.tasks, tags: userRaw.tags, parameters: userRaw.parameters })
+    await tasksPlugin.load()
+    await tagsPlugin.load()
+    await timeSlotsPlugin.load()
   }
 
-  public async update(user: UserMini) {
-    console.log('update user')
-    await this.load()
+  public update(user: UserMini) {
     this.user = user
     this.save()
   }
