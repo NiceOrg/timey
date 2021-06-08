@@ -1,13 +1,12 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
 import { TimeSlots, Task } from '../models'
-import { tasksPlugin, TIME_SLOT_STORE_KEY, timeSlotsPlugin } from '../plugins'
+import { tasksPlugin, timeSlotsPlugin } from '../plugins'
 
 describe('time slots', () => {
   describe('time slots model', () => {
     it('Instantiate new time slot with default params', () => {
       const timeSlots = new TimeSlots({})
-      equal(timeSlots.key, TIME_SLOT_STORE_KEY)
       equal(timeSlots.name, 'Plage horaire')
       equal(timeSlots.isActive, false)
       deepEqual(timeSlots.pause, [])
@@ -19,8 +18,8 @@ describe('time slots', () => {
       deepEqual(timeSlotsPlugin.getTimeSlots(), {})
     })
     it('update time slot', () => {
-      timeSlotsPlugin.update(new TimeSlots({}))
-      equal(timeSlotsPlugin.getTimeSlots().key, TIME_SLOT_STORE_KEY)
+      timeSlotsPlugin.update(new TimeSlots({ isActive: true }))
+      equal(timeSlotsPlugin.getTimeSlots().isActive, true)
     })
     it('time slot not activated', () => {
       equal(timeSlotsPlugin.isActive(), false)
