@@ -1,7 +1,10 @@
 import { emit, on, storage } from 'shuutils'
 import { Tag } from '../models/tag/tag.model'
-import { TAG_ADD, TAG_GET, TAG_STORE_KEY, TAG_SEND } from './events.client'
+import { User } from '../models'
+import { TAG_ADD, TAG_GET, TAG_SEND } from './events.client'
 import { tasksPlugin } from './tasks.client'
+import { userPlugin } from './user.client'
+import { authenticationPlugin } from './authentication.client'
 
 class TagsPlugin {
   private tags = [] as Tag[]
@@ -22,10 +25,9 @@ class TagsPlugin {
   }
 
   /* istanbul ignore next */
-  private async load() {
-    const tagsRaw = ((await storage.get(TAG_STORE_KEY)) as Tag[]) || []
-    this.tags = tagsRaw.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
-    this.send()
+  public async load() {
+    const userDataRaw = ((await storage.get(authenticationPlugin.getUserToken())) as User) || new User({})
+    this.tags = userDataRaw.tags.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
   }
 
   public add(data: Tag) {
@@ -85,7 +87,7 @@ class TagsPlugin {
   }
 
   private save() {
-    storage.set(TAG_STORE_KEY, this.tags)
+    userPlugin.saveTags(this.tags)
     this.send()
   }
 
