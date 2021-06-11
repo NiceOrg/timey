@@ -89,6 +89,7 @@ describe('tags', () => {
       tagsPlugin.delete(resultTag)
       tagsPlugin.add(resultTag)
       equal(tagsPlugin.getTags().find((t: Tag) => t === resultTag)!.id, 3)
+      tagsPlugin.deleteAll([tag, tag2, resultTag])
     })
   })
 })

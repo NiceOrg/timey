@@ -64,7 +64,7 @@ export default Vue.extend({
 }
 
 .tag-filter {
-  font-family: 'Source Serif Pro', serif;
+  font-family: var(--font-family-submenu, serif);
   display: inline;
 }
 

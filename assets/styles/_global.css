@@ -11,6 +11,7 @@ body {
   --font-color-primary: black;
   --font-color-secondary: white;
   --font-family-title: 'New Tegomin', serif;
+  --font-family-submenu: 'Source Serif Pro', serif;
   /* stylelint-enable color-no-hex */
 }
 

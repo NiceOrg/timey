@@ -17,7 +17,8 @@
   text-align: center;
 }
 
-.submit-button {
+.submit-button,
+.submit-button:hover, .submit-button:focus {
   border-radius: 1rem;
   width: 60%;
   background-color: var(--ternary, red);
@@ -36,4 +37,9 @@
 
 .inline {
   display: inline;
+}
+
+.error-message {
+  color: var(--ternary, red);
+  text-align: center;
 }
