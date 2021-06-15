@@ -36,6 +36,12 @@ class TimeyService {
     await userPlugin.load()
   }
 
+  public async authenticateWithGoogle(user: User) {
+    const response = await fetch(this.usersUrl + '/authenticateWithGoogle', { method: 'POST', body: JSON.stringify(user) })
+    const data = await response.json()
+    console.log(data)
+  }
+
   public async update(user: UserMini) {
     const response = await fetch(this.usersUrl + '/' + user._id, { method: 'PUT', body: JSON.stringify(user) })
     await response.json()

@@ -6,6 +6,7 @@ export default {
   ssr: false,
   env: {
     api: 'http://localhost:8001/',
+    GOOGLE_CLIENT_ID: '673130982391-28eegt1um0es85qqguevh01uoirk3pqi.apps.googleusercontent.com',
   },
   head: {
     title: 'timey',

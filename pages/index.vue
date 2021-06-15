@@ -15,6 +15,9 @@
         </a-form-model-item>
       </a-form-model>
     </div>
+    <div class="g-signin2" data-onsuccess="onSignInWithGoogle" data-theme="dark"></div>
+    <div @click="signOut()">Sign out</div>
+
     <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
       <a-button class="submit-button block" type="primary" @click="authenticate">Connexion</a-button>
@@ -50,8 +53,24 @@ export default {
       errorMessage: '',
     }
   },
+  head() {
+    return {
+      meta: [
+        {
+          name: 'google-signin-client_id',
+          content: process.env.GOOGLE_CLIENT_ID,
+        },
+      ],
+      script: [
+        {
+          src: 'https://apis.google.com/js/platform.js',
+        },
+      ],
+    }
+  },
   beforeMount() {
     this.redirectIfConnected()
+    this.googleAuthentication()
   },
   methods: {
     async authenticate() {
@@ -75,6 +94,20 @@ export default {
         }
       })
       emit(AUTHENTICATION_GET)
+    },
+    // onSignIn need to be send to window in client side to use the onSignIn method from google
+    googleAuthentication() {
+      if (process.client) {
+        window.onSignInWithGoogle = this.onSignInWithGoogle
+      }
+    },
+    async onSignInWithGoogle(googleUser) {
+      const user = new User({ email: googleUser.getBasicProfile().getEmail(), _id: googleUser.getAuthResponse().id_token })
+      await timeyService.authenticateWithGoogle(user)
+    },
+    signOut() {
+      // eslint-disable-next-line no-undef
+      gapi.auth2.getAuthInstance().disconnect()
     },
   },
 }
