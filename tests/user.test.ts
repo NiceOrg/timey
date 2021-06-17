@@ -1,6 +1,6 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
-import { Tag, User, UserMini } from '../models'
+import { Tag, User, UserMini, UserUpdate } from '../models'
 import { Parameters } from '../models/parameters/parameters.model'
 import { userPlugin } from '../plugins'
 
@@ -21,6 +21,14 @@ describe('user', () => {
       deepEqual(user.tasks, [])
       deepEqual(user.tags, [])
       deepEqual(user.parameters, new Parameters({}))
+    })
+    it('Instantiate new user-update setting with default params', () => {
+      const user = new UserUpdate({})
+      deepEqual(user.actualPassword, '')
+      deepEqual(user.newPassword, '')
+      deepEqual(user.repeatPassword, '')
+      deepEqual(user.actualEmail, '')
+      deepEqual(user.newEmail, '')
     })
   })
   describe('plugin', () => {
