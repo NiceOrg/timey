@@ -35,6 +35,11 @@ class AuthenticationPlugin {
     this.save()
   }
 
+  public setEmail(email: string) {
+    this.authentication.email = email
+    this.save()
+  }
+
   public disconnect() {
     this.authentication = new Authentication({})
     this.save()

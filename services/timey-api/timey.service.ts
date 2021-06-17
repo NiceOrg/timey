@@ -1,5 +1,5 @@
 import { environment } from '../../environments'
-import { Authentication, User, UserMini } from '../../models'
+import { Authentication, User, UserMini, UserUpdate } from '../../models'
 import { authenticationPlugin, userPlugin } from '../../plugins'
 
 /* istanbul ignore next */
@@ -40,6 +40,33 @@ class TimeyService {
 
   public async update(user: UserMini) {
     await fetch(this.usersUrl + '/' + authenticationPlugin.get().id, { method: 'PUT', body: JSON.stringify(user) })
+  }
+
+  public async updateEmail(user: UserUpdate) {
+    const response = await fetch(this.usersUrl + '/changeEmail/' + authenticationPlugin.get().id, { method: 'PUT', body: JSON.stringify(user) })
+    const data = await response.json()
+    if (data.errorMessage) {
+      throw new Error(data.errorMessage)
+    }
+    authenticationPlugin.setEmail(data.user.email)
+  }
+
+  public async updatePassword(user: UserUpdate) {
+    const response = await fetch(this.usersUrl + '/changePassword/' + authenticationPlugin.get().id, { method: 'PUT', body: JSON.stringify(user) })
+    const data = await response.json()
+    if (data.errorMessage) {
+      throw new Error(data.errorMessage)
+    }
+  }
+
+  public async deleteAccount(user: UserUpdate) {
+    const response = await fetch(this.usersUrl + '/deleteAccount/' + authenticationPlugin.get().id, { method: 'DELETE', body: JSON.stringify(user) })
+    const data = await response.json()
+    if (data.errorMessage) {
+      throw new Error(data.errorMessage)
+    }
+    await userPlugin.delete()
+    authenticationPlugin.disconnect()
   }
 }
 export const timeyService = new TimeyService()

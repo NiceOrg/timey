@@ -39,6 +39,11 @@ class UserPlugin {
     this.save()
   }
 
+  /* istanbul ignore next */
+  public async delete() {
+    await storage.clear(authenticationPlugin.getUserToken())
+  }
+
   public saveTags(tags: Tag[]) {
     this.user.tags = tags
     this.save()

@@ -21,5 +21,9 @@ describe('authentication', () => {
       authenticationPlugin.disconnect()
       deepEqual(authenticationPlugin.get(), new Authentication({ id: 'local', authenticated: false, email: '' }))
     })
+    it('set email', () => {
+      authenticationPlugin.setEmail('newEmail')
+      equal(authenticationPlugin.get().email, 'newEmail')
+    })
   })
 })
