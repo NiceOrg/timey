@@ -13,12 +13,13 @@ describe('authentication', () => {
   })
   describe('service', () => {
     it('connect', () => {
-      authenticationPlugin.connect('10')
-      deepEqual(authenticationPlugin.get(), new Authentication({ id: '10', authenticated: true }))
+      const authentication = new Authentication({ id: '10', authenticated: true, email: 'email@mail.com' })
+      authenticationPlugin.connect(authentication)
+      deepEqual(authenticationPlugin.get(), authentication)
     })
     it('disconnect', () => {
       authenticationPlugin.disconnect()
-      deepEqual(authenticationPlugin.get(), new Authentication({ id: 'local', authenticated: false }))
+      deepEqual(authenticationPlugin.get(), new Authentication({ id: 'local', authenticated: false, email: '' }))
     })
   })
 })
