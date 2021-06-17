@@ -18,7 +18,6 @@ describe('user', () => {
     })
     it('Instantiate new user-mini setting with default params', () => {
       const user = new UserMini({})
-      equal(user._id, '')
       deepEqual(user.tasks, [])
       deepEqual(user.tags, [])
       deepEqual(user.parameters, new Parameters({}))
@@ -30,7 +29,7 @@ describe('user', () => {
       deepEqual(user, new UserMini({}))
     })
     it('update', () => {
-      const userToUpdate = new UserMini({ _id: '1', tags: [new Tag(1, 'new tag')] })
+      const userToUpdate = new UserMini({ tags: [new Tag(1, 'new tag')] })
       userPlugin.update(userToUpdate)
       deepEqual(userPlugin.getUser(), userToUpdate)
     })

@@ -3,7 +3,6 @@ import { Tag } from '../tag/tag.model'
 import { Task } from '../task/task.model'
 
 export class UserMini {
-  _id = ''
   tasks = [] as Task[]
   tags = [] as Tag[]
   parameters = new Parameters({})

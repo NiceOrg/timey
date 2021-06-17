@@ -28,7 +28,7 @@ class UserPlugin {
   public async load() {
     await authenticationPlugin.load()
     const userRaw = ((await storage.get(authenticationPlugin.getUserToken())) as UserMini) || new UserMini({})
-    this.user = new UserMini({ _id: userRaw._id, tasks: userRaw.tasks, tags: userRaw.tags, parameters: userRaw.parameters })
+    this.user = new UserMini({ tasks: userRaw.tasks, tags: userRaw.tags, parameters: userRaw.parameters })
     await tasksPlugin.load()
     await tagsPlugin.load()
     await timeSlotsPlugin.load()

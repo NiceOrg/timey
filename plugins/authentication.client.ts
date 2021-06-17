@@ -22,13 +22,16 @@ class AuthenticationPlugin {
   /* istanbul ignore next */
   public async load() {
     const authenticationRaw = ((await storage.get(AUTHENTICATION_STORE_KEY)) as Authentication) || new Authentication({})
-    this.authentication = new Authentication({ id: authenticationRaw.id, authenticated: authenticationRaw.authenticated })
+    this.authentication = new Authentication({
+      id: authenticationRaw.id,
+      authenticated: authenticationRaw.authenticated,
+      email: authenticationRaw.email,
+    })
     this.save()
   }
 
-  public connect(id: string) {
-    this.authentication.id = id
-    this.authentication.authenticated = true
+  public connect(authentication: Authentication) {
+    this.authentication = authentication
     this.save()
   }
 

@@ -1,5 +1,5 @@
 import { environment } from '../../environments'
-import { User, UserMini } from '../../models'
+import { Authentication, User, UserMini } from '../../models'
 import { authenticationPlugin, userPlugin } from '../../plugins'
 
 /* istanbul ignore next */
@@ -18,8 +18,9 @@ class TimeyService {
     if (data.errorMessage) {
       throw new Error(data.errorMessage)
     }
-    authenticationPlugin.connect(data.user._id)
-    const userCreated = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
+    const authentication = new Authentication({ authenticated: true, id: data.user._id, email: data.user.email })
+    authenticationPlugin.connect(authentication)
+    const userCreated = new UserMini({ tasks: data.user.tasks, tags: data.user.tags })
     userPlugin.update(userCreated)
     await userPlugin.load()
   }
@@ -30,15 +31,15 @@ class TimeyService {
     if (data.errorMessage) {
       throw new Error(data.errorMessage)
     }
-    authenticationPlugin.connect(data.user._id)
-    const userLogged = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags, parameters: data.user.parameters })
+    const authentication = new Authentication({ authenticated: true, id: data.user._id, email: data.user.email })
+    authenticationPlugin.connect(authentication)
+    const userLogged = new UserMini({ tasks: data.user.tasks, tags: data.user.tags, parameters: data.user.parameters })
     userPlugin.update(userLogged)
     await userPlugin.load()
   }
 
   public async update(user: UserMini) {
-    const response = await fetch(this.usersUrl + '/' + user._id, { method: 'PUT', body: JSON.stringify(user) })
-    await response.json()
+    await fetch(this.usersUrl + '/' + authenticationPlugin.get().id, { method: 'PUT', body: JSON.stringify(user) })
   }
 }
 export const timeyService = new TimeyService()
