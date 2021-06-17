@@ -36,6 +36,7 @@ describe('time slots', () => {
       tasksPlugin.toggle(task)
       equal(timeSlotsPlugin.isActive(), undefined)
       tasksPlugin.delete(task)
+      timeSlotsPlugin.activate(false)
     })
   })
 })

@@ -28,7 +28,7 @@
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
 import { Navbar, TimeSlots } from '~/models'
-import { NAVBAR, timeSlotsPlugin, TIME_SLOT_GET, TIME_SLOT_SEND } from '~/plugins'
+import { NAVBAR_SETTINGS, timeSlotsPlugin, TIME_SLOT_GET, TIME_SLOT_SEND } from '~/plugins'
 import { hours, minutes } from '~/utils'
 
 export default Vue.extend({
@@ -42,7 +42,7 @@ export default Vue.extend({
   beforeMount() {
     on(TIME_SLOT_SEND, (timeSlots: TimeSlots) => (this.timeSlots = timeSlots))
     emit(TIME_SLOT_GET)
-    emit(NAVBAR, new Navbar({ title: 'Plage horaire', backButton: true }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: 'Plage horaire', backButton: true }))
 
     this.pauseTimeStamp = this.convertTimestampsToStrings(this.timeSlots.pause)
     this.resumeTimeStamp = this.convertTimestampsToStrings(this.timeSlots.resume)

@@ -21,7 +21,7 @@
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
 import { Navbar, Tag } from '~/models'
-import { TAG_SEND, TAG_GET, tagsPlugin, NAVBAR, TAG_EDITION_UPDATE, CLOSE_CONTENT } from '~/plugins'
+import { TAG_SEND, TAG_GET, tagsPlugin, NAVBAR_SETTINGS, TAG_EDITION_UPDATE, CLOSE_CONTENT } from '~/plugins'
 
 export default Vue.extend({
   data() {
@@ -46,7 +46,7 @@ export default Vue.extend({
     on(TAG_EDITION_UPDATE, (tag: Tag) => tagsPlugin.update(tag))
     on(CLOSE_CONTENT, () => (this.showNewTag = false))
     emit(TAG_GET)
-    emit(NAVBAR, new Navbar({ title: 'Édition des tags', backButton: true }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: 'Édition des tags', backButton: true }))
   },
 })
 </script>

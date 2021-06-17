@@ -5,8 +5,7 @@ import { Task } from '../task/task.model'
 export class User {
   _id = ''
   password = ''
-  // eslint-disable-next-line prettier/prettier
-  repeatPassword?= ''
+  repeatPassword = ''
   email = ''
   tasks = [] as Task[]
   tags = [] as Tag[]

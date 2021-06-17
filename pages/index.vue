@@ -4,7 +4,7 @@
     <div class="form">
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
-          <a-input ref="user" v-model="form.user" size="small" placeholder="nom d'utilisateur">
+          <a-input ref="user" v-model="form.email" size="small" placeholder="email">
             <a-icon slot="prefix" class="secondary-color" type="user" />
           </a-input>
         </a-form-model-item>
@@ -15,8 +15,9 @@
         </a-form-model-item>
       </a-form-model>
     </div>
+    <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
-      <a-button class="submit-button block" type="primary">Connexion</a-button>
+      <a-button class="submit-button block" type="primary" @click="authenticate">Connexion</a-button>
       <h4>
         <NuxtLink to="/create-account"
           >Pas encore de compte ?
@@ -34,15 +35,47 @@
 </template>
 
 <script>
+import { emit, on } from 'shuutils'
+import { User } from '~/models'
+import { authenticationPlugin, AUTHENTICATION_GET, AUTHENTICATION_SEND } from '~/plugins'
+import { timeyService } from '~/services'
 export default {
   layout: 'auth-layout',
   data() {
     return {
       form: {
-        user: '',
+        email: '',
         password: '',
       },
+      errorMessage: '',
     }
+  },
+  beforeMount() {
+    this.redirectIfConnected()
+  },
+  methods: {
+    async authenticate() {
+      await this.validate().catch((error) => (this.errorMessage = error.message))
+    },
+    async validate() {
+      if (this.form.email === '') {
+        throw new Error('Veuillez entrer votre email.')
+      }
+      if (this.form.password === '') {
+        throw new Error('Veuillez entrer un mot de passe.')
+      }
+      const user = new User({ email: this.form.email, password: this.form.password })
+      await timeyService.authenticate(user)
+      this.$router.push('/dashboard')
+    },
+    redirectIfConnected() {
+      on(AUTHENTICATION_SEND, () => {
+        if (authenticationPlugin.get().authenticated) {
+          this.$router.push('/dashboard')
+        }
+      })
+      emit(AUTHENTICATION_GET)
+    },
   },
 }
 </script>
