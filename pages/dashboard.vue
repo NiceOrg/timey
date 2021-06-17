@@ -20,7 +20,17 @@
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
 import { Filters, Navbar, Tag, Task } from '~/models'
-import { NAVBAR, CLOSE_CONTENT, NAVBAR_SEARCH, TASK_SEND, TASK_GET, FILTERS_SEND, FILTERS_GET, FILTERS_SET_TITLE, filtersPlugin } from '~/plugins'
+import {
+  NAVBAR_SETTINGS,
+  CLOSE_CONTENT,
+  NAVBAR_SEARCH,
+  TASK_SEND,
+  TASK_GET,
+  FILTERS_SEND,
+  FILTERS_GET,
+  FILTERS_SET_TITLE,
+  filtersPlugin,
+} from '~/plugins'
 export default Vue.extend({
   data() {
     return {
@@ -51,7 +61,7 @@ export default Vue.extend({
 
     emit(TASK_GET)
     emit(FILTERS_GET)
-    emit(NAVBAR, new Navbar({ title: 'Dashboard', isSearch: true }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: 'Dashboard', isSearch: true }))
   },
 })
 </script>

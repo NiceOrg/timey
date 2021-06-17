@@ -31,7 +31,7 @@ class TimeyService {
       throw new Error(data.errorMessage)
     }
     authenticationPlugin.connect(data.user._id)
-    const userLogged = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags })
+    const userLogged = new UserMini({ _id: data.user._id, tasks: data.user.tasks, tags: data.user.tags, parameters: data.user.parameters })
     userPlugin.update(userLogged)
     await userPlugin.load()
   }

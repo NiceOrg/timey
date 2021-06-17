@@ -4,11 +4,6 @@
     <div class="form">
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
-          <a-input v-model="form.user" size="small" placeholder="nom d'utilisateur">
-            <a-icon slot="prefix" class="secondary-color" type="user" />
-          </a-input>
-        </a-form-model-item>
-        <a-form-model-item>
           <a-input v-model="form.email" size="small" placeholder="email">
             <a-icon slot="prefix" class="secondary-color" type="mail" />
           </a-input>
@@ -25,8 +20,9 @@
         </a-form-model-item>
       </a-form-model>
     </div>
+    <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
-      <a-button class="submit-button block" type="primary" html-type="submit">S'inscrire</a-button>
+      <a-button class="submit-button block" type="primary" @click="createAccount">S'inscrire</a-button>
       <h4>
         <NuxtLink to="/"
           >Déjà un compte ?
@@ -44,21 +40,40 @@
 </template>
 
 <script>
+import { User } from '~/models'
+import { timeyService } from '~/services'
 export default {
   layout: 'auth-layout',
   data() {
     return {
       form: {
-        user: '',
         email: '',
         password: '',
         repPassword: '',
       },
+      errorMessage: '',
     }
   },
   methods: {
-    handleSubmit() {
-      console.log(this.form)
+    async createAccount() {
+      await this.validate().catch((error) => (this.errorMessage = error.message))
+    },
+    async validate() {
+      if (this.form.email === '') {
+        throw new Error('Veuillez entrer une adresse mail.')
+      }
+      if (this.form.password === '') {
+        throw new Error('Veuillez entrer un mot de passe.')
+      }
+      if (this.form.repPassword === '') {
+        throw new Error('Veuillez confirmer votre mot de passe.')
+      }
+      if (this.form.password !== this.form.repPassword) {
+        throw new Error('Les mots de passes ne correspondent pas.')
+      }
+      const user = new User({ password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
+      await timeyService.add(user)
+      this.$router.push('/dashboard')
     },
   },
 }
