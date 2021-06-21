@@ -8,8 +8,23 @@
         <a-icon type="caret-left" />
       </a-button>
       <h2 class="top-title">{{ settings.title }}</h2>
-      <a-icon v-show="settings.isSearch" type="search" class="search-buton" @click="searchBar = true" />
-      <div v-show="!settings.isSearch" />
+      <div class="navbar-right-buttons">
+        <a-icon v-show="settings.isSearch" type="search" class="search-buton" @click="searchBar = true" />
+        <div @click="stopPropagation($event)">
+          <a-popover v-model="visibleAccountParams" trigger="click" placement="bottomRight" arrow-point-at-center>
+            <a slot="content" @click="visibleAccountParams = false">
+              <p v-if="authentication.authenticated" class="account-param separator">
+                <NuxtLink to="/update-account">Gérer compte</NuxtLink>
+              </p>
+              <p class="account-param" @click="disconnect">{{ authentication.authenticated ? 'Déconnexion' : 'Se connecter' }}</p>
+            </a>
+            <a-avatar v-if="authentication.authenticated" shape="square">
+              <div class="user-icon">{{ authentication.email.charAt(0).toUpperCase() }}</div>
+            </a-avatar>
+            <a-avatar v-else shape="square" icon="user" size="large" />
+          </a-popover>
+        </div>
+      </div>
     </div>
     <div v-if="searchBar" class="search">
       <a-icon type="arrow-left" class="return-arrow" @click="closeSearchBar()" />
@@ -21,9 +36,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { emit } from 'shuutils'
-import { Navbar } from '../models/'
-import { NAVBAR_TOGGLE_MENU, NAVBAR_SEARCH } from '~/plugins'
+import { emit, on } from 'shuutils'
+import { Authentication, Navbar } from '../models/'
+import { NAVBAR_TOGGLE_MENU, NAVBAR_SEARCH, authenticationPlugin, userPlugin, AUTHENTICATION_SEND, AUTHENTICATION_GET } from '~/plugins'
+import { stopPropagation } from '~/utils'
 
 export default Vue.extend({
   props: {
@@ -43,13 +59,25 @@ export default Vue.extend({
       emit,
       searchBar: false,
       filter: '',
+      stopPropagation,
+      authentication: {} as Authentication,
+      visibleAccountParams: false,
     }
+  },
+  beforeMount() {
+    on(AUTHENTICATION_SEND, (authentication: Authentication) => (this.authentication = authentication))
+    emit(AUTHENTICATION_GET)
   },
   methods: {
     closeSearchBar() {
       this.searchBar = false
       this.filter = ''
       this.emit(NAVBAR_SEARCH, this.filter)
+    },
+    async disconnect() {
+      authenticationPlugin.disconnect()
+      await userPlugin.load()
+      this.$router.push('/')
     },
   },
 })
@@ -98,5 +126,25 @@ export default Vue.extend({
 .return-arrow {
   margin: 0 0.5rem;
   font-size: 1.6rem;
+}
+
+.navbar-right-buttons {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.account-param {
+  padding: 0.3rem;
+  text-align: center;
+}
+
+.separator {
+  border-bottom: 0.1rem solid var(--accent-light, lightgray);
+}
+
+.user-icon {
+  font-weight: 500;
+  font-size: 1.7rem;
 }
 </style>
