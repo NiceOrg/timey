@@ -40,6 +40,6 @@
 }
 
 .error-message {
-  color: var(--ternary, red);
+  color: var(--danger, red);
   text-align: center;
 }

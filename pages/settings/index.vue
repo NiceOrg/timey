@@ -19,6 +19,18 @@
         <p>Exporter les données au format Excel</p>
       </div>
     </a-popconfirm>
+    <div v-if="connected" class="parameter" @click="$router.push('/update-account')">
+      <div class="flex heading">Gestion du compte</div>
+      <p>Modifiez votre compte</p>
+    </div>
+    <div v-if="!connected" class="parameter" @click="$router.push('/')">
+      <div class="flex heading">Connexion</div>
+      <p>Se connecter</p>
+    </div>
+    <div v-if="connected" class="parameter highlight" @click="disconnects">
+      <div class="flex heading">Déconnexion</div>
+      <p>Se déconnecter</p>
+    </div>
     <div class="about heading">A propos</div>
   </div>
 </template>
@@ -27,7 +39,7 @@
 import Vue from 'vue'
 import { emit } from 'shuutils'
 import { stopPropagation } from '~/utils'
-import { timeSlotsPlugin, exportPlugin, NAVBAR_SETTINGS } from '~/plugins'
+import { timeSlotsPlugin, exportPlugin, NAVBAR_SETTINGS, authenticationPlugin, userPlugin } from '~/plugins'
 import { Navbar, TimeSlots } from '~/models'
 
 export default Vue.extend({
@@ -36,15 +48,22 @@ export default Vue.extend({
       timeSlots: {} as TimeSlots,
       stopPropagation,
       exportPlugin,
+      connected: false,
     }
   },
   beforeMount() {
     emit(NAVBAR_SETTINGS, new Navbar({ title: 'Options' }))
+    this.connected = authenticationPlugin.get().authenticated
     this.timeSlots = timeSlotsPlugin.getTimeSlots()
   },
   methods: {
     changeTimeSlots(value: boolean) {
       timeSlotsPlugin.activate(value)
+    },
+    async disconnects() {
+      authenticationPlugin.disconnect()
+      await userPlugin.load()
+      this.$router.push('/')
     },
   },
 })

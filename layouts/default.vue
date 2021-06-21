@@ -35,7 +35,6 @@
             <NuxtLink to="/settings"><a-icon type="setting" />Options</NuxtLink>
           </a-menu-item>
         </a-menu>
-        <div class="connection drawer" @click="disconnect">{{ connected ? 'Déconnexion' : 'Se connecter' }}</div>
       </a-drawer>
       <Nuxt />
     </div>
@@ -44,9 +43,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { emit, on } from 'shuutils'
-import { Authentication, Navbar } from '~/models'
-import { NAVBAR_SETTINGS, NAVBAR_TOGGLE_MENU, authenticationPlugin, AUTHENTICATION_SEND, AUTHENTICATION_GET, userPlugin } from '~/plugins'
+import { on } from 'shuutils'
+import { Navbar } from '~/models'
+import { NAVBAR_SETTINGS, NAVBAR_TOGGLE_MENU } from '~/plugins'
 
 const DEFAULT_MENU = 'dashboard'
 export default Vue.extend({
@@ -55,7 +54,6 @@ export default Vue.extend({
       current: [DEFAULT_MENU],
       open: false,
       navbarSettings: {} as Navbar,
-      connected: false,
     }
   },
   beforeMount() {
@@ -63,18 +61,10 @@ export default Vue.extend({
     this.current = [this.$route.name || DEFAULT_MENU]
     on(NAVBAR_SETTINGS, (settings: Navbar) => (this.navbarSettings = settings))
     on(NAVBAR_TOGGLE_MENU, () => (this.open = !this.open))
-    on(AUTHENTICATION_SEND, (authentication: Authentication) => (this.connected = authentication.authenticated))
-
-    emit(AUTHENTICATION_GET)
   },
   methods: {
     closeNavbar() {
       this.open = false
-    },
-    async disconnect() {
-      authenticationPlugin.disconnect()
-      await userPlugin.load()
-      this.$router.push('/')
     },
   },
 })
@@ -98,16 +88,5 @@ export default Vue.extend({
 
 .drawer {
   z-index: 2;
-}
-
-.connection {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: var(--secondary-light, lightgray);
-  border-top: 0.1rem solid var(--accent-light, lightgray);
-  padding: 0.3rem;
-  text-align: center;
 }
 </style>

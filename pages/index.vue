@@ -35,9 +35,8 @@
 </template>
 
 <script>
-import { emit, on } from 'shuutils'
 import { User } from '~/models'
-import { authenticationPlugin, AUTHENTICATION_GET, AUTHENTICATION_SEND } from '~/plugins'
+import { authenticationPlugin } from '~/plugins'
 import { timeyService } from '~/services'
 export default {
   layout: 'auth-layout',
@@ -69,12 +68,9 @@ export default {
       this.$router.push('/dashboard')
     },
     redirectIfConnected() {
-      on(AUTHENTICATION_SEND, () => {
-        if (authenticationPlugin.get().authenticated) {
-          this.$router.push('/dashboard')
-        }
-      })
-      emit(AUTHENTICATION_GET)
+      if (authenticationPlugin.get().authenticated) {
+        this.$router.push('/dashboard')
+      }
     },
   },
 }

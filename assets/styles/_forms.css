@@ -14,6 +14,10 @@
   box-shadow: none;
 }
 
+.update-account-data .ant-form-inline .ant-form-item {
+  width: 100%;
+}
+
 .comp-task-edit .ant-form-inline .ant-form-item {
   width: 100%;
   margin: 0;

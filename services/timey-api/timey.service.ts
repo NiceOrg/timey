@@ -14,26 +14,20 @@ class TimeyService {
 
   public async add(user: User) {
     const response = await fetch(this.usersUrl, { method: 'POST', body: JSON.stringify(user) })
-    const data = await response.json()
-    if (data.errorMessage) {
-      throw new Error(data.errorMessage)
-    }
-    const authentication = new Authentication({ authenticated: true, id: data.user._id, email: data.user.email })
-    authenticationPlugin.connect(authentication)
-    const userCreated = new UserMini({ tasks: data.user.tasks, tags: data.user.tags })
-    userPlugin.update(userCreated)
-    await userPlugin.load()
+    const data = await this.manageResponse(response)
+    await this.authenticateUser(data.user)
   }
 
   public async authenticate(user: User) {
     const response = await fetch(this.usersUrl + '/authenticate', { method: 'POST', body: JSON.stringify(user) })
-    const data = await response.json()
-    if (data.errorMessage) {
-      throw new Error(data.errorMessage)
-    }
-    const authentication = new Authentication({ authenticated: true, id: data.user._id, email: data.user.email })
+    const data = await this.manageResponse(response)
+    await this.authenticateUser(data.user)
+  }
+
+  private async authenticateUser(user: any) {
+    const authentication = new Authentication({ authenticated: true, id: user._id, email: user.email })
     authenticationPlugin.connect(authentication)
-    const userLogged = new UserMini({ tasks: data.user.tasks, tags: data.user.tags, parameters: data.user.parameters })
+    const userLogged = new UserMini({ tasks: user.tasks, tags: user.tags, parameters: user.parameters })
     userPlugin.update(userLogged)
     await userPlugin.load()
   }
@@ -44,29 +38,29 @@ class TimeyService {
 
   public async updateEmail(user: UserUpdate) {
     const response = await fetch(this.usersUrl + '/changeEmail/' + authenticationPlugin.get().id, { method: 'PUT', body: JSON.stringify(user) })
-    const data = await response.json()
-    if (data.errorMessage) {
-      throw new Error(data.errorMessage)
-    }
+    const data = await this.manageResponse(response)
     authenticationPlugin.setEmail(data.user.email)
   }
 
   public async updatePassword(user: UserUpdate) {
     const response = await fetch(this.usersUrl + '/changePassword/' + authenticationPlugin.get().id, { method: 'PUT', body: JSON.stringify(user) })
-    const data = await response.json()
-    if (data.errorMessage) {
-      throw new Error(data.errorMessage)
-    }
+    await this.manageResponse(response)
   }
 
   public async deleteAccount(user: UserUpdate) {
     const response = await fetch(this.usersUrl + '/deleteAccount/' + authenticationPlugin.get().id, { method: 'DELETE', body: JSON.stringify(user) })
+    await this.manageResponse(response)
+    await userPlugin.delete()
+    authenticationPlugin.disconnect()
+  }
+
+  private async manageResponse(response: any) {
     const data = await response.json()
+    console.log(data)
     if (data.errorMessage) {
       throw new Error(data.errorMessage)
     }
-    await userPlugin.delete()
-    authenticationPlugin.disconnect()
+    return data
   }
 }
 export const timeyService = new TimeyService()

@@ -2,7 +2,7 @@
   <div class="page-update-account">
     <div class="wrapper">
       <div class="accent space-left center">E-mail</div>
-      <div class="ellipsis center">{{ email }}</div>
+      <div class="ellipsis center">{{ authentication.email }}</div>
       <div>
         <a-button class="accent center" @click="emailVisible = true">Modifier</a-button>
         <a-modal v-model="emailVisible" title="Modification email" class="update-account-data" @ok="updateEmail()" @cancel="emailVisible = false">
@@ -21,8 +21,8 @@
       <div class="accent space-left center">Mot de passe</div>
       <div class="center">************</div>
       <div>
-        <a-button class="accent center" @click="PasswordVisible = true">Modifier</a-button>
-        <a-modal v-model="PasswordVisible" title="Modification du mot de passe" class="update-account-data" @ok="updatePassword()">
+        <a-button class="accent center" @click="passwordVisible = true">Modifier</a-button>
+        <a-modal v-model="passwordVisible" title="Modification du mot de passe" class="update-account-data" @ok="updatePassword()">
           <a-form-model :form="form" layout="inline">
             <a-form-model-item>
               <a-input v-model="form.actualPassword" size="small" placeholder="Actual password" type="password" class="field-to-update" />
@@ -39,51 +39,97 @@
       </div>
     </div>
     <div class="suppr-button center">
-      <a-button class="suppr-account">Supprimer compte</a-button>
+      <a-button class="suppr-account" @click="deleteAccountVisible = true">Supprimer compte</a-button>
+      <a-modal v-model="deleteAccountVisible" title="Suppression de votre compte" :footer="null" :destroy-on-close="true">
+        <p>Cette action <b>ne peut pas</b> être annulée. Cela supprimera de façon permanente votre compte.</p>
+        <p></p>
+        <p>Entrez <b>je comprends</b> pour confirmer</p>
+        <a-input v-model="deleteAccountText" />
+        <p>Entrez votre mot de passe</p>
+        <a-input v-model="form.actualPassword" type="password" />
+        <div class="error-message">{{ errorMessage }}</div>
+        <a-button class="button-suppress-account suppr-account" :disabled="suppressAccountButtonDisabled" @click="deleteAccount"
+          >Supprimer ce compte</a-button
+        >
+      </a-modal>
     </div>
   </div>
 </template>
 
-<script>
-import { emit } from 'shuutils'
-import { authenticationPlugin, NAVBAR_SETTINGS, userPlugin } from '~/plugins'
-import { Navbar, UserUpdate } from '~/models'
+<script lang="ts">
+import Vue from 'vue'
+import { emit, on } from 'shuutils'
+import { AUTHENTICATION_GET, AUTHENTICATION_SEND, NAVBAR_SETTINGS } from '~/plugins'
+import { Authentication, Navbar, UserUpdate } from '~/models'
 import { timeyService } from '~/services'
-export default {
+export default Vue.extend({
   data() {
     return {
-      email: '',
       emailVisible: false,
-      PasswordVisible: false,
+      passwordVisible: false,
+      deleteAccountVisible: false,
       errorMessage: '',
+      deleteAccountText: '',
       form: {
         email: '',
         actualPassword: '',
         newPassword: '',
         repeatPassword: '',
       },
+      authentication: {} as Authentication,
     }
   },
+  computed: {
+    suppressAccountButtonDisabled(): boolean {
+      return this.deleteAccountText !== 'je comprends'
+    },
+  },
   beforeMount() {
+    on(AUTHENTICATION_SEND, (authentication: Authentication) => {
+      this.authentication = authentication
+      this.form.email = authentication.email
+    })
+    emit(AUTHENTICATION_GET)
     emit(NAVBAR_SETTINGS, new Navbar({ title: 'Gérer compte', backButton: true }))
-
-    this.email = userPlugin.getUser().email
-    this.form.email = this.email
   },
   methods: {
     async updateEmail() {
-      const user = new UserUpdate({ _id: authenticationPlugin.get().id, email: this.form.email, actualPassword: this.form.actualPassword })
+      const user = new UserUpdate({ actualEmail: this.authentication.email, newEmail: this.form.email, actualPassword: this.form.actualPassword })
       await timeyService
         .updateEmail(user)
+        .then(() => {
+          this.emailVisible = false
+          this.form.actualPassword = ''
+          this.errorMessage = ''
+        })
         .catch((error) => (this.errorMessage = error.message))
-        .then((this.emailVisible = false))
     },
-    updatePassword() {
-      console.log('save in back passwd', this.form.actualPassword, this.form.newPassword, this.form.repeatPassword)
-      timeyService.updatePassword()
+    async updatePassword() {
+      const user = new UserUpdate({
+        actualPassword: this.form.actualPassword,
+        newPassword: this.form.newPassword,
+        repeatPassword: this.form.repeatPassword,
+      })
+      await timeyService
+        .updatePassword(user)
+        .then(() => {
+          this.passwordVisible = false
+          this.form.actualPassword = ''
+          this.form.newPassword = ''
+          this.form.repeatPassword = ''
+          this.errorMessage = ''
+        })
+        .catch((error) => (this.errorMessage = error.message))
+    },
+    async deleteAccount() {
+      const user = new UserUpdate({ actualPassword: this.form.actualPassword })
+      await timeyService
+        .deleteAccount(user)
+        .then(() => this.$router.push('/'))
+        .catch((error) => (this.errorMessage = error.message))
     },
   },
-}
+})
 </script>
 
 <style scoped>
@@ -130,9 +176,7 @@ export default {
 }
 
 .suppr-account {
-  color: red;
-
-  /* zoiakejfjeoizkfjk */
+  color: var(--danger, red);
 }
 
 .center {
@@ -140,6 +184,11 @@ export default {
 }
 
 .field-to-update {
+  width: 100%;
+}
+
+.button-suppress-account {
+  margin-top: 0.5rem;
   width: 100%;
 }
 </style>
