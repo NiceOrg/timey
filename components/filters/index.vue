@@ -1,74 +1,32 @@
 <template>
   <div class="comp-filters">
-    <div class="filters" @click="showFilters = !showFilters"><a-icon :rotate="90" type="control" /> FILTRES</div>
-    <div v-show="showFilters">
-      <div class="filter">
-        <div class="tag-filter" :style="tagFiltered" @click="tagShow = true">Tag</div>
-        <a-icon v-if="filters.tags.length > 0" type="close" @click="removeTags()" />
-      </div>
-      <a-modal v-model="tagShow" title="Filtrer les tags" :footer="null">
-        <filters-tags v-if="tagShow" :tags-filtered="filters.tags" />
-      </a-modal>
-    </div>
-    <div class="divider">
-      <a-divider />
+    <filters-tags />
+    <a-divider />
+    <div v-if="hiddenTasks > 0" class="search-message">
+      {{ hiddenTasks }} tâche{{ hiddenTasks === 1 ? ' a été masquée' : 's ont été masquées' }} par la recherche.
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { on } from 'shuutils'
 import Vue from 'vue'
-import { Filters } from '~/models'
-import { emit, on } from '~/node_modules/shuutils/dist/src'
-import { FILTERS_GET, FILTERS_SEND, FILTERED_TAG_DELETE_ALL } from '~/plugins'
+import { filtersPlugin, FILTERS_SEND } from '~/plugins'
 export default Vue.extend({
   data() {
     return {
-      tagShow: false,
-      showFilters: false,
-      filters: {} as Filters,
+      hiddenTasks: 0,
     }
   },
-  computed: {
-    tagFiltered(): any {
-      if (this.filters.tags.length > 0) {
-        return { fontWeight: 800 }
-      }
-      return { fontWeight: 400 }
-    },
-  },
   beforeMount() {
-    on(FILTERS_SEND, (filters: Filters) => (this.filters = filters))
-    emit(FILTERS_GET)
-  },
-  methods: {
-    removeTags() {
-      emit(FILTERED_TAG_DELETE_ALL)
-      this.tagShow = false
-      this.showFilters = false
-    },
+    on(FILTERS_SEND, () => (this.hiddenTasks = filtersPlugin.getHiddenTasksCount()))
   },
 })
 </script>
 
-<style>
-.filters {
-  margin: 0.5rem 0 0 1rem;
-  font-size: 1rem;
+<style scoped>
+.search-message {
+  text-align: center;
   font-weight: 500;
-  color: var(--primary-dark, lightblue);
-}
-
-.divider {
-  margin-top: 0.5rem;
-}
-
-.tag-filter {
-  display: inline;
-}
-
-.filter {
-  margin-left: 1rem;
-  font-size: 1rem;
 }
 </style>

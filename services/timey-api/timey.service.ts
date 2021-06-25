@@ -56,7 +56,6 @@ class TimeyService {
 
   private async manageResponse(response: any) {
     const data = await response.json()
-    console.log(data)
     if (data.errorMessage) {
       throw new Error(data.errorMessage)
     }

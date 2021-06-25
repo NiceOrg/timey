@@ -1,5 +1,5 @@
 import { emit, on, storage } from 'shuutils'
-import { Filters, Tag } from '../models'
+import { Filters, Tag, Task } from '../models'
 import {
   FILTERS_STORE_KEY,
   FILTERS_SEND,
@@ -8,13 +8,20 @@ import {
   FILTERED_TAG_DELETE,
   FILTERED_TAG_DELETE_ALL,
   FILTERS_SET_TITLE,
+  TASK_SEND,
 } from './events.client'
+import { tasksPlugin } from './tasks.client'
 
 class FiltersPlugin {
   private filters = {} as Filters
+  private tasksFiltered = [] as Task[]
 
   public getFilters() {
     return this.filters
+  }
+
+  public getTasksFiltered() {
+    return this.tasksFiltered
   }
 
   public setFilters(filters: Filters) {
@@ -33,6 +40,7 @@ class FiltersPlugin {
     on(FILTERED_TAG_DELETE, (tag: Tag) => this.deleteTag(tag))
     on(FILTERED_TAG_ADD, (tag: Tag) => this.addTag(tag))
     on(FILTERED_TAG_DELETE_ALL, () => this.deleteAllTags())
+    on(TASK_SEND, () => this.send())
   }
 
   /* istanbul ignore next */
@@ -76,12 +84,28 @@ class FiltersPlugin {
     this.save()
   }
 
+  public filterTasks() {
+    let taskFiltered = tasksPlugin.getTasks()
+    if (this.filters.tags.length > 0) {
+      taskFiltered = taskFiltered.filter((task: Task) => this.filters.tags.every((tag: Tag) => task.tags.find((t: Tag) => t.id === tag.id)))
+    }
+    if (this.filters.title !== '') {
+      taskFiltered = taskFiltered.filter((task: Task) => task.name.toLowerCase().includes(this.filters.title.toLowerCase()))
+    }
+    this.tasksFiltered = taskFiltered
+  }
+
+  public getHiddenTasksCount() {
+    return tasksPlugin.getTasks().length - this.getTasksFiltered().length
+  }
+
   private save() {
     storage.set(FILTERS_STORE_KEY, JSON.stringify(this.filters))
     this.send()
   }
 
   private send() {
+    this.filterTasks()
     emit(FILTERS_SEND, this.filters)
   }
 }
