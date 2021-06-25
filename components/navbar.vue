@@ -65,6 +65,7 @@ export default Vue.extend({
     }
   },
   beforeMount() {
+    this.closeSearchBar()
     on(AUTHENTICATION_SEND, (authentication: Authentication) => (this.authentication = authentication))
     emit(AUTHENTICATION_GET)
   },

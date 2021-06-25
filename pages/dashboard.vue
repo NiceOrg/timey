@@ -1,9 +1,9 @@
 <template>
   <div class="page-dashboard">
-    <filters v-if="filterTask.length > 0 || filtersPlugin.isFilter()" />
-    <div v-if="filterTask.length === 0 && !filtersPlugin.isFilter()" class="empty-data">Appuyer sur le bouton pour ajouter une nouvelle tâche.</div>
-    <div v-if="filterTask.length === 0 && filtersPlugin.isFilter()" class="empty-data">Aucune tâche n'a été trouvée.</div>
-    <tasks-list v-if="filterTask.length > 0" :tasks="filterTask" />
+    <filters v-if="filteredTask.length > 0 || filtersPlugin.isFilter()" />
+    <div v-if="filteredTask.length === 0 && !filtersPlugin.isFilter()" class="empty-data">Appuyer sur le bouton pour ajouter une nouvelle tâche.</div>
+    <div v-if="filteredTask.length === 0 && filtersPlugin.isFilter()" class="empty-data">Aucune tâche n'a été trouvée.</div>
+    <tasks-list v-if="filteredTask.length > 0" :tasks="filteredTask" />
     <div class="footer">
       <div class="comp-task-add">
         <a-button class="button-add" shape="circle" icon="plus" @click="showEdit = true" />
@@ -19,47 +19,22 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
-import { Filters, Navbar, Tag, Task } from '~/models'
-import {
-  NAVBAR_SETTINGS,
-  CLOSE_CONTENT,
-  NAVBAR_SEARCH,
-  TASK_SEND,
-  TASK_GET,
-  FILTERS_SEND,
-  FILTERS_GET,
-  FILTERS_SET_TITLE,
-  filtersPlugin,
-} from '~/plugins'
+import { Filters, Navbar, Task } from '~/models'
+import { NAVBAR_SETTINGS, CLOSE_CONTENT, NAVBAR_SEARCH, FILTERS_SET_TITLE, filtersPlugin, FILTERS_GET, FILTERS_SEND } from '~/plugins'
 export default Vue.extend({
   data() {
     return {
       showEdit: false,
       filters: {} as Filters,
-      tasks: [] as Task[],
       filtersPlugin,
+      filteredTask: [] as Task[],
     }
   },
-  computed: {
-    filterTask(): Task[] {
-      let taskFiltered = this.tasks
-      if (this.filters.tags.length > 0) {
-        taskFiltered = taskFiltered.filter((task: Task) => task.tags.some((tag: Tag) => this.filters.tags.find((t: Tag) => t.id === tag.id)))
-      }
-      if (this.filters.title !== '') {
-        taskFiltered = taskFiltered.filter((task: Task) => task.name.toLowerCase().includes(this.filters.title.toLowerCase()))
-      }
-      return taskFiltered
-    },
-  },
-
   beforeMount() {
-    on(TASK_SEND, (tasks: Task[]) => (this.tasks = [...tasks]))
-    on(FILTERS_SEND, (filters: Filters) => (this.filters = filters))
     on(CLOSE_CONTENT, () => (this.showEdit = false))
     on(NAVBAR_SEARCH, (search: string) => emit(FILTERS_SET_TITLE, search))
+    on(FILTERS_SEND, () => (this.filteredTask = filtersPlugin.getTasksFiltered()))
 
-    emit(TASK_GET)
     emit(FILTERS_GET)
     emit(NAVBAR_SETTINGS, new Navbar({ title: 'Dashboard', isSearch: true }))
   },
