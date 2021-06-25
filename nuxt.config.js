@@ -30,7 +30,30 @@ export default {
   plugins: ['@/plugins/antd-ui', '@/plugins/tasks.client', '@/plugins/timer.client', '@/plugins/tags.client'],
   components: true,
   buildModules: ['@nuxt/typescript-build'],
-  modules: ['@nuxtjs/pwa'],
+  modules: [
+    '@nuxtjs/pwa',
+    [
+      'nuxt-i18n',
+      {
+        locales: [
+          {
+            name: 'Français',
+            code: 'fr',
+            iso: 'fr-FR	',
+            file: 'fr.json',
+          },
+          {
+            name: 'English',
+            code: 'en',
+            iso: 'en-US',
+            file: 'en.json',
+          },
+        ],
+        langDir: 'lang/',
+        defaultLocale: 'fr',
+      },
+    ],
+  ],
   pwa: {
     manifest: {
       lang: 'en',

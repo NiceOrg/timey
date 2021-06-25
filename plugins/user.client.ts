@@ -1,11 +1,11 @@
 import { emit, on, storage } from 'shuutils'
 import { timeyService } from '../services'
-import { Tag, Task, TimeSlots, UserMini } from '../models'
+import { Parameters, Tag, Task, UserMini } from '../models'
 import { USER_GET, USER_SEND } from './events.client'
 import { authenticationPlugin } from './authentication.client'
 import { tasksPlugin } from './tasks.client'
 import { tagsPlugin } from './tags.client'
-import { timeSlotsPlugin } from './parameters/time-slots.client'
+import { parametersPlugin } from './parameters/parameters.client'
 
 class UserPlugin {
   private user = new UserMini({})
@@ -31,7 +31,7 @@ class UserPlugin {
     this.user = new UserMini({ tasks: userRaw.tasks, tags: userRaw.tags, parameters: userRaw.parameters })
     await tasksPlugin.load()
     await tagsPlugin.load()
-    await timeSlotsPlugin.load()
+    await parametersPlugin.load()
   }
 
   public update(user: UserMini) {
@@ -49,8 +49,8 @@ class UserPlugin {
     this.save()
   }
 
-  public saveTimeSlots(timeSlots: TimeSlots) {
-    this.user.parameters.timeSlot = timeSlots
+  public saveParameters(parameters: Parameters) {
+    this.user.parameters = parameters
     this.save()
   }
 

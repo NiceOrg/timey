@@ -4,7 +4,7 @@ import { TaskStatus, TimeSlots, User } from '../../models'
 import { hours, minutes } from '../../utils'
 import { authenticationPlugin } from '../authentication.client'
 import { TICK_TIME_SLOT, TIME_SLOT_GET, TIME_SLOT_SEND } from '../events.client'
-import { userPlugin } from '../user.client'
+import { parametersPlugin } from './parameters.client'
 
 class TimeSlotsPlugin {
   private timeSlots = {} as TimeSlots
@@ -60,7 +60,7 @@ class TimeSlotsPlugin {
   }
 
   private save() {
-    userPlugin.saveTimeSlots(this.timeSlots)
+    parametersPlugin.saveTimeSlots(this.timeSlots)
     this.send()
   }
 

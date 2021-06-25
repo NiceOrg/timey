@@ -50,7 +50,6 @@ describe('filters', () => {
     })
     it('is filter', () => {
       const tag1 = new Tag(1, 'sport')
-      console.log(filtersPlugin.getFilters())
       equal(filtersPlugin.isFilter(), false)
       filtersPlugin.addTag(tag1)
       equal(filtersPlugin.isFilter(), true)
