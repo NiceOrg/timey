@@ -1,18 +1,18 @@
 <template>
   <div class="page-time-slots">
-    <p>Définir une plage horaire de pause fixe</p>
+    <p>{{ $t('settings.time slots submessage') }}</p>
     <div class="grid-container">
       <div class="pause">
-        Pause
-        <a-button type="primary" size="small" @click="pauseTimeStamp.push('00h00')">add</a-button>
+        {{ $t('global.break') }}
+        <a-button type="primary" size="small" @click="pauseTimeStamp.push('00h00')">{{ $t('global.add') }}</a-button>
         <div v-for="(pause, index) in pauseTimeStamp" :key="'pause' + index">
           <a-input v-model="pauseTimeStamp[index]" class="input" />
           <a-icon type="close" @click="pauseTimeStamp.splice(index, 1)" />
         </div>
       </div>
       <div class="resume">
-        Reprise
-        <a-button type="primary" size="small" @click="resumeTimeStamp.push('00h00')">add</a-button>
+        {{ $t('global.resume') }}
+        <a-button type="primary" size="small" @click="resumeTimeStamp.push('00h00')">{{ $t('global.add') }}</a-button>
         <div v-for="(resume, index) in resumeTimeStamp" :key="'resume' + index">
           <a-input v-model="resumeTimeStamp[index]" class="input" />
           <a-icon type="close" @click="resumeTimeStamp.splice(index, 1)" />
@@ -20,7 +20,7 @@
       </div>
     </div>
     <br />
-    <a-button type="primary" size="small" @click="save">Save</a-button>
+    <a-button type="primary" size="small" @click="save">{{ $t('global.save') }}</a-button>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
-import { Filters, Tag } from '../models'
-import { filtersPlugin } from '../plugins'
+import { Filters, Tag, Task } from '../models'
+import { filtersPlugin, tasksPlugin } from '../plugins'
 
 describe('filters', () => {
   describe('filters model', () => {
@@ -15,6 +15,9 @@ describe('filters', () => {
   describe('filters service', () => {
     it('get empty filter', () => {
       deepEqual(filtersPlugin.getFilters(), {})
+    })
+    it('get empty tasks filtered', () => {
+      deepEqual(filtersPlugin.getTasksFiltered(), [])
     })
     it('set filter', () => {
       const filter = new Filters({ title: '', tags: [] })
@@ -59,6 +62,17 @@ describe('filters', () => {
       equal(filtersPlugin.isFilter(), true)
       filtersPlugin.setTitle('')
       equal(filtersPlugin.isFilter(), false)
+    })
+    it('get hidden tasks count', () => {
+      const task = new Task(1, 'sport')
+      const task2 = new Task(2, 'work')
+      tasksPlugin.addAll([task, task2])
+      filtersPlugin.setTitle('sport')
+      equal(filtersPlugin.getHiddenTasksCount(), 5)
+      filtersPlugin.setTitle('design')
+      equal(filtersPlugin.getHiddenTasksCount(), 7)
+      filtersPlugin.setTitle('')
+      tasksPlugin.deleteAll([task, task2])
     })
   })
 })

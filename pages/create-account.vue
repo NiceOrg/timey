@@ -1,20 +1,20 @@
 <template>
   <div class="page-create-account authentication">
-    <div class="title create-account-header">Inscription</div>
+    <div class="title create-account-header">{{ $t('global.registration') }}</div>
     <div class="form">
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
-          <a-input v-model="form.email" size="small" placeholder="email">
+          <a-input v-model="form.email" size="small" :placeholder="$t('global.eMail')">
             <a-icon slot="prefix" class="secondary-color" type="mail" />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>
-          <a-input v-model="form.password" type="password" size="small" placeholder="mot de passe">
+          <a-input v-model="form.password" type="password" size="small" :placeholder="$t('global.password')">
             <a-icon slot="prefix" class="secondary-color" type="lock"
           /></a-input>
         </a-form-model-item>
         <a-form-model-item>
-          <a-input v-model="form.repPassword" type="password" size="small" placeholder="répéter le mot de passe">
+          <a-input v-model="form.repPassword" type="password" size="small" :placeholder="$t('login.repeat password')">
             <a-icon slot="prefix" class="secondary-color" type="lock" />
           </a-input>
         </a-form-model-item>
@@ -22,17 +22,17 @@
     </div>
     <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
-      <a-button class="submit-button block" type="primary" @click="createAccount">S'inscrire</a-button>
+      <a-button class="submit-button block" type="primary" @click="createAccount">{{ $t('global.sign up') }}</a-button>
       <h4>
-        <NuxtLink to="/"
-          >Déjà un compte ?
-          <div class="secondary-color inline">Se connecter</div></NuxtLink
+        <NuxtLink :to="localePath('/')"
+          >{{ $t('login.already have account') }}
+          <div class="secondary-color inline">{{ $t('global.sign in') }}</div></NuxtLink
         >
       </h4>
       <h4>
-        <NuxtLink to="/dashboard"
-          >Continuez sans vous connecter
-          <div class="secondary-color inline">ici</div></NuxtLink
+        <NuxtLink :to="localePath('/dashboard')"
+          >{{ $t('login.continue without logging in') }}
+          <div class="secondary-color inline">{{ $t('global.here') }}</div></NuxtLink
         >
       </h4>
     </div>
@@ -73,7 +73,7 @@ export default {
       }
       const user = new User({ password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
       await timeyService.add(user)
-      this.$router.push('/dashboard')
+      this.$router.push(this.localePath('/dashboard'))
     },
   },
 }

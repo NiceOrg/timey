@@ -3,22 +3,26 @@
     <a-form :form="form" layout="inline" @submit="updateTask">
       <a-form-item>
         <div class="name">
-          Nom
-          <a-input v-decorator="['name', { rules: [{ required: true, message: 'Veuillez insérer un nom de tâche!' }] }]" class="name-input" />
+          {{ $t('global.name') }}
+          <a-input v-decorator="['name', { rules: [{ required: true, message: $t('dashboard.no task entered') }] }]" class="name-input" />
         </div>
       </a-form-item>
-      <a-checkbox v-model="activateEstimation"> Estimation</a-checkbox>
+      <a-checkbox v-model="activateEstimation">{{ $t('global.estimation') }}</a-checkbox>
       <div v-show="activateEstimation">
-        <a-form-item> <a-input-number v-decorator="['days']" :min="0" size="small" class="input" /> jours </a-form-item>
+        <a-form-item> <a-input-number v-decorator="['days']" :min="0" size="small" class="input" /> {{ $tc('global.day', 2) }} </a-form-item>
         <br />
-        <a-form-item> <a-input-number v-decorator="['hours']" :min="0" :max="23" size="small" class="input" /> heures </a-form-item>
+        <a-form-item>
+          <a-input-number v-decorator="['hours']" :min="0" :max="23" size="small" class="input" /> {{ $tc('global.hour', 2) }}
+        </a-form-item>
         <br />
-        <a-form-item> <a-input-number v-decorator="['minutes']" :min="0" :max="59" size="small" class="input" /> minutes </a-form-item>
+        <a-form-item>
+          <a-input-number v-decorator="['minutes']" :min="0" :max="59" size="small" class="input" /> {{ $tc('global.minute', 2) }}
+        </a-form-item>
       </div>
       <div>
         <div class="task-edit-submit">
-          <a-button @click="close()">Cancel</a-button>
-          <a-button type="primary" html-type="submit">Save</a-button>
+          <a-button @click="close()">{{ $t('global.cancel') }}</a-button>
+          <a-button type="primary" html-type="submit">{{ $t('global.save') }}</a-button>
         </div>
       </div>
     </a-form>

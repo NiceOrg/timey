@@ -1,13 +1,13 @@
 <template>
   <div class="page-dashboard">
     <filters v-if="filteredTask.length > 0 || filtersPlugin.isFilter()" />
-    <div v-if="filteredTask.length === 0 && !filtersPlugin.isFilter()" class="empty-data">Appuyer sur le bouton pour ajouter une nouvelle tâche.</div>
-    <div v-if="filteredTask.length === 0 && filtersPlugin.isFilter()" class="empty-data">Aucune tâche n'a été trouvée.</div>
+    <div v-if="filteredTask.length === 0 && !filtersPlugin.isFilter()" class="empty-data">{{ $t('dashboard.no task message') }}</div>
+    <div v-if="filteredTask.length === 0 && filtersPlugin.isFilter()" class="empty-data">{{ $t('dashboard.no task found') }}</div>
     <tasks-list v-if="filteredTask.length > 0" :tasks="filteredTask" />
     <div class="footer">
       <div class="comp-task-add">
         <a-button class="button-add" shape="circle" icon="plus" @click="showEdit = true" />
-        <a-modal v-model="showEdit" title="Ajouter une tâche" :footer="null">
+        <a-modal v-model="showEdit" :title="$t('dashboard.add task')" :footer="null">
           <tasks-edit v-if="showEdit" />
         </a-modal>
       </div>
@@ -20,7 +20,16 @@
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
 import { Filters, Navbar, Task } from '~/models'
-import { NAVBAR_SETTINGS, CLOSE_CONTENT, NAVBAR_SEARCH, FILTERS_SET_TITLE, filtersPlugin, FILTERS_GET, FILTERS_SEND } from '~/plugins'
+import {
+  NAVBAR_SETTINGS,
+  CLOSE_CONTENT,
+  NAVBAR_SEARCH,
+  FILTERS_SET_TITLE,
+  filtersPlugin,
+  FILTERS_GET,
+  FILTERS_SEND,
+  parametersPlugin,
+} from '~/plugins'
 export default Vue.extend({
   data() {
     return {
@@ -31,12 +40,22 @@ export default Vue.extend({
     }
   },
   beforeMount() {
+    this.redirectIfLanguageSelected()
     on(CLOSE_CONTENT, () => (this.showEdit = false))
     on(NAVBAR_SEARCH, (search: string) => emit(FILTERS_SET_TITLE, search))
     on(FILTERS_SEND, () => (this.filteredTask = filtersPlugin.getTasksFiltered()))
 
     emit(FILTERS_GET)
-    emit(NAVBAR_SETTINGS, new Navbar({ title: 'Dashboard', isSearch: true }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('global.dashboard').toString(), isSearch: true }))
+  },
+  methods: {
+    redirectIfLanguageSelected() {
+      const language = parametersPlugin.getParameters().language
+      if (language) {
+        parametersPlugin.updateLanguage(language)
+        this.$router.push(this.switchLocalePath(language))
+      }
+    },
   },
 })
 </script>
