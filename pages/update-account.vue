@@ -1,37 +1,61 @@
 <template>
   <div class="page-update-account">
     <div class="wrapper">
-      <div class="accent space-left center">E-mail</div>
+      <div class="accent space-left center">{{ $t('global.eMail') }}</div>
       <div class="ellipsis center">{{ authentication.email }}</div>
       <div>
-        <a-button class="accent center" @click="emailVisible = true">Modifier</a-button>
-        <a-modal v-model="emailVisible" title="Modification email" class="update-account-data" @ok="updateEmail()" @cancel="emailVisible = false">
+        <a-button class="accent center" @click="emailVisible = true">{{ $t('global.update') }}</a-button>
+        <a-modal
+          v-model="emailVisible"
+          :title="$t('user-account.email update')"
+          class="update-account-data"
+          @ok="updateEmail()"
+          @cancel="emailVisible = false"
+        >
           <a-form-model :form="form" layout="inline">
             <a-form-model-item>
-              <a-input v-model="form.email" size="small" placeholder="email" class="field-to-update" />
+              <a-input v-model="form.email" size="small" :placeholder="$t('global.eMail')" class="field-to-update" />
             </a-form-model-item>
             <a-form-model-item>
-              <a-input v-model="form.actualPassword" size="small" placeholder="Actual password" type="password" class="field-to-update" />
+              <a-input v-model="form.actualPassword" size="small" :placeholder="$t('global.password')" type="password" class="field-to-update" />
             </a-form-model-item>
             <div class="error-message">{{ errorMessage }}</div>
           </a-form-model>
         </a-modal>
       </div>
       <div class="line"></div>
-      <div class="accent space-left center">Mot de passe</div>
+      <div class="accent space-left center">{{ $t('global.password') }}</div>
       <div class="center">************</div>
       <div>
-        <a-button class="accent center" @click="passwordVisible = true">Modifier</a-button>
-        <a-modal v-model="passwordVisible" title="Modification du mot de passe" class="update-account-data" @ok="updatePassword()">
+        <a-button class="accent center" @click="passwordVisible = true">{{ $t('global.update') }}</a-button>
+        <a-modal v-model="passwordVisible" :title="$t('user-account.password update')" class="update-account-data" @ok="updatePassword()">
           <a-form-model :form="form" layout="inline">
             <a-form-model-item>
-              <a-input v-model="form.actualPassword" size="small" placeholder="Actual password" type="password" class="field-to-update" />
+              <a-input
+                v-model="form.actualPassword"
+                size="small"
+                :placeholder="$t('user-account.actual password')"
+                type="password"
+                class="field-to-update"
+              />
             </a-form-model-item>
             <a-form-model-item>
-              <a-input v-model="form.newPassword" size="small" placeholder="New password" type="password" class="field-to-update" />
+              <a-input
+                v-model="form.newPassword"
+                size="small"
+                :placeholder="$t('user-account.new password')"
+                type="password"
+                class="field-to-update"
+              />
             </a-form-model-item>
             <a-form-model-item>
-              <a-input v-model="form.repeatPassword" size="small" placeholder="Validate new password" type="password" class="field-to-update" />
+              <a-input
+                v-model="form.repeatPassword"
+                size="small"
+                :placeholder="$t('user-account.repeat password')"
+                type="password"
+                class="field-to-update"
+              />
             </a-form-model-item>
             <div class="error-message">{{ errorMessage }}</div>
           </a-form-model>
@@ -39,18 +63,18 @@
       </div>
     </div>
     <div class="suppr-button center">
-      <a-button class="suppr-account" @click="deleteAccountVisible = true">Supprimer compte</a-button>
-      <a-modal v-model="deleteAccountVisible" title="Suppression de votre compte" :footer="null" :destroy-on-close="true">
-        <p>Cette action <b>ne peut pas</b> être annulée. Cela supprimera de façon permanente votre compte.</p>
-        <p></p>
-        <p>Entrez <b>je comprends</b> pour confirmer</p>
+      <a-button class="suppr-account" @click="deleteAccountVisible = true">{{ $t('user-account.delete account') }}</a-button>
+      <a-modal v-model="deleteAccountVisible" :title="$t('user-account.delete account title')" :footer="null" :destroy-on-close="true">
+        <i18n tag="p" path="user-account.confirm account deletion">
+          <b>{{ $t('global.cannot') }} </b> <b>{{ $t('user-account.confirmation phrase') }} </b>
+        </i18n>
         <a-input v-model="deleteAccountText" />
-        <p>Entrez votre mot de passe</p>
+        <p>{{ $t('user-account.enter password') }}</p>
         <a-input v-model="form.actualPassword" type="password" />
         <div class="error-message">{{ errorMessage }}</div>
-        <a-button class="button-suppress-account suppr-account" :disabled="suppressAccountButtonDisabled" @click="deleteAccount"
-          >Supprimer ce compte</a-button
-        >
+        <a-button class="button-suppress-account suppr-account" :disabled="suppressAccountButtonDisabled" @click="deleteAccount">{{
+          $t('user-account.delete account')
+        }}</a-button>
       </a-modal>
     </div>
   </div>
@@ -81,7 +105,7 @@ export default Vue.extend({
   },
   computed: {
     suppressAccountButtonDisabled(): boolean {
-      return this.deleteAccountText !== 'je comprends'
+      return this.deleteAccountText !== this.$t('user-account.confirmation phrase').toString()
     },
   },
   beforeMount() {
@@ -90,7 +114,7 @@ export default Vue.extend({
       this.form.email = authentication.email
     })
     emit(AUTHENTICATION_GET)
-    emit(NAVBAR_SETTINGS, new Navbar({ title: 'Gérer compte', backButton: true }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('user-account.manage account').toString(), backButton: true }))
   },
   methods: {
     async updateEmail() {
@@ -125,7 +149,7 @@ export default Vue.extend({
       const user = new UserUpdate({ actualPassword: this.form.actualPassword })
       await timeyService
         .deleteAccount(user)
-        .then(() => this.$router.push('/'))
+        .then(() => this.$router.push(this.localePath('/')))
         .catch((error) => (this.errorMessage = error.message))
     },
   },

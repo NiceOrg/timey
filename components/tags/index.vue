@@ -5,8 +5,8 @@
         <span :style="{ background: tag.color, color: tag.isColorBright() ? 'black' : 'white' }">{{ tag.name }}</span>
       </div>
       <div class="tag-infos-menu">
-        <div v-if="showEdit" class="tag-edit" @click="showEdit = !showEdit">Edit</div>
-        <div class="tag-delete" @click="deleteTag(tag)">Delete</div>
+        <div v-if="showEdit" class="tag-edit" @click="showEdit = !showEdit">{{ $t('global.edit') }}</div>
+        <div class="tag-delete" @click="deleteTag(tag)">{{ $t('global.delete') }}</div>
       </div>
     </div>
     <tags-edit v-if="!showEdit" class="tag-edit" :tag="tag" />

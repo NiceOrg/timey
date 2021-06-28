@@ -1,7 +1,7 @@
 <template>
   <div class="page-report-tag">
-    <div v-if="reportData.size === 0" class="empty-data">Aucune tâche ne possède un tag.</div>
-    <client-only>
+    <div v-if="reportData.size === 0" class="empty-data">{{ $t('reports.tag.no tags message') }}</div>
+    <client-only v-else>
       <pie-chart v-if="dataLoaded" class="chart" :data="chartData" :options="chartOptions" />
     </client-only>
   </div>
@@ -26,7 +26,7 @@ export default Vue.extend({
   beforeMount() {
     on(TASK_SEND, (tasks: Task[]) => (this.tasks = tasks))
     emit(TASK_GET)
-    emit(NAVBAR_SETTINGS, new Navbar({ title: 'Rapport des tags' }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('reports.tag.tags report').toString() }))
     this.generateChart()
   },
   methods: {
@@ -79,6 +79,7 @@ export default Vue.extend({
 <style scoped>
 .page-report-tag {
   overflow-y: auto;
+  height: 100%;
 }
 
 .chart {

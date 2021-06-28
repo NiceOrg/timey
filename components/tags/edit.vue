@@ -1,16 +1,20 @@
 <template>
   <div class="comp-tag-edit">
     <a-form :form="form" layout="inline" @submit="updateTag">
-      <a-form-item label="Name">
-        <a-input v-decorator="['name', { rules: [{ required: true, message: 'Please input a tag name!' }] }]" size="small" placeholder="tag name" />
+      <a-form-item :label="$t('global.name')">
+        <a-input
+          v-decorator="['name', { rules: [{ required: true, message: $t('settings.tags-edition.input tag name') }] }]"
+          size="small"
+          :placeholder="$t('settings.tags-edition.tag name')"
+        />
       </a-form-item>
-      <a-form-item label="Color">
+      <a-form-item :label="$t('global.color')">
         <a-button icon="redo" size="small" :style="tagStyling" @click="changeColor(newTag)" />
-        <a-input v-decorator="['color']" class="tag-edit-color" size="small" placeholder="color" />
+        <a-input v-decorator="['color']" class="tag-edit-color" size="small" :placeholder="$t('global.color')" />
       </a-form-item>
       <div class="tag-edit-submit">
-        <a-button type="primary" html-type="submit">Save</a-button>
-        <a-button @click="close()">Cancel</a-button>
+        <a-button type="primary" html-type="submit"> {{ $t('global.save') }}</a-button>
+        <a-button @click="close()">{{ $t('global.cancel') }}</a-button>
       </div>
     </a-form>
   </div>

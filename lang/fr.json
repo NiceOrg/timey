@@ -1,0 +1,100 @@
+{
+	"dashboard": {
+		"add task": "Ajouter une tâche",
+		"create new tag": "Créer nouvelle tag",
+		"edit tags": "Éditer vos tags",
+		"edit task": "Éditer une tâche",
+		"no task entered": "Veuillez insérer un nom de tâche !",
+		"no task found": "Aucune tâche n'a été trouvée.",
+		"no task message": "Appuyer sur le bouton pour ajouter une nouvelle tâche.",
+		"search task": "Rechercher une tâche"
+	},
+	"filters": {
+		"search tag": "Rechercher un tag",
+		"tasks hidden by filters": "tâche à été masquée par la recherche. | tâches ont été masquées par la recherche."
+	},
+	"global": {
+		"about": "A propos",
+		"add": "Ajouter",
+		"break": "Pause",
+		"cancel": "Annuler",
+		"cannot": "ne peut pas",
+		"color": "Couleur",
+		"connection": "Connexion",
+		"dashboard": "Tableau de bord",
+		"day": "jour | jours",
+		"delete": "Supprimer",
+		"disconnect": "Déconnexion",
+		"eMail": "E-mail",
+		"edit": "Éditer",
+		"estimation": "Estimation",
+		"filter": "Filtre | Filtres",
+		"filter tags": "Filtrer les tags",
+		"here": "ici",
+		"hour": "heure | heures",
+		"language": "Langue",
+		"log out": "Se déconnecter",
+		"minute": "minute | minutes",
+		"name": "Nom",
+		"password": "Mot de passe",
+		"registration": "Inscription",
+		"report": "Rapport",
+		"resume": "Reprise",
+		"save": "Sauvegarder",
+		"settings": "Options",
+		"sign in": "Se connecter",
+		"sign up": "S'inscrire",
+		"tag": "tag | tags",
+		"task": "tâche | tâches",
+		"time slots": "Plage horaire",
+		"update": "Modifier"
+	},
+	"login": {
+		"already have account": "Déjà un compte ?",
+		"continue without logging in": "Continuez sans vous connecter",
+		"no account": "Pas encore de compte ?",
+		"repeat password": "Répéter le mot de passe"
+	},
+	"reports": {
+		"tag": {
+			"by tag": "Par tag",
+			"no tags message": "Aucune tâche ne possède de tags.",
+			"tags report": "Rapport des tags"
+		},
+		"task": {
+			"by task": "Par tâche",
+			"no task message": "Aucune tâche n'a été créée ou lancée.",
+			"tasks report": "Rapport des tâches"
+		}
+	},
+	"settings": {
+		"change application language": "Changer la langue de l'application",
+		"data export": "Exporter données",
+		"data export confirmation message": "Le document va être téléchargé, continuer ? ",
+		"export data submessage": "Exporter les données au format Excel",
+		"manage account": "Gestion du compte",
+		"manage account submessage": "Modifiez votre compte",
+		"select language": "Sélectionner langue",
+		"tag edition submessage": "Éditer ou créer vos tags",
+		"tags edition": "Édition des tags",
+		"tags-edition": {
+			"add new tag": "Ajouter tag",
+			"input tag name": "Insérer un nom de tag !",
+			"tag name": "Nom de la tag"
+		},
+		"time slots submessage": "Définir une plage horaire de pause fixe"
+	},
+	"user-account": {
+		"actual password": "Mot de passe actuel",
+		"confirm account deletion": "Cette action {0} être annulée. Cela supprimera de façon permanente votre compte.\nEntrez {1} pour confirmer.",
+		"confirmation phrase": "je comprends",
+		"delete account": "Supprimer compte",
+		"delete account title": "Suppression de votre compte",
+		"email update": "Modification de votre adresse mail",
+		"enter password": "Entrez votre mot de passe",
+		"manage account": "Gestion du compte",
+		"new password": "Nouveau mot de passe",
+		"password update": "Modification du mot de passe",
+		"repeat password": "Validez le mot de passe"
+	}
+}

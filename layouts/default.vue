@@ -20,19 +20,19 @@
       >
         <a-menu v-model="current" class="menu" mode="inline">
           <a-menu-item key="dashboard" @click="closeNavbar">
-            <NuxtLink to="/dashboard"><a-icon type="home" />Dashboard</NuxtLink>
+            <NuxtLink :to="localePath('/dashboard')"><a-icon type="home" />{{ $t('global.dashboard') }}</NuxtLink>
           </a-menu-item>
           <a-sub-menu>
-            <span slot="title" class="submenu-title-wrapper"><a-icon type="message" />Rapports</span>
+            <span slot="title" class="submenu-title-wrapper"><a-icon type="message" />{{ $t('global.report') }}</span>
             <a-menu-item key="report-task" @click="closeNavbar">
-              <NuxtLink to="/report-task"><a-icon type="message" />Par tâche</NuxtLink>
+              <NuxtLink :to="localePath('/report-task')"><a-icon type="message" />{{ $t('reports.task.by task') }}</NuxtLink>
             </a-menu-item>
             <a-menu-item key="report-tag" @click="closeNavbar">
-              <NuxtLink to="/report-tag"><a-icon type="message" />Par tag</NuxtLink>
+              <NuxtLink :to="localePath('/report-tag')"><a-icon type="message" />{{ $t('reports.tag.by tag') }}</NuxtLink>
             </a-menu-item>
           </a-sub-menu>
           <a-menu-item key="settings" @click="closeNavbar">
-            <NuxtLink to="/settings"><a-icon type="setting" />Options</NuxtLink>
+            <NuxtLink :to="localePath('/settings')"><a-icon type="setting" />{{ $t('global.settings') }}</NuxtLink>
           </a-menu-item>
         </a-menu>
       </a-drawer>

@@ -4,12 +4,12 @@
     <div class="form">
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
-          <a-input ref="user" v-model="form.email" size="small" placeholder="email">
+          <a-input ref="user" v-model="form.email" size="small" :placeholder="$t('global.eMail')">
             <a-icon slot="prefix" class="secondary-color" type="user" />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>
-          <a-input ref="pswd" v-model="form.password" size="small" type="password" placeholder="mot de passe">
+          <a-input ref="pswd" v-model="form.password" size="small" type="password" :placeholder="$t('global.password')">
             <a-icon slot="prefix" class="secondary-color" type="lock" />
           </a-input>
         </a-form-model-item>
@@ -17,17 +17,17 @@
     </div>
     <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
-      <a-button class="submit-button block" type="primary" @click="authenticate">Connexion</a-button>
+      <a-button class="submit-button block" type="primary" @click="authenticate">{{ $t('global.sign in') }}</a-button>
       <h4>
-        <NuxtLink to="/create-account"
-          >Pas encore de compte ?
-          <div class="secondary-color inline">S'inscrire</div></NuxtLink
+        <NuxtLink :to="localePath('/create-account')"
+          >{{ $t('login.no account') }}
+          <div class="secondary-color inline">{{ $t('global.sign up') }}</div></NuxtLink
         >
       </h4>
       <h4>
-        <NuxtLink to="/dashboard"
-          >Continuez sans vous connecter
-          <div class="secondary-color inline">ici</div></NuxtLink
+        <NuxtLink :to="localePath('/dashboard')">
+          {{ $t('login.continue without logging in') }}
+          <div class="secondary-color inline">{{ $t('global.here') }}</div></NuxtLink
         >
       </h4>
     </div>
@@ -65,11 +65,11 @@ export default {
       }
       const user = new User({ email: this.form.email, password: this.form.password })
       await timeyService.authenticate(user)
-      this.$router.push('/dashboard')
+      this.$router.push(this.localePath('/dashboard'))
     },
     redirectIfConnected() {
       if (authenticationPlugin.get().authenticated) {
-        this.$router.push('/dashboard')
+        this.$router.push(this.localePath('/dashboard'))
       }
     },
   },

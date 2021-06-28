@@ -1,6 +1,7 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
-import { strictEqual as equal } from 'assert'
-import { Navbar } from '../models'
+import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
+import { Languages, Navbar, Parameters } from '../models'
+import { parametersPlugin } from '../plugins'
 
 describe('navbar', () => {
   describe('model', () => {
@@ -8,6 +9,17 @@ describe('navbar', () => {
       const navbar = new Navbar({})
       equal(navbar.title, 'Default')
       equal(navbar.backButton, false)
+    })
+  })
+  describe('service', () => {
+    it('get parameters', () => {
+      deepEqual(parametersPlugin.getParameters(), new Parameters({}))
+    })
+    it('update language', () => {
+      parametersPlugin.updateLanguage(Languages.en)
+      deepEqual(parametersPlugin.getParameters().language, Languages.en)
+      parametersPlugin.updateLanguage(Languages.fr)
+      deepEqual(parametersPlugin.getParameters().language, Languages.fr)
     })
   })
 })
