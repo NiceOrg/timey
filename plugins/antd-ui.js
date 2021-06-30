@@ -18,6 +18,7 @@ import {
   Radio,
   Drawer,
   Popconfirm,
+  Collapse,
 } from 'ant-design-vue'
 
 import Vue from 'vue'
@@ -41,3 +42,4 @@ Vue.use(InputNumber)
 Vue.use(Radio)
 Vue.use(Drawer)
 Vue.use(Popconfirm)
+Vue.use(Collapse)
