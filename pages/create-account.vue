@@ -14,7 +14,7 @@
           /></a-input>
         </a-form-model-item>
         <a-form-model-item>
-          <a-input v-model="form.repPassword" type="password" size="small" :placeholder="$t('login.repeat password')">
+          <a-input v-model="form.repPassword" type="password" size="small" :placeholder="$t('login.repeat-password')">
             <a-icon slot="prefix" class="secondary-color" type="lock" />
           </a-input>
         </a-form-model-item>
@@ -22,16 +22,16 @@
     </div>
     <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
-      <a-button class="submit-button block" type="primary" @click="createAccount">{{ $t('global.sign up') }}</a-button>
+      <a-button class="submit-button block" type="primary" @click="createAccount">{{ $t('global.sign-up') }}</a-button>
       <h4>
         <NuxtLink :to="localePath('/')"
-          >{{ $t('login.already have account') }}
-          <div class="secondary-color inline">{{ $t('global.sign in') }}</div></NuxtLink
+          >{{ $t('login.already-have-account') }}
+          <div class="secondary-color inline">{{ $t('global.sign-in') }}</div></NuxtLink
         >
       </h4>
       <h4>
         <NuxtLink :to="localePath('/dashboard')"
-          >{{ $t('login.continue without logging in') }}
+          >{{ $t('login.continue-without-logging-in') }}
           <div class="secondary-color inline">{{ $t('global.here') }}</div></NuxtLink
         >
       </h4>

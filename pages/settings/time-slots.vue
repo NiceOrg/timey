@@ -1,6 +1,6 @@
 <template>
   <div class="page-time-slots">
-    <p>{{ $t('settings.time slots submessage') }}</p>
+    <p>{{ $t('settings.time-slots-submessage') }}</p>
     <div class="grid-container">
       <div class="pause">
         {{ $t('global.break') }}

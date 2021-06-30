@@ -25,10 +25,10 @@
           <a-sub-menu>
             <span slot="title" class="submenu-title-wrapper"><a-icon type="message" />{{ $t('global.report') }}</span>
             <a-menu-item key="report-task" @click="closeNavbar">
-              <NuxtLink :to="localePath('/report-task')"><a-icon type="message" />{{ $t('reports.task.by task') }}</NuxtLink>
+              <NuxtLink :to="localePath('/report-task')"><a-icon type="message" />{{ $t('reports.task.by-task') }}</NuxtLink>
             </a-menu-item>
             <a-menu-item key="report-tag" @click="closeNavbar">
-              <NuxtLink :to="localePath('/report-tag')"><a-icon type="message" />{{ $t('reports.tag.by tag') }}</NuxtLink>
+              <NuxtLink :to="localePath('/report-tag')"><a-icon type="message" />{{ $t('reports.tag.by-tag') }}</NuxtLink>
             </a-menu-item>
           </a-sub-menu>
           <a-menu-item key="settings" @click="closeNavbar">

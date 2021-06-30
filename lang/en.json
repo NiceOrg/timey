@@ -1,17 +1,17 @@
 {
 	"dashboard": {
-		"add task": "Add a task",
-		"create new tag": "Create new tag",
-		"edit tags": "Edit your tags",
-		"edit task": "Edit a task",
-		"no task entered": "Please insert a task name!",
-		"no task found": "No task was found.",
-		"no task message": "Press the button to add a new task.",
-		"search task": "Search for a task"
+		"add-task": "Add a task",
+		"create-new-tag": "Create new tag",
+		"edit-tags": "Edit your tags",
+		"edit-task": "Edit a task",
+		"no-task-entered": "Please insert a task name!",
+		"no-task-found": "No task was found.",
+		"no-task-message": "Press the button to add a new task.",
+		"search-task": "Search for a task"
 	},
 	"filters": {
-		"search tag": "Search a tag",
-		"tasks hidden by filters": "task was hidden by filters. | tasks were hidden by filters."
+		"search-tag": "Search a tag",
+		"tasks-hidden-by-filters": "task was hidden by filters. | tasks were hidden by filters."
 	},
 	"global": {
 		"about": "About",
@@ -29,11 +29,11 @@
 		"edit": "Edit",
 		"estimation": "Estimation",
 		"filter": "Filter | Filters",
-		"filter tags": "Filter tags",
+		"filter-tags": "Filter tags",
 		"here": "here",
 		"hour": "hour | hours",
 		"language": "Language",
-		"log out": "Log out",
+		"log-out": "Log out",
 		"minute": "minute | minutes",
 		"name": "Name",
 		"password": "Password",
@@ -42,59 +42,59 @@
 		"resume": "Resume",
 		"save": "Save",
 		"settings": "Settings",
-		"sign in": "Sign in",
-		"sign up": "Sign up",
+		"sign-in": "Sign in",
+		"sign-up": "Sign up",
 		"tag": "tag | tags",
 		"task": "task | tasks",
-		"time slots": "Time slots",
+		"time-slots": "Time slots",
 		"update": "Update"
 	},
 	"login": {
-		"already have account": "Already have an account ?",
-		"continue without logging in": "Continue without logging in",
-		"no account": "No account yet ?",
-		"repeat password": "Repeat password"
+		"already-have-account": "Already have an account ?",
+		"continue-without-logging-in": "Continue without logging in",
+		"no-account": "No account yet ?",
+		"repeat-password": "Repeat password"
 	},
 	"reports": {
 		"tag": {
-			"by tag": "By tag",
-			"no tags message": "No task has tags.",
-			"tags report": "Tags report"
+			"by-tag": "By tag",
+			"no-tags-message": "No task has tags.",
+			"tags-report": "Tags report"
 		},
 		"task": {
-			"by task": "By task",
-			"no task message": "No task has been created or started",
-			"tasks report": "Tasks report"
+			"by-task": "By task",
+			"no-task-message": "No task has been created or started",
+			"tasks-report": "Tasks report"
 		}
 	},
 	"settings": {
-		"change application language": "Change language application",
-		"data export": "Data export",
-		"data export confirmation message": "The document will be downloaded, continue?",
-		"export data submessage": "Export data to Excel format",
-		"manage account": "Manage account",
-		"manage account submessage": "Update your account",
-		"select language": "Select language",
-		"tag edition submessage": "Edit or create your tags",
-		"tags edition": "Tags edition",
+		"change-application-language": "Change language application",
+		"data-export": "Data export",
+		"data-export-confirmation-message": "The document will be downloaded, continue?",
+		"export-data-submessage": "Export data to Excel format",
+		"manage-account": "Manage account",
+		"manage-account-submessage": "Update your account",
+		"select-language": "Select language",
+		"tag-edition-submessage": "Edit or create your tags",
 		"tags-edition": {
-			"add new tag": "Add new tag",
-			"input tag name": "Please input a tag name!",
-			"tag name": "Tag name"
+			"add-new-tag": "Add new tag",
+			"input-tag-name": "Please input a tag name!",
+			"tag-name": "Tag name",
+			"tags-edition": "Tags edition"
 		},
-		"time slots submessage": "Define a fixed break time slot"
+		"time-slots-submessage": "Define a fixed break time slot"
 	},
 	"user-account": {
-		"actual password": "Actual password",
-		"confirm account deletion": "This action {0} be undone. This will permanently delete your account.\nEnter {1} to confirm.",
-		"confirmation phrase": "I understand",
-		"delete account": "Delete account",
-		"delete account title": "Deleting your account",
-		"email update": "Updating your email address",
-		"enter password": "Enter your password",
-		"manage account": "Manage account",
-		"new password": "New password",
-		"password update": "Password update",
-		"repeat password": "Confirm password"
+		"actual-password": "Actual password",
+		"confirm-account-deletion": "This action {0} be undone. This will permanently delete your account.\nEnter {1} to confirm.",
+		"confirmation-phrase": "I understand",
+		"delete-account": "Delete account",
+		"delete-account-title": "Deleting your account",
+		"email-update": "Updating your email address",
+		"enter-password": "Enter your password",
+		"manage-account": "Manage account",
+		"new-password": "New password",
+		"password-update": "Password update",
+		"repeat-password": "Confirm password"
 	}
 }

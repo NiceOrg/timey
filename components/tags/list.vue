@@ -2,7 +2,7 @@
   <div class="comp-tag" @click="stopPropagation($event)">
     <a-popover trigger="click" placement="bottomRight" arrow-point-at-center>
       <a slot="content">
-        <a-input v-model="tagSearched" class="tag-input font" type="text" :placeholder="$t('settings.tags-edition.add new tag')" />
+        <a-input v-model="tagSearched" class="tag-input font" type="text" :placeholder="$t('settings.tags-edition.add-new-tag')" />
         <a-list class="tag-list" item-layout="horizontal" :data-source="filteredTagList">
           <a-list-item slot="renderItem" slot-scope="item" @click="updateTaskTags(item)">
             <a-list-item-meta>
@@ -13,9 +13,9 @@
           </a-list-item>
         </a-list>
         <div class="tag-options">
-          <div v-if="showCreateTag" class="font wrap-overflow" @click="addTag()">{{ $t('dashboard.create new tag') }} '{{ tagSearched }}'</div>
+          <div v-if="showCreateTag" class="font wrap-overflow" @click="addTag()">{{ $t('dashboard.create-new-tag') }} '{{ tagSearched }}'</div>
           <NuxtLink :to="localePath('/tags-edition')"
-            ><div class="font">{{ $t('dashboard.edit tags') }}</div></NuxtLink
+            ><div class="font">{{ $t('dashboard.edit-tags') }}</div></NuxtLink
           >
         </div>
       </a>

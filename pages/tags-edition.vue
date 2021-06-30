@@ -1,10 +1,10 @@
 <template>
   <div class="tags">
     <div class="tags-filter">
-      <a-input v-model="filter" type="text" :placeholder="$t('global.filter tags')" />
+      <a-input v-model="filter" type="text" :placeholder="$t('global.filter-tags')" />
     </div>
     <div class="tags-add">
-      <a-button type="primary" @click="showNewTag = !showNewTag"> {{ $t('settings.tags-edition.add new tag') }} </a-button>
+      <a-button type="primary" @click="showNewTag = !showNewTag"> {{ $t('settings.tags-edition.add-new-tag') }} </a-button>
     </div>
     <tags-edit v-if="showNewTag" :tag="newTag" />
     <div class="tags-table">
@@ -45,7 +45,7 @@ export default Vue.extend({
     on(TAG_EDITION_UPDATE, (tag: Tag) => tagsPlugin.update(tag))
     on(CLOSE_CONTENT, () => (this.showNewTag = false))
     emit(TAG_GET)
-    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('settings.tags edition').toString(), backButton: true }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('settings.tags-edition.tags-edition').toString(), backButton: true }))
   },
 })
 </script>

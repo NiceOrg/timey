@@ -3,7 +3,7 @@
     <filters-tags />
     <a-divider />
     <div v-if="hiddenTasks > 0" class="search-message">
-      {{ hiddenTasks }} {{ hiddenTasks === 1 ? $tc('filters.tasks hidden by filters', 1) : $tc('filters.tasks hidden by filters', 2) }}
+      {{ hiddenTasks }} {{ hiddenTasks === 1 ? $tc('filters.tasks-hidden-by-filters', 1) : $tc('filters.tasks-hidden-by-filters', 2) }}
     </div>
   </div>
 </template>

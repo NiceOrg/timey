@@ -12,7 +12,7 @@ import { Navbar } from '~/models'
 import { NAVBAR_SETTINGS } from '~/plugins'
 export default Vue.extend({
   beforeMount() {
-    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('settings.select language').toString(), backButton: true }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('settings.select-language').toString(), backButton: true }))
   },
 })
 </script>

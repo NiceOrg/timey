@@ -14,9 +14,9 @@
           <a-popover v-model="visibleAccountParams" trigger="click" placement="bottomRight" arrow-point-at-center>
             <a slot="content" @click="visibleAccountParams = false">
               <p v-if="authentication.authenticated" class="account-param separator">
-                <NuxtLink :to="localePath('/update-account')">{{ $t('user-account.manage account') }}</NuxtLink>
+                <NuxtLink :to="localePath('/update-account')">{{ $t('user-account.manage-account') }}</NuxtLink>
               </p>
-              <p class="account-param" @click="disconnect">{{ authentication.authenticated ? $t('global.log out') : $t('global.sign in') }}</p>
+              <p class="account-param" @click="disconnect">{{ authentication.authenticated ? $t('global.log-out') : $t('global.sign-in') }}</p>
             </a>
             <a-avatar v-if="authentication.authenticated" shape="square">
               <div class="user-icon">{{ authentication.email.charAt(0).toUpperCase() }}</div>

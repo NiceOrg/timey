@@ -1,6 +1,6 @@
 <template>
   <div class="page-report-task">
-    <div v-if="orderedTasks.length === 0" class="empty-data">{{ $t('reports.task.no task message') }}</div>
+    <div v-if="orderedTasks.length === 0" class="empty-data">{{ $t('reports.task.no-task-message') }}</div>
     <div v-for="(task, index) in orderedTasks" :key="task.id" class="task-reported">
       <template v-if="!task.seconds == 0">
         <a-icon v-if="index == 0" theme="filled" type="crown" :style="{ color: '#C9B037' }" />
@@ -32,7 +32,7 @@ export default Vue.extend({
   beforeMount() {
     on(TASK_SEND, (tasks: Task[]) => this.orderTasks(tasks))
     emit(TASK_GET)
-    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('reports.task.tasks report').toString() }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('reports.task.tasks-report').toString() }))
   },
   methods: {
     progressionBarSize(task: Task): any {
