@@ -151,7 +151,7 @@ class TasksPlugin {
     return this.activeTask
   }
 
-  public getTime(totalSeconds: number): String {
+  public getTime(totalSeconds: number): string {
     let hours = Math.floor(totalSeconds / 3600).toString()
     totalSeconds %= 3600
     let minutes = Math.floor(totalSeconds / 60).toString()

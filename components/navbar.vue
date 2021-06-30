@@ -28,7 +28,13 @@
     </div>
     <div v-if="searchBar" class="search">
       <a-icon type="arrow-left" class="return-arrow" @click="closeSearchBar()" />
-      <a-input v-model="filter" class="input-filter" :placeholder="$t('dashboard.search task')" @change="emit(NAVBAR_SEARCH, filter)"></a-input>
+      <a-input
+        v-model="filter"
+        auto-focus
+        class="input-filter"
+        :placeholder="$t('dashboard.search-task')"
+        @change="emit(NAVBAR_SEARCH, filter)"
+      ></a-input>
       <div v-show="settings.isSearch" />
     </div>
   </div>

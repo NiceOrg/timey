@@ -42,4 +42,13 @@ p {
   text-align: center;
   font-style: italic;
   font-size: 1.3rem;
+  padding: 0 1rem;
+}
+
+.ant-btn + .ant-btn {
+  margin-left: 0.7rem;
+}
+
+.spacer {
+  margin-top: 0.7rem;
 }

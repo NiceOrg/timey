@@ -2,9 +2,7 @@
   <div class="comp-filters">
     <filters-tags />
     <a-divider />
-    <div v-if="hiddenTasks > 0" class="search-message">
-      {{ hiddenTasks }} {{ hiddenTasks === 1 ? $tc('filters.tasks-hidden-by-filters', 1) : $tc('filters.tasks-hidden-by-filters', 2) }}
-    </div>
+    <div v-if="hiddenTasks > 0" class="search-message">{{ hiddenTasks }} {{ $tc('filters.tasks-hidden-by-filters', hiddenTasks) }}</div>
   </div>
 </template>
 

@@ -9,7 +9,7 @@
     <tags-edit v-if="showNewTag" :tag="newTag" />
     <div class="tags-table">
       <div class="tags-table-header">
-        <span class="tags-table-header-title"> {{ tags.length }} {{ $tc('global.tag', tags.length > 1 ? 2 : 1) }}</span>
+        <span class="tags-table-header-title"> {{ tags.length }} {{ $tc('global.tag', tags.length) }}</span>
       </div>
       <tags v-for="tag in filteredTagList" :key="tag.id" :tag="tag" />
     </div>
