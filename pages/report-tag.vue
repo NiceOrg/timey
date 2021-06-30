@@ -10,14 +10,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
+import { ChartData, ChartOptions, ChartTypeRegistry, TooltipItem, TooltipModel } from 'chart.js'
 import { Navbar, TagExtended, Task } from '~/models'
 import { NAVBAR_SETTINGS, reportPlugin, tasksPlugin, TASK_GET, TASK_SEND } from '~/plugins'
 
 export default Vue.extend({
   data() {
     return {
-      chartData: {},
-      chartOptions: {},
+      chartData: {} as ChartData,
+      chartOptions: {} as ChartOptions,
       reportData: new Map<string, TagExtended>(),
       tasks: [] as Task[],
       dataLoaded: false,
@@ -53,15 +54,17 @@ export default Vue.extend({
     },
     fillOptions() {
       this.chartOptions = {
-        legend: {
-          align: 'center',
-          position: 'bottom',
-        },
-        tooltips: {
-          callbacks: {
-            label(tooltipItem: any, data: any) {
-              const seconds = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]
-              return tasksPlugin.getTime(seconds)
+        plugins: {
+          legend: {
+            align: 'center',
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label(this: TooltipModel<keyof ChartTypeRegistry>, tooltipItem: TooltipItem<keyof ChartTypeRegistry>): string | string[] {
+                const seconds = tooltipItem.dataset.data[tooltipItem.dataIndex] as number
+                return tasksPlugin.getTime(seconds)
+              },
             },
           },
         },
