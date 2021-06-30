@@ -3,9 +3,9 @@
     <a-form :form="form" layout="inline" @submit="updateTag">
       <a-form-item :label="$t('global.name')">
         <a-input
-          v-decorator="['name', { rules: [{ required: true, message: $t('settings.tags-edition.input tag name') }] }]"
+          v-decorator="['name', { rules: [{ required: true, message: $t('settings.tags-edition.input-tag-name') }] }]"
           size="small"
-          :placeholder="$t('settings.tags-edition.tag name')"
+          :placeholder="$t('settings.tags-edition.tag-name')"
         />
       </a-form-item>
       <a-form-item :label="$t('global.color')">

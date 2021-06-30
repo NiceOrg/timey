@@ -7,7 +7,7 @@
         <a-button class="accent center" @click="emailVisible = true">{{ $t('global.update') }}</a-button>
         <a-modal
           v-model="emailVisible"
-          :title="$t('user-account.email update')"
+          :title="$t('user-account.email-update')"
           class="update-account-data"
           @ok="updateEmail()"
           @cancel="emailVisible = false"
@@ -28,13 +28,13 @@
       <div class="center">************</div>
       <div>
         <a-button class="accent center" @click="passwordVisible = true">{{ $t('global.update') }}</a-button>
-        <a-modal v-model="passwordVisible" :title="$t('user-account.password update')" class="update-account-data" @ok="updatePassword()">
+        <a-modal v-model="passwordVisible" :title="$t('user-account.password-update')" class="update-account-data" @ok="updatePassword()">
           <a-form-model :form="form" layout="inline">
             <a-form-model-item>
               <a-input
                 v-model="form.actualPassword"
                 size="small"
-                :placeholder="$t('user-account.actual password')"
+                :placeholder="$t('user-account.actual-password')"
                 type="password"
                 class="field-to-update"
               />
@@ -43,7 +43,7 @@
               <a-input
                 v-model="form.newPassword"
                 size="small"
-                :placeholder="$t('user-account.new password')"
+                :placeholder="$t('user-account.new-password')"
                 type="password"
                 class="field-to-update"
               />
@@ -52,7 +52,7 @@
               <a-input
                 v-model="form.repeatPassword"
                 size="small"
-                :placeholder="$t('user-account.repeat password')"
+                :placeholder="$t('user-account.repeat-password')"
                 type="password"
                 class="field-to-update"
               />
@@ -63,17 +63,17 @@
       </div>
     </div>
     <div class="suppr-button center">
-      <a-button class="suppr-account" @click="deleteAccountVisible = true">{{ $t('user-account.delete account') }}</a-button>
-      <a-modal v-model="deleteAccountVisible" :title="$t('user-account.delete account title')" :footer="null" :destroy-on-close="true">
-        <i18n tag="p" path="user-account.confirm account deletion">
-          <b>{{ $t('global.cannot') }} </b> <b>{{ $t('user-account.confirmation phrase') }} </b>
+      <a-button class="suppr-account" @click="deleteAccountVisible = true">{{ $t('user-account.delete-account') }}</a-button>
+      <a-modal v-model="deleteAccountVisible" :title="$t('user-account.delete-account-title')" :footer="null" :destroy-on-close="true">
+        <i18n tag="p" path="user-account.confirm-account-deletion">
+          <b>{{ $t('global.cannot') }} </b> <b>{{ $t('user-account.confirmation-phrase') }} </b>
         </i18n>
         <a-input v-model="deleteAccountText" />
-        <p>{{ $t('user-account.enter password') }}</p>
+        <p>{{ $t('user-account.enter-password') }}</p>
         <a-input v-model="form.actualPassword" type="password" />
         <div class="error-message">{{ errorMessage }}</div>
         <a-button class="button-suppress-account suppr-account" :disabled="suppressAccountButtonDisabled" @click="deleteAccount">{{
-          $t('user-account.delete account')
+          $t('user-account.delete-account')
         }}</a-button>
       </a-modal>
     </div>
@@ -105,7 +105,7 @@ export default Vue.extend({
   },
   computed: {
     suppressAccountButtonDisabled(): boolean {
-      return this.deleteAccountText !== this.$t('user-account.confirmation phrase').toString()
+      return this.deleteAccountText !== this.$t('user-account.confirmation-phrase').toString()
     },
   },
   beforeMount() {
@@ -114,7 +114,7 @@ export default Vue.extend({
       this.form.email = authentication.email
     })
     emit(AUTHENTICATION_GET)
-    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('user-account.manage account').toString(), backButton: true }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('user-account.manage-account').toString(), backButton: true }))
   },
   methods: {
     async updateEmail() {

@@ -1,8 +1,8 @@
 <template>
   <div class="comp-filters">
-    <a-button v-if="tags.length > 0" class="filters" @click="showModal = true">{{ $t('global.filter tags') }}</a-button>
-    <a-modal v-model="showModal" :title="$t('global.filter tags')" :footer="null">
-      <a-input v-model="tagSearched" class="search font" type="text" :placeholder="$t('filters.search tag')" />
+    <a-button v-if="tags.length > 0" class="filters" @click="showModal = true">{{ $t('global.filter-tags') }}</a-button>
+    <a-modal v-model="showModal" :title="$t('global.filter-tags')" :footer="null">
+      <a-input v-model="tagSearched" class="search font" type="text" :placeholder="$t('filters.search-tag')" />
       <a-list class="list" item-layout="horizontal" :data-source="filteredTagList">
         <a-list-item slot="renderItem" slot-scope="tag" @click="updateFilteredTag(tag)">
           <a-list-item-meta>

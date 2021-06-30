@@ -1,6 +1,6 @@
 <template>
   <div class="page-report-tag">
-    <div v-if="reportData.size === 0" class="empty-data">{{ $t('reports.tag.no tags message') }}</div>
+    <div v-if="reportData.size === 0" class="empty-data">{{ $t('reports.tag.no-tags-message') }}</div>
     <client-only v-else>
       <pie-chart v-if="dataLoaded" class="chart" :data="chartData" :options="chartOptions" />
     </client-only>
@@ -26,7 +26,7 @@ export default Vue.extend({
   beforeMount() {
     on(TASK_SEND, (tasks: Task[]) => (this.tasks = tasks))
     emit(TASK_GET)
-    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('reports.tag.tags report').toString() }))
+    emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('reports.tag.tags-report').toString() }))
     this.generateChart()
   },
   methods: {

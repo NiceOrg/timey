@@ -8,7 +8,7 @@
         <a-popover v-model="visibleOptions" trigger="click" placement="bottomRight" arrow-point-at-center>
           <a slot="content" class="options-style font" @click="visibleOptions = false">
             <div @click="showEdit = true">{{ $t('global.edit') }}</div>
-            <a-modal v-model="showEdit" :title="$t('dashboard.edit task')" :footer="null">
+            <a-modal v-model="showEdit" :title="$t('dashboard.edit-task')" :footer="null">
               <tasks-edit v-if="showEdit" :task="task" />
             </a-modal>
             <a-divider class="block" />

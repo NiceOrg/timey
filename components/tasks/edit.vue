@@ -4,7 +4,7 @@
       <a-form-item>
         <div class="name">
           {{ $t('global.name') }}
-          <a-input v-decorator="['name', { rules: [{ required: true, message: $t('dashboard.no task entered') }] }]" class="name-input" />
+          <a-input v-decorator="['name', { rules: [{ required: true, message: $t('dashboard.no-task-entered') }] }]" class="name-input" />
         </div>
       </a-form-item>
       <a-checkbox v-model="activateEstimation">{{ $t('global.estimation') }}</a-checkbox>
