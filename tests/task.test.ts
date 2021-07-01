@@ -71,7 +71,7 @@ describe('tasks', () => {
       equal(tasksPlugin.getTime(task.seconds), '00:01:00')
       task.seconds = 3661
       equal(tasksPlugin.getTime(task.seconds), '01:01:01')
-      task.seconds = 93599
+      task.seconds = 93_599
       equal(tasksPlugin.getTime(task.seconds), '25:59:59')
     })
     it('delete active task from tasks', () => {
@@ -104,6 +104,11 @@ describe('tasks', () => {
       const tag = new Tag(10, 'tagToNoTask', '#ccc')
       tasksPlugin.addTag(task, tag)
       equal(tasksPlugin.getTasks().includes(task), false)
+    })
+    it('update tag from non existing task', () => {
+      const tag = new Tag(10, 'tagToNoTask', '#ccc')
+      const task = new Task(1, 'nonExistingTask')
+      tasksPlugin.updateTag(task, tag)
     })
     it('delete tag from task', () => {
       const task = new Task(1, 'deleteTagFromTask')

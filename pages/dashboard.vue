@@ -40,7 +40,7 @@ export default Vue.extend({
     }
   },
   beforeMount() {
-    parametersPlugin.updateLanguage(Languages[this.$i18n.locale])
+    parametersPlugin.updateLanguage(this.$i18n.locale as Languages)
     on(CLOSE_CONTENT, () => (this.showEdit = false))
     on(NAVBAR_SEARCH, (search: string) => emit(FILTERS_SET_TITLE, search))
     on(FILTERS_SEND, () => (this.filteredTask = filtersPlugin.getTasksFiltered()))

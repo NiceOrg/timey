@@ -11,8 +11,9 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { Languages } from '~/models'
-export default {
+export default Vue.extend({
   data() {
     return {
       Languages,
@@ -23,7 +24,7 @@ export default {
       this.$router.push(this.switchLocalePath(languageUpdated))
     },
   },
-}
+})
 </script>
 
 <style>
