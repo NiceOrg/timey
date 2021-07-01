@@ -49,6 +49,7 @@ class TagsPlugin {
       return
     }
     this.tags[index] = tag
+    tasksPlugin.updateTagForAll(tag)
     this.save()
   }
 

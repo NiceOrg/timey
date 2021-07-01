@@ -122,6 +122,22 @@ class TasksPlugin {
     this.save()
   }
 
+  public updateTag(task: Task, tag: Tag) {
+    const taskFound = this.tasks.find((tk: Task) => tk.id === task.id)
+    const tagIndex = taskFound?.tags.findIndex((t: Tag) => t.id === tag.id)
+    if (tagIndex === undefined || tagIndex === -1) {
+      return
+    }
+    taskFound!.tags[tagIndex] = tag
+    this.save()
+  }
+
+  public updateTagForAll(tag: Tag) {
+    for (const task of this.getTasks()) {
+      this.updateTag(task, tag)
+    }
+  }
+
   public addTag(task: Task, tag: Tag) {
     this.tasks.find((t: Task) => t.id === task.id)?.tags.push(tag)
     this.save()

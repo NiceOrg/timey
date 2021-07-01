@@ -1,7 +1,7 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
-import { Tag, TagExtended } from '../models/'
-import { tagsPlugin } from '../plugins/tags.client'
+import { Tag, TagExtended, Task } from '../models/'
+import { tasksPlugin, tagsPlugin } from '../plugins'
 
 describe('tags', () => {
   describe('tag model', () => {
@@ -67,10 +67,24 @@ describe('tags', () => {
     it('update', () => {
       const tag = new Tag()
       tagsPlugin.update(tag)
+      const tk = new Task(-1, 'taskWithUpdatedTag')
+      tasksPlugin.add(tk)
+      tasksPlugin.addTag(tk, tag)
       equal(tagsPlugin.getTags()[0].id, 0)
       tag.name = 'updated'
       tagsPlugin.update(tag)
       equal(tagsPlugin.getTags()[0].name, 'updated')
+      equal(tasksPlugin.getTasks()[0].tags[0].name, 'updated')
+      tasksPlugin.delete(tk)
+      tagsPlugin.delete(tag)
+    })
+    it('update tag assigned to no task', () => {
+      const tag = new Tag(0)
+      tagsPlugin.add(tag)
+      const tk = new Task(-1, 'taskWithUpdatedTag')
+      tasksPlugin.add(tk)
+      tagsPlugin.update(tag)
+      tasksPlugin.delete(tk)
       tagsPlugin.delete(tag)
     })
     it('delete non existing tag', () => {
