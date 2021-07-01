@@ -36,6 +36,7 @@
 		"log-out": "Log out",
 		"minute": "minute | minutes",
 		"name": "Name",
+		"no": "no",
 		"password": "Password",
 		"registration": "Registration",
 		"report": "Report",
@@ -47,7 +48,8 @@
 		"tag": "tag | tags",
 		"task": "task | tasks",
 		"time-slots": "Time slots",
-		"update": "Update"
+		"update": "Update",
+		"yes": "yes"
 	},
 	"login": {
 		"already-have-account": "Already have an account ?",
@@ -58,7 +60,9 @@
 	"reports": {
 		"tag": {
 			"by-tag": "By tag",
+			"information-message": "Press a color for more information",
 			"no-tags-message": "No task has tags.",
+			"not-enough-information": "There is not enough information to display a report.",
 			"tags-report": "Tags report"
 		},
 		"task": {
@@ -69,8 +73,12 @@
 	},
 	"settings": {
 		"change-application-language": "Change language application",
+		"data-deleted": "Data deleted",
 		"data-export": "Data export",
 		"data-export-confirmation-message": "The document will be downloaded, continue?",
+		"delete-data": "Delete data",
+		"delete-data-confirmation-message": "This action is irreversible, do you wish to continue?",
+		"delete-data-submessage": "Reset your data",
 		"export-data-submessage": "Export data to Excel format",
 		"manage-account": "Manage account",
 		"manage-account-submessage": "Update your account",

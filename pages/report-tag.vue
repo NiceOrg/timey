@@ -3,6 +3,8 @@
     <div v-if="reportData.size === 0" class="empty-data">{{ $t('reports.tag.no-tags-message') }}</div>
     <client-only v-else>
       <pie-chart v-if="dataLoaded" class="chart" :data="chartData" :options="chartOptions" />
+      <div v-if="dataLoaded" class="information-message">{{ $t('reports.tag.information-message') }}</div>
+      <div v-if="!dataLoaded" class="empty-data">{{ $t('reports.tag.not-enough-information') }}</div>
     </client-only>
   </div>
 </template>
@@ -40,6 +42,9 @@ export default Vue.extend({
         backgroundColor.push(value.tag.color)
         data.push(value.seconds)
       }
+      if (data.every((value: number) => value === 0)) {
+        return
+      }
       this.chartData = {
         labels,
         datasets: [
@@ -58,7 +63,7 @@ export default Vue.extend({
           datalabels: {
             formatter: (value, context_) => {
               let sum = 0
-              context_.chart.data.datasets[0].data.map((data) => (sum += data))
+              context_.chart.data.datasets[0].data.map((data: any) => (sum += data))
               return ((value * 100) / sum).toFixed(0) + '%'
             },
             color: '#fff',
@@ -98,5 +103,11 @@ export default Vue.extend({
 
 .chart {
   margin-top: 2rem;
+}
+
+.information-message {
+  margin-top: 2rem;
+  text-align: center;
+  font-weight: 500;
 }
 </style>

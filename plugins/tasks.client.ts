@@ -1,4 +1,3 @@
-import { message } from 'ant-design-vue'
 import { emit, on, storage } from 'shuutils'
 import { Tag, Task, TaskStatus, User } from '../models'
 import { authenticationPlugin } from './authentication.client'
@@ -6,7 +5,7 @@ import { TASK_ADD_TAG, TASK_DELETE, TASK_DELETE_TAG, TASK_GET, TASK_SEND, TASK_T
 import { userPlugin } from './user.client'
 
 class TasksPlugin {
-  private tasks = [] as Task[]
+  public tasks = [] as Task[]
   private activeTask!: Task | undefined
 
   public getTasks() {
@@ -104,7 +103,6 @@ class TasksPlugin {
     }
     this.tasks.splice(index, 1)
     this.save()
-    message.success('Task deleted.')
   }
 
   public deleteAll(tasks: Task[]) {
