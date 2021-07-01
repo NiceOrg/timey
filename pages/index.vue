@@ -1,5 +1,6 @@
 <template>
   <div class="page-login authentication">
+    <languages-flags />
     <div class="title">Timey</div>
     <div class="form">
       <a-form-model layout="inline" :model="form">

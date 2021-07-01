@@ -1,5 +1,6 @@
 <template>
   <div class="page-create-account authentication">
+    <languages-flags />
     <div class="title create-account-header">{{ $t('global.registration') }}</div>
     <div class="form">
       <a-form-model layout="inline" :model="form">
@@ -82,6 +83,6 @@ export default {
 <style scoped>
 .title {
   font-size: 3.5rem;
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 </style>

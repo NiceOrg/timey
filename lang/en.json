@@ -49,6 +49,7 @@
 		"task": "task | tasks",
 		"time-slots": "Time slots",
 		"update": "Update",
+		"wip": "Work in progress...",
 		"yes": "yes"
 	},
 	"login": {

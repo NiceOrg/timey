@@ -19,7 +19,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
-import { Filters, Navbar, Task } from '~/models'
+import { Filters, Languages, Navbar, Task } from '~/models'
 import {
   NAVBAR_SETTINGS,
   CLOSE_CONTENT,
@@ -40,22 +40,13 @@ export default Vue.extend({
     }
   },
   beforeMount() {
-    this.redirectIfLanguageSelected()
+    parametersPlugin.updateLanguage(Languages[this.$i18n.locale])
     on(CLOSE_CONTENT, () => (this.showEdit = false))
     on(NAVBAR_SEARCH, (search: string) => emit(FILTERS_SET_TITLE, search))
     on(FILTERS_SEND, () => (this.filteredTask = filtersPlugin.getTasksFiltered()))
 
     emit(FILTERS_GET)
     emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('global.dashboard').toString(), isSearch: true }))
-  },
-  methods: {
-    redirectIfLanguageSelected() {
-      const language = parametersPlugin.getParameters().language
-      if (language) {
-        parametersPlugin.updateLanguage(language)
-        this.$router.push(this.switchLocalePath(language))
-      }
-    },
   },
 })
 </script>

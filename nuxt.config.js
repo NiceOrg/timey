@@ -27,7 +27,7 @@ export default {
     ],
   },
   css: ['ant-design-vue/dist/antd.css', '@/assets/styles/main.css'],
-  plugins: ['@/plugins/antd-ui', '@/plugins/tasks.client', '@/plugins/timer.client', '@/plugins/tags.client'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/flag-icon.js', '@/plugins/tasks.client', '@/plugins/timer.client', '@/plugins/tags.client'],
   components: true,
   buildModules: ['@nuxt/typescript-build'],
   modules: [
@@ -51,6 +51,11 @@ export default {
         ],
         langDir: 'lang/',
         defaultLocale: 'fr',
+        detectBrowserLanguage: {
+          useCookie: true,
+          cookieKey: 'i18n_redirected',
+          alwaysRedirect: true,
+        },
       },
     ],
   ],
