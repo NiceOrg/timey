@@ -41,6 +41,8 @@ class UserPlugin {
 
   /* istanbul ignore next */
   public async delete() {
+    this.user = new UserMini({})
+    this.load()
     await storage.clear(authenticationPlugin.getUserToken())
   }
 

@@ -9,17 +9,22 @@
       </div>
       <p>{{ $t('settings.time-slots-submessage') }}</p>
     </div>
-    <div class="parameter" @click="$router.push(localePath('/tags-edition'))">
+    <div class="parameter highlight" @click="$router.push(localePath('/tags-edition'))">
       <div class="heading"><a-icon type="tag" /> {{ $t('settings.tags-edition.tags-edition') }}</div>
       <p>{{ $t('settings.tag-edition-submessage') }}</p>
     </div>
-    <a-popconfirm :title="$t('settings.data-export-confirmation-message')" ok-text="Oui" cancel-text="Non" @confirm="exportPlugin.downloadCSV()">
+    <a-popconfirm
+      :title="$t('settings.data-export-confirmation-message')"
+      :ok-text="$t('global.yes')"
+      :cancel-text="$t('global.no')"
+      @confirm="exportPlugin.downloadCSV()"
+    >
       <div class="parameter highlight">
         <div class="heading"><a-icon type="database" /> {{ $t('settings.data-export') }}</div>
         <p>{{ $t('settings.export-data-submessage') }}</p>
       </div>
     </a-popconfirm>
-    <div class="parameter" @click="showLanguages = true">
+    <div class="parameter highlight" @click="showLanguages = true">
       <div class="heading"><a-icon type="global" /> {{ $t('global.language') }}</div>
       <p>{{ $t('settings.change-application-language') }}</p>
       <a-modal v-model="showLanguages" :title="$t('settings.select-language')" :footer="null">
@@ -27,17 +32,28 @@
       </a-modal>
     </div>
     <div v-if="connected" class="parameter highlight" @click="$router.push(localePath('/update-account'))">
-      <div class="flex heading">{{ $t('settings.manage-account') }}</div>
+      <div class="heading"><a-icon type="tool" /> {{ $t('settings.manage-account') }}</div>
       <p>{{ $t('settings.manage-account-submessage') }}</p>
     </div>
     <div v-if="!connected" class="parameter highlight" @click="$router.push(localePath('/'))">
-      <div class="flex heading">{{ $t('global.connection') }}</div>
+      <div class="heading"><a-icon type="user" /> {{ $t('global.connection') }}</div>
       <p>{{ $t('global.sign-in') }}</p>
     </div>
-    <div v-if="connected" class="parameter" @click="disconnects">
-      <div class="flex heading">{{ $t('global.disconnect') }}</div>
+    <div v-if="connected" class="parameter highlight" @click="disconnects">
+      <div class="heading"><a-icon type="disconnect" /> {{ $t('global.disconnect') }}</div>
       <p>{{ $t('global.log-out') }}</p>
     </div>
+    <a-popconfirm
+      :title="$t('settings.delete-data-confirmation-message')"
+      :ok-text="$t('global.yes')"
+      :cancel-text="$t('global.no')"
+      @confirm="deleteData"
+    >
+      <div v-if="!connected" class="parameter highlight">
+        <div class="heading"><a-icon type="delete" /> {{ $t('settings.delete-data') }}</div>
+        <p>{{ $t('settings.delete-data-submessage') }}</p>
+      </div>
+    </a-popconfirm>
     <div class="about heading">{{ $t('global.about') }}</div>
   </div>
 </template>
@@ -45,6 +61,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit } from 'shuutils'
+import { message } from 'ant-design-vue'
 import { stopPropagation } from '~/utils'
 import { timeSlotsPlugin, exportPlugin, NAVBAR_SETTINGS, authenticationPlugin, userPlugin } from '~/plugins'
 import { Navbar, TimeSlots } from '~/models'
@@ -57,6 +74,7 @@ export default Vue.extend({
       exportPlugin,
       showLanguages: false,
       connected: false,
+      userPlugin,
     }
   },
   beforeMount() {
@@ -72,6 +90,10 @@ export default Vue.extend({
       authenticationPlugin.disconnect()
       await userPlugin.load()
       this.$router.push(this.localePath('/'))
+    },
+    async deleteData() {
+      await this.userPlugin.delete()
+      message.success(this.$t('settings.data-deleted').toString())
     },
   },
 })
@@ -102,7 +124,7 @@ export default Vue.extend({
   margin-right: 1rem;
 }
 
-.highlight {
+.highlight:nth-child(2n + 1) {
   background: var(--accent-light, gray);
 }
 
