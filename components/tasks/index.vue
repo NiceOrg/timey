@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="estimation">
-      <div class="progression" :style="{ width: estimation }"></div>
+      <div class="progression" :style="estimationStyling"></div>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
 import { Task, TaskStatus } from '~/models'
-import { stopPropagation } from '~/utils'
+import { generateColor, stopPropagation } from '~/utils'
 import { TASK_DELETE, tasksPlugin, CLOSE_CONTENT } from '~/plugins'
 
 export default Vue.extend({
@@ -51,30 +51,43 @@ export default Vue.extend({
     }
   },
   computed: {
-    estimation(): string {
-      if (this.task.estimation < 1) {
-        return '0%'
-      }
-      const ratio = this.task.seconds / this.task.estimation
-      if (ratio > 1) {
-        return '100%'
-      }
-      return ratio * 100 + '%'
+    estimation(): number {
+      return this.task.estimation < 1 ? 0 : (this.task.seconds / this.task.estimation) * 100
     },
     taskStatusStyling(): any {
-      let color = '#e8f4f8;'
+      let background = '#e8f4f8;'
       switch (this.task.started) {
         case TaskStatus.started:
-          color = 'var(--accent, gray)'
+          background = 'var(--accent, gray)'
           break
         case TaskStatus.paused:
-          color = 'var(--task-paused, lightyellow)'
+          background = 'var(--task-paused, lightyellow)'
           break
         case TaskStatus.stopped:
-          color = 'var(--secondary-light, lightgray)'
+          background = 'var(--secondary-light, lightgray)'
           break
       }
-      return { background: color }
+      return { background }
+    },
+    estimationStyling(): any {
+      const estimation = this.estimation
+      const errorMargin = 110
+      if (estimation < 100) {
+        return { backgroundColor: 'var(--primary, grey)', width: estimation + '%' }
+      }
+      if (estimation < errorMargin) {
+        return { backgroundColor: 'var(--success, green)', width: '100%' }
+      }
+      if (estimation < 200) {
+        const bodyStyles = window.getComputedStyle(document.body)
+        const initialColor = bodyStyles.getPropertyValue('--success').replace(/\s/g, '') || '#656581'
+        const finalColor = bodyStyles.getPropertyValue('--danger').replace(/\s/g, '') || '#FF0000'
+        const numberOfColors = this.task.estimation
+        const colorIndex = Math.trunc(((estimation - errorMargin) / (200 - errorMargin)) * numberOfColors)
+        const backgroundColor = generateColor(finalColor, initialColor, numberOfColors, colorIndex)
+        return { backgroundColor, width: '100%' }
+      }
+      return { backgroundColor: 'var(--danger, red)', width: '100%' }
     },
   },
   beforeMount() {
@@ -128,7 +141,6 @@ export default Vue.extend({
 }
 
 .progression {
-  background-color: var(--grey, grey);
   height: inherit;
 }
 

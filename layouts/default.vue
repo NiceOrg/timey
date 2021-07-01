@@ -58,7 +58,8 @@ export default Vue.extend({
   },
   beforeMount() {
     this.navbarSettings = new Navbar({})
-    this.current = [this.$route.name || DEFAULT_MENU]
+    // With i18n, route names finish with '__language', like : dashboard__fr or dashboard__en
+    this.current = [this.$route.name?.split('__')[0] || DEFAULT_MENU]
     on(NAVBAR_SETTINGS, (settings: Navbar) => (this.navbarSettings = settings))
     on(NAVBAR_TOGGLE_MENU, () => (this.open = !this.open))
   },
