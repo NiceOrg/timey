@@ -1,6 +1,6 @@
 <template>
   <div class="comp-tag" @click="stopPropagation($event)">
-    <a-popover trigger="click" placement="bottomRight" arrow-point-at-center>
+    <a-popover trigger="click" :placement="edit ? 'bottom' : 'bottomRight'" arrow-point-at-center>
       <a slot="content">
         <a-input v-model="tagSearched" class="tag-input font" type="text" :placeholder="$t('settings.tags-edition.add-new-tag')" />
         <a-list class="tag-list" item-layout="horizontal" :data-source="filteredTagList">
@@ -13,7 +13,9 @@
           </a-list-item>
         </a-list>
         <div class="tag-options">
-          <div v-if="showCreateTag" class="font wrap-overflow" @click="addTag()">{{ $t('dashboard.create-new-tag') }} '{{ tagSearched }}'</div>
+          <div v-if="showCreateTag" class="font wrap-overflow" @click="edit ? addTagEditMode() : addTag()">
+            {{ $t('dashboard.create-new-tag') }} '{{ tagSearched }}'
+          </div>
           <NuxtLink :to="localePath('/tags-edition')"
             ><div class="font">{{ $t('dashboard.edit-tags') }}</div></NuxtLink
           >
@@ -93,7 +95,14 @@ export default Vue.extend({
     addTag() {
       const tag = new Tag(-1, this.tagSearched, tagsPlugin.generateRandomColor())
       emit(TAG_ADD, tag)
-      this.edit ? this.tagsSelected.push(tag) : emit(TASK_ADD_TAG, { task: this.task, tag })
+      emit(TASK_ADD_TAG, { task: this.task, tag })
+      this.tagSearched = ''
+    },
+    addTagEditMode() {
+      const tag = new Tag(-1, this.tagSearched, tagsPlugin.generateRandomColor())
+      emit(TAG_ADD, tag)
+      this.tagsSelected.push(tag)
+      emit(TAG_LIST, this.tagsSelected)
       this.tagSearched = ''
     },
     changeTagsEditMode(tag: Tag) {

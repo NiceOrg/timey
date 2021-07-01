@@ -55,6 +55,17 @@ export default Vue.extend({
     fillOptions() {
       this.chartOptions = {
         plugins: {
+          datalabels: {
+            formatter: (value, context_) => {
+              let sum = 0
+              context_.chart.data.datasets[0].data.map((data) => (sum += data))
+              return ((value * 100) / sum).toFixed(0) + '%'
+            },
+            color: '#fff',
+            font: {
+              weight: 'bolder',
+            },
+          },
           legend: {
             align: 'center',
             position: 'top',
