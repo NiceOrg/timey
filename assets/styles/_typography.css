@@ -10,6 +10,5 @@ h1,h2,h3,h4 {
   font-family: var(--font-family-title, serif);
   text-shadow: 0.3rem 0.3rem 0.1rem var(--primary, gray);
   font-size: 6rem;
-  margin-top: 3rem;
   color: var(--font-color-secondary, white);
 }

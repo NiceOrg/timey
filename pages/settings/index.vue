@@ -28,7 +28,7 @@
       <div class="heading"><a-icon type="global" /> {{ $t('global.language') }}</div>
       <p>{{ $t('settings.change-application-language') }}</p>
       <a-modal v-model="showLanguages" :title="$t('settings.select-language')" :footer="null">
-        <language v-if="showLanguages" />
+        <languages v-if="showLanguages" />
       </a-modal>
     </div>
     <div v-if="connected" class="parameter highlight" @click="$router.push(localePath('/update-account'))">
@@ -54,7 +54,14 @@
         <p>{{ $t('settings.delete-data-submessage') }}</p>
       </div>
     </a-popconfirm>
-    <div class="about heading">{{ $t('global.about') }}</div>
+    <div class="about">
+      <a-popover>
+        <template slot="content">
+          <p>{{ $t('global.wip') }}</p>
+        </template>
+        <a-button class="heading">{{ $t('global.about') }}</a-button>
+      </a-popover>
+    </div>
   </div>
 </template>
 
@@ -131,6 +138,6 @@ export default Vue.extend({
 .about {
   display: flex;
   justify-content: center;
-  padding-top: 0.5rem;
+  padding-top: 2rem;
 }
 </style>
