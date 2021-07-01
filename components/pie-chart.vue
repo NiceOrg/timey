@@ -5,6 +5,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Chart, ChartData, ChartItem, ChartOptions, registerables } from 'chart.js'
+import ChartJsPluginDataLabels from 'chartjs-plugin-datalabels'
 
 export default Vue.extend({
   props: {
@@ -22,7 +23,7 @@ export default Vue.extend({
     const element = this.$refs.chart as HTMLCanvasElement
     const item = element.getContext('2d') as ChartItem
     const { data, options } = this
-    new Chart(item, { type: 'pie', data, options }) // eslint-disable-line no-new
+    new Chart(item, { type: 'pie', data, options, plugins: [ChartJsPluginDataLabels] }) // eslint-disable-line no-new
   },
 })
 </script>
