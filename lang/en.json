@@ -69,6 +69,7 @@
 		"task": {
 			"by-task": "By task",
 			"no-task-message": "No task has been created or started",
+			"tasks-exceeded-message": "Click here to display every tasks",
 			"tasks-report": "Tasks report"
 		}
 	},
@@ -80,6 +81,7 @@
 		"delete-data": "Delete data",
 		"delete-data-confirmation-message": "This action is irreversible, do you wish to continue?",
 		"delete-data-submessage": "Reset your data",
+		"disconnect-confirmation-message": "Do you want to disconnect ?",
 		"export-data-submessage": "Export data to Excel format",
 		"manage-account": "Manage account",
 		"manage-account-submessage": "Update your account",

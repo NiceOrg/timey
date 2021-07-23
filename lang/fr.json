@@ -69,6 +69,7 @@
 		"task": {
 			"by-task": "Par tâche",
 			"no-task-message": "Aucune tâche n'a été créée ou lancée.",
+			"tasks-exceeded-message": "Appuyer ici pour afficher toutes vos tâches",
 			"tasks-report": "Rapport des tâches"
 		}
 	},
@@ -80,6 +81,7 @@
 		"delete-data": "Suppression données",
 		"delete-data-confirmation-message": "Cette action est irréversible, souhaitez-vous continuer ?",
 		"delete-data-submessage": "Réinitialisez vos données",
+		"disconnect-confirmation-message": "Souhaitez-vous vous déconnecter ?",
 		"export-data-submessage": "Exporter les données au format Excel",
 		"manage-account": "Gestion du compte",
 		"manage-account-submessage": "Modifiez votre compte",

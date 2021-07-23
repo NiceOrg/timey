@@ -1,5 +1,5 @@
 <template>
-  <div class="comp-task" :style="taskStatusStyling">
+  <div class="comp-task" :class="taskStatusClass">
     <div class="task">
       <div class="task-name ellipsis">{{ task.name }}</div>
       <div class="time-passed">{{ tasksPlugin.getTime(task.seconds) }}</div>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="estimation">
-      <div class="progression" :style="estimationStyling"></div>
+      <div class="progression" :class="estimationClass" :style="estimationStyling"></div>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
 import { Task, TaskStatus } from '~/models'
-import { generateColor, stopPropagation } from '~/utils'
+import { stopPropagation } from '~/utils'
 import { TASK_DELETE, tasksPlugin, CLOSE_CONTENT } from '~/plugins'
 
 export default Vue.extend({
@@ -54,40 +54,33 @@ export default Vue.extend({
     estimation(): number {
       return this.task.estimation < 1 ? 0 : (this.task.seconds / this.task.estimation) * 100
     },
-    taskStatusStyling(): any {
-      let background = '#e8f4f8;'
-      switch (this.task.started) {
-        case TaskStatus.started:
-          background = 'var(--accent, gray)'
-          break
-        case TaskStatus.paused:
-          background = 'var(--task-paused, lightyellow)'
-          break
-        case TaskStatus.stopped:
-          background = 'var(--secondary-light, lightgray)'
-          break
+    taskStatusClass(): any {
+      if (this.task.started === TaskStatus.started) {
+        return 'accent'
+      } else if (this.task.started === TaskStatus.stopped) {
+        return 'secondary-light'
       }
-      return { background }
+      return 'warning-light'
     },
     estimationStyling(): any {
       const estimation = this.estimation
-      const errorMargin = 110
       if (estimation < 100) {
-        return { backgroundColor: 'var(--primary, grey)', width: estimation + '%' }
+        return { width: estimation + '%' }
       }
-      if (estimation < errorMargin) {
-        return { backgroundColor: 'var(--success, green)', width: '100%' }
+      return {}
+    },
+    estimationClass(): any {
+      const estimation = this.estimation
+      if (estimation < 100) {
+        return 'transition'
+      } else if (estimation < 120) {
+        return 'complete success'
+      } else if (estimation < 166) {
+        return 'complete warn'
+      } else if (estimation < 200) {
+        return 'complete warn-dark'
       }
-      if (estimation < 200) {
-        const bodyStyles = window.getComputedStyle(document.body)
-        const initialColor = bodyStyles.getPropertyValue('--success').replace(/\s/g, '') || '#656581'
-        const finalColor = bodyStyles.getPropertyValue('--danger').replace(/\s/g, '') || '#FF0000'
-        const numberOfColors = this.task.estimation
-        const colorIndex = Math.trunc(((estimation - errorMargin) / (200 - errorMargin)) * numberOfColors)
-        const backgroundColor = generateColor(finalColor, initialColor, numberOfColors, colorIndex)
-        return { backgroundColor, width: '100%' }
-      }
-      return { backgroundColor: 'var(--danger, red)', width: '100%' }
+      return 'complete danger'
     },
   },
   beforeMount() {
@@ -144,11 +137,21 @@ export default Vue.extend({
   height: inherit;
 }
 
+.transition {
+  transition: width 1s;
+  background-color: var(--primary, grey);
+}
+
 .font {
   font-weight: 700;
 }
 
 .more-options a {
   color: var(--secondary, gray);
+}
+
+.complete {
+  width: '100%';
+  transition: background-color 5s;
 }
 </style>

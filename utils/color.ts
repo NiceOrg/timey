@@ -1,8 +1,8 @@
 // https://stackoverflow.com/questions/3080421/javascript-color-gradient
-function hex(c: string) {
+function hex(color: string) {
   const s = '0123456789abcdef'
-  let index = Number.parseInt(c)
-  if (index === 0 || Number.isNaN(c)) {
+  let index = Number.parseInt(color)
+  if (index === 0 || Number.isNaN(color)) {
     return '00'
   }
   index = Math.round(Math.min(Math.max(0, index), 255))

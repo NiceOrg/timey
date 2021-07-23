@@ -7,9 +7,11 @@ body {
   --ternary: #f63959;
   --danger: #f63959;
   --success: #008000;
+  --warning-light: #ff9;
+  --warning: #ffc107;
+  --warning-dark: #fd7e14;
   --accent: #bfbfbf;
   --accent-light: #ededed;
-  --task-paused: #ff9;
   --font-color-primary: black;
   --font-color-secondary: white;
   --font-family-title: 'New Tegomin', serif;
@@ -52,4 +54,32 @@ p {
 
 .spacer {
   margin-top: 0.7rem;
+}
+
+.secondary-light {
+  background-color: var(--secondary-light, lightgray);
+}
+
+.accent {
+  background-color: var(--accent, gray);
+}
+
+.warning-light {
+  background-color: var(--warning-light, lightyellow);
+}
+
+.success {
+  background-color: var(--success, lightgreen);
+}
+
+.warn {
+  background-color: var(--warning, yellow);
+}
+
+.warn-dark {
+  background-color: var(--warning-dark, orange);
+}
+
+.danger {
+  background-color: var(--danger, red);
 }
