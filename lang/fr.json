@@ -7,7 +7,8 @@
 		"no-task-entered": "Veuillez insérer un nom de tâche !",
 		"no-task-found": "Aucune tâche n'a été trouvée.",
 		"no-task-message": "Appuyer sur le bouton pour ajouter une nouvelle tâche.",
-		"search-task": "Rechercher une tâche"
+		"search-task": "Rechercher une tâche",
+		"speak-to-interact": "Parler pour interagir avec l'application"
 	},
 	"filters": {
 		"search-tag": "Rechercher un tag",

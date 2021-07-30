@@ -1,0 +1,71 @@
+.discussion {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-discussion);
+  font-size: 1.25rem;
+  max-width: inherit;
+  padding: 0.5rem 1.5rem;
+}
+
+.discussion p {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  max-width: 75%;
+  padding: 0.5rem 00.875rem;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.discussion p::before,
+.discussion p::after {
+  bottom: -0.1rem;
+  content: '';
+  height: 1rem;
+  position: absolute;
+}
+
+p.from-me {
+  align-self: flex-end;
+  background-color: var(--primary-dark);
+  color: var(--font-color-secondary);
+  margin: 0.5rem 0;
+  width: fit-content;
+}
+
+p.from-me::before {
+  border-bottom-left-radius: 0.8rem 0.7rem;
+  border-right: 1rem solid var(--primary-dark);
+  right: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-me::after {
+  background-color: var(--font-color-secondary);
+  border-bottom-left-radius: 0.5rem;
+  right: -2.5rem;
+  transform: translate(-1.89rem, -0.1rem);
+  width: 0.6rem;
+}
+
+p.from-them {
+  align-items: flex-start;
+  background-color: var(--secondary-light);
+  color: var(--font-color-primary);
+  margin: 0.5rem 0;
+  width: fit-content;
+}
+
+p.from-them::before {
+  border-bottom-right-radius: 0.8rem 0.7rem;
+  border-left: 1rem solid var(--secondary-light);
+  left: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-them::after {
+  background-color: var(--font-color-secondary);
+  border-bottom-right-radius: 0.5rem;
+  left: 1.25rem;
+  transform: translate(-1.89rem, -0.1rem);
+  width: 0.6rem;
+}

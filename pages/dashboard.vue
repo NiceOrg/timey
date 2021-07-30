@@ -11,7 +11,11 @@
           <tasks-edit v-if="showEdit" />
         </a-modal>
       </div>
-      <div class="foot" />
+      <div class="foot">
+        <div class="speech-icon">
+          <speech-recognition />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -83,5 +87,15 @@ export default Vue.extend({
 .footer {
   z-index: 1;
   margin-top: auto;
+}
+
+.speech-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: inherit;
+  align-items: center;
+  margin-right: 1rem;
+  font-size: 1.3rem;
 }
 </style>
