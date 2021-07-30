@@ -17,9 +17,8 @@ export class Tag {
     const g = (rgb >> 8) & 0xff
     const b = Math.trunc(rgb) & 0xff
     const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
-    if (luma < 140) {
-      return false
-    }
+    if (luma < 140) return false
+
     return true
   }
 }

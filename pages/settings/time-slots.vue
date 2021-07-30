@@ -56,9 +56,7 @@ export default Vue.extend({
     // Convert a list of timestamp to a list of string in format 00h00
     convertTimestampsToStrings(timestamps: number[]) {
       const times = [] as string[]
-      for (const timestamp of timestamps) {
-        times.push(hours(timestamp) + 'h' + minutes(timestamp))
-      }
+      for (const timestamp of timestamps) times.push(hours(timestamp) + 'h' + minutes(timestamp))
       return times
     },
     // Convert a list of string in format 00h00 to a list of timestamp

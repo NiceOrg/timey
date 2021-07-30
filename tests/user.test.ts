@@ -1,6 +1,6 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { deepStrictEqual as deepEqual, strictEqual as equal } from 'assert'
-import { Tag, User, UserMini, UserUpdate } from '../models'
+import { Languages, Tag, User, UserMini, UserUpdate } from '../models'
 import { Parameters } from '../models/parameters/parameters.model'
 import { userPlugin } from '../plugins'
 
@@ -34,6 +34,7 @@ describe('user', () => {
   describe('plugin', () => {
     it('get user', () => {
       const user = userPlugin.getUser()
+      user.parameters.language = '' as Languages
       deepEqual(user, new UserMini({}))
     })
     it('update', () => {

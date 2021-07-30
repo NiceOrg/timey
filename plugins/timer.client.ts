@@ -7,9 +7,8 @@ const SECOND = 1000
 /* istanbul ignore next */
 class TimerPlugin {
   constructor() {
-    if (inTest) {
-      return
-    }
+    if (inTest) return
+
     const timers = [setInterval(() => emit(TICK), SECOND), setInterval(() => emit(TICK_TIME_SLOT), 60 * SECOND)]
     on('beforeunload', () => {
       timers.map((timer) => clearInterval(timer))

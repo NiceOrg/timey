@@ -7,7 +7,7 @@ import { TICK_TIME_SLOT, TIME_SLOT_GET, TIME_SLOT_SEND } from '../events.client'
 import { parametersPlugin } from './parameters.client'
 
 class TimeSlotsPlugin {
-  private timeSlots = {} as TimeSlots
+  private timeSlots: TimeSlots = new TimeSlots({})
 
   public getTimeSlots() {
     return this.timeSlots
@@ -32,9 +32,8 @@ class TimeSlotsPlugin {
   }
 
   public isActive() {
-    if (!this.timeSlots.isActive || !tasksPlugin.getActiveTask()) {
-      return false
-    }
+    if (!this.timeSlots.isActive || !tasksPlugin.getActiveTask()) return false
+
     this.checkForUpdate(this.timeSlots.resume, TaskStatus.started)
     this.checkForUpdate(this.timeSlots.pause, TaskStatus.paused)
   }
@@ -42,16 +41,48 @@ class TimeSlotsPlugin {
   /* istanbul ignore next */
   private checkForUpdate(timers: number[], taskStatus: TaskStatus) {
     const actualDate = new Date(Date.now())
-    for (const timer of timers) {
-      if (actualDate.getHours() === Number(hours(timer)) && actualDate.getMinutes() === Number(minutes(timer))) {
+    for (const timer of timers)
+      if (actualDate.getHours() === Number(hours(timer)) && actualDate.getMinutes() === Number(minutes(timer)))
         tasksPlugin.updateActiveTaskStatus(taskStatus)
-      }
-    }
   }
 
   public update(ts: TimeSlots) {
     this.timeSlots = ts
     this.save()
+  }
+
+  /* istanbul ignore next */
+  public addResume(milliseconds: number) {
+    if (this.timeSlots.resume.includes(milliseconds)) return false
+    this.timeSlots.resume.push(milliseconds)
+    this.save()
+    return true
+  }
+
+  /* istanbul ignore next */
+  public removeResume(milliseconds: number) {
+    const index = this.timeSlots.resume.indexOf(milliseconds)
+    if (index === -1) return false
+    this.timeSlots.resume.splice(index, 1)
+    this.save()
+    return true
+  }
+
+  /* istanbul ignore next */
+  public addPause(milliseconds: number) {
+    if (this.timeSlots.pause.includes(milliseconds)) return false
+    this.timeSlots.pause.push(milliseconds)
+    this.save()
+    return true
+  }
+
+  /* istanbul ignore next */
+  public removePause(milliseconds: number) {
+    const index = this.timeSlots.pause.indexOf(milliseconds)
+    if (index === -1) return false
+    this.timeSlots.pause.splice(index, 1)
+    this.save()
+    return true
   }
 
   public activate(value: boolean) {

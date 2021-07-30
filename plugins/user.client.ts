@@ -65,9 +65,7 @@ class UserPlugin {
     storage.set(authenticationPlugin.getUserToken(), JSON.stringify(this.user))
 
     /* istanbul ignore next */
-    if (authenticationPlugin.get().authenticated) {
-      timeyService.update(this.user)
-    }
+    if (authenticationPlugin.get().authenticated) timeyService.update(this.user)
     this.send()
   }
 

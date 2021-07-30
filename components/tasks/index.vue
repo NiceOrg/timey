@@ -55,31 +55,24 @@ export default Vue.extend({
       return this.task.estimation < 1 ? 0 : (this.task.seconds / this.task.estimation) * 100
     },
     taskStatusClass(): any {
-      if (this.task.started === TaskStatus.started) {
-        return 'accent'
-      } else if (this.task.started === TaskStatus.stopped) {
-        return 'secondary-light'
-      }
+      if (this.task.started === TaskStatus.started) return 'accent'
+      else if (this.task.started === TaskStatus.stopped) return 'secondary-light'
+
       return 'warning-light'
     },
     estimationStyling(): any {
       const estimation = this.estimation
-      if (estimation < 100) {
-        return { width: estimation + '%' }
-      }
+      if (estimation < 100) return { width: estimation + '%' }
+
       return {}
     },
     estimationClass(): any {
       const estimation = this.estimation
-      if (estimation < 100) {
-        return 'transition'
-      } else if (estimation < 120) {
-        return 'complete success'
-      } else if (estimation < 166) {
-        return 'complete warn'
-      } else if (estimation < 200) {
-        return 'complete warn-dark'
-      }
+      if (estimation < 100) return 'transition'
+      else if (estimation < 120) return 'complete success'
+      else if (estimation < 166) return 'complete warn'
+      else if (estimation < 200) return 'complete warn-dark'
+
       return 'complete danger'
     },
   },

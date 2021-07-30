@@ -5,7 +5,7 @@ module.exports = {
   'no-console': 'off',
   'func-names': ['error', 'always'],
   'object-curly-spacing': ['error', 'always'],
-  curly: 'error',
+  curly: ['error', 'multi'],
   'capitalized-comments': 'off',
   'unicorn/prefer-module': 'off',
   'max-statements-per-line': 'off',

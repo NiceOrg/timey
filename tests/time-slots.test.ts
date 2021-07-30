@@ -15,7 +15,7 @@ describe('time slots', () => {
   })
   describe('time slots plugin', () => {
     it('get empty time slots', () => {
-      deepEqual(timeSlotsPlugin.getTimeSlots(), {})
+      deepEqual(timeSlotsPlugin.getTimeSlots(), new TimeSlots({}))
     })
     it('update time slot', () => {
       timeSlotsPlugin.update(new TimeSlots({ isActive: true }))

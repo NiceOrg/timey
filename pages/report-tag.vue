@@ -42,9 +42,8 @@ export default Vue.extend({
         backgroundColor.push(value.tag.color)
         data.push(value.seconds)
       }
-      if (data.every((value: number) => value === 0)) {
-        return
-      }
+      if (data.every((value: number) => value === 0)) return
+
       this.chartData = {
         labels,
         datasets: [
