@@ -45,26 +45,29 @@ class TasksPlugin {
     this.checkActiveTask()
   }
 
+  public findByName(name: string) {
+    const index = this.tasks.findIndex((tk) => tk.name.toLowerCase() === name.toLowerCase())
+    if (index === -1) return
+    return this.tasks[index]
+  }
+
   public checkActiveTask() {
     this.activeTask = this.tasks.find((task: Task) => task.started === TaskStatus.started)
   }
 
   public toggle(task: Task) {
     for (const t of this.tasks) {
-      if (t.id !== task.id) {
-        t.started = TaskStatus.stopped
-      } else {
-        task.started = [TaskStatus.stopped, TaskStatus.paused].includes(task.started) ? TaskStatus.started : TaskStatus.stopped
-      }
+      if (t.id !== task.id) t.started = TaskStatus.stopped
+      else task.started = [TaskStatus.stopped, TaskStatus.paused].includes(task.started) ? TaskStatus.started : TaskStatus.stopped
+
       this.activeTask = task.started === TaskStatus.started ? task : undefined
     }
     this.save()
   }
 
   public updateActiveTaskStatus(taskStatus: TaskStatus) {
-    if (this.activeTask === undefined) {
-      return
-    }
+    if (this.activeTask === undefined) return
+
     this.activeTask = this.tasks.find((task: Task) => task.id === this.activeTask!.id)
     this.activeTask!.started = taskStatus === TaskStatus.paused ? TaskStatus.paused : TaskStatus.started
     this.save()
@@ -72,43 +75,35 @@ class TasksPlugin {
 
   /* istanbul ignore next */
   public increment() {
-    if (!this.activeTask || this.activeTask.started === TaskStatus.paused) {
-      return
-    }
+    if (!this.activeTask || this.activeTask.started === TaskStatus.paused) return
+
     this.activeTask.seconds++
-    if (Math.round(Date.now() / 1000) % 10 === 0) {
-      this.save()
-    }
+    if (Math.round(Date.now() / 1000) % 10 === 0) this.save()
   }
 
   public add(task: Task) {
     task.id = this.getLastId() + 1
     this.tasks.push(task)
     this.save()
+    return task
   }
 
   public addAll(tasks: Task[]) {
-    for (const task of tasks) {
-      this.add(task)
-    }
+    for (const task of tasks) this.add(task)
   }
 
   public delete(data: Task) {
-    if (data.started === TaskStatus.started || data.started === TaskStatus.paused) {
-      this.activeTask = undefined
-    }
+    if (data.started === TaskStatus.started || data.started === TaskStatus.paused) this.activeTask = undefined
+
     const index = this.tasks.findIndex((task) => task.id === data.id)
-    if (index === -1) {
-      return
-    }
+    if (index === -1) return
+
     this.tasks.splice(index, 1)
     this.save()
   }
 
   public deleteAll(tasks: Task[]) {
-    for (const task of tasks) {
-      this.delete(task)
-    }
+    for (const task of tasks) this.delete(task)
   }
 
   public update(task: Task) {
@@ -125,17 +120,14 @@ class TasksPlugin {
   public updateTag(task: Task, tag: Tag) {
     const taskFound = this.tasks.find((tk: Task) => tk.id === task.id)
     const tagIndex = taskFound?.tags.findIndex((t: Tag) => t.id === tag.id)
-    if (tagIndex === undefined || tagIndex === -1) {
-      return
-    }
+    if (tagIndex === undefined || tagIndex === -1) return
+
     taskFound!.tags[tagIndex] = tag
     this.save()
   }
 
   public updateTagForAll(tag: Tag) {
-    for (const task of this.getTasks()) {
-      this.updateTag(task, tag)
-    }
+    for (const task of this.getTasks()) this.updateTag(task, tag)
   }
 
   public addTag(task: Task, tag: Tag) {
@@ -146,9 +138,8 @@ class TasksPlugin {
   public deleteTag(task: Task, tag: Tag): Boolean {
     const taskFound = this.tasks.find((tk: Task) => tk.id === task.id)
     const index = taskFound?.tags.findIndex((t: Tag) => t.id === tag.id)
-    if (index === undefined || index === -1) {
-      return false
-    }
+    if (index === undefined || index === -1) return false
+
     taskFound!.tags.splice(index!, 1)
     this.save()
     return true
@@ -156,9 +147,7 @@ class TasksPlugin {
 
   public deleteAllTag(data: Tag) {
     const tasks = this.tasks
-    for (const task of tasks) {
-      this.deleteTag(task, data)
-    }
+    for (const task of tasks) this.deleteTag(task, data)
   }
 
   public getActiveTask() {
@@ -180,9 +169,8 @@ class TasksPlugin {
 
   public getLastId(): number {
     const maxId = this.tasks[this.tasks.length - 1]
-    if (maxId === undefined) {
-      return -1
-    }
+    if (maxId === undefined) return -1
+
     return maxId.id
   }
 

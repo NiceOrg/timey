@@ -60,18 +60,11 @@ export default {
       await this.validate().catch((error) => (this.errorMessage = error.message))
     },
     async validate() {
-      if (this.form.email === '') {
-        throw new Error('Veuillez entrer une adresse mail.')
-      }
-      if (this.form.password === '') {
-        throw new Error('Veuillez entrer un mot de passe.')
-      }
-      if (this.form.repPassword === '') {
-        throw new Error('Veuillez confirmer votre mot de passe.')
-      }
-      if (this.form.password !== this.form.repPassword) {
-        throw new Error('Les mots de passes ne correspondent pas.')
-      }
+      if (this.form.email === '') throw new Error('Veuillez entrer une adresse mail.')
+      if (this.form.password === '') throw new Error('Veuillez entrer un mot de passe.')
+      if (this.form.repPassword === '') throw new Error('Veuillez confirmer votre mot de passe.')
+      if (this.form.password !== this.form.repPassword) throw new Error('Les mots de passes ne correspondent pas.')
+
       const user = new User({ password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
       await timeyService.add(user)
       this.$router.push(this.localePath('/dashboard'))

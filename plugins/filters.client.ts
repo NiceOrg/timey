@@ -65,16 +65,13 @@ class FiltersPlugin {
   }
 
   public addTags(tags: Tag[]) {
-    for (const tag of tags) {
-      this.addTag(tag)
-    }
+    for (const tag of tags) this.addTag(tag)
   }
 
   public deleteTag(tag: Tag) {
     const index = this.getFilters().tags.findIndex((data) => tag.id === data.id)
-    if (index === -1) {
-      return
-    }
+    if (index === -1) return
+
     this.getFilters().tags.splice(index, 1)
     this.save()
   }
@@ -86,12 +83,12 @@ class FiltersPlugin {
 
   public filterTasks() {
     let taskFiltered = tasksPlugin.getTasks()
-    if (this.filters.tags.length > 0) {
+    if (this.filters.tags.length > 0)
       taskFiltered = taskFiltered.filter((task: Task) => this.filters.tags.every((tag: Tag) => task.tags.find((t: Tag) => t.id === tag.id)))
-    }
-    if (this.filters.title !== '') {
+
+    if (this.filters.title !== '')
       taskFiltered = taskFiltered.filter((task: Task) => task.name.toLowerCase().includes(this.filters.title.toLowerCase()))
-    }
+
     this.tasksFiltered = taskFiltered
   }
 

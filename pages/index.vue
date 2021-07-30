@@ -58,20 +58,15 @@ export default {
       await this.validate().catch((error) => (this.errorMessage = error.message))
     },
     async validate() {
-      if (this.form.email === '') {
-        throw new Error('Veuillez entrer votre email.')
-      }
-      if (this.form.password === '') {
-        throw new Error('Veuillez entrer un mot de passe.')
-      }
+      if (this.form.email === '') throw new Error('Veuillez entrer votre email.')
+      if (this.form.password === '') throw new Error('Veuillez entrer un mot de passe.')
+
       const user = new User({ email: this.form.email, password: this.form.password })
       await timeyService.authenticate(user)
       this.$router.push(this.localePath('/dashboard'))
     },
     redirectIfConnected() {
-      if (authenticationPlugin.get().authenticated) {
-        this.$router.push(this.localePath('/dashboard'))
-      }
+      if (authenticationPlugin.get().authenticated) this.$router.push(this.localePath('/dashboard'))
     },
   },
 }

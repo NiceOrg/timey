@@ -30,16 +30,21 @@ class TagsPlugin {
     this.tags = userDataRaw.tags.map((tag: Tag) => new Tag(tag.id, tag.name, tag.color))
   }
 
+  public findByName(name: string) {
+    const index = this.tags.findIndex((tg: Tag) => tg.name === name)
+    if (index === -1) return
+    return this.tags[index]
+  }
+
   public add(data: Tag) {
     data.id = this.getLastId() + 1
     this.tags.push(data)
     this.save()
+    return data
   }
 
   public addAll(tags: Tag[]) {
-    for (const tag of tags) {
-      this.add(tag)
-    }
+    for (const tag of tags) this.add(tag)
   }
 
   public update(tag: Tag) {
@@ -55,25 +60,21 @@ class TagsPlugin {
 
   public delete(tag: Tag) {
     const index = this.tags.findIndex((tg: Tag) => tg.id === tag.id)
-    if (index === -1) {
-      return false
-    }
+    if (index === -1) return false
+
     this.tags.splice(index, 1)
     this.save()
     tasksPlugin.deleteAllTag(tag)
   }
 
   public deleteAll(tags: Tag[]) {
-    for (const tag of tags) {
-      this.delete(tag)
-    }
+    for (const tag of tags) this.delete(tag)
   }
 
   public getLastId(): number {
     const maxId = this.tags[this.tags.length - 1]
-    if (maxId === undefined) {
-      return -1
-    }
+    if (maxId === undefined) return -1
+
     return maxId.id
   }
 
@@ -81,9 +82,8 @@ class TagsPlugin {
   public generateRandomColor() {
     const letters = '0123456789ABCDEF'
     let color = '#'
-    for (let index = 0; index < 6; index++) {
-      color += letters[Math.floor(Math.random() * 16)]
-    }
+    for (let index = 0; index < 6; index++) color += letters[Math.floor(Math.random() * 16)]
+
     return color
   }
 

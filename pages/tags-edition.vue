@@ -34,9 +34,7 @@ export default Vue.extend({
   },
   computed: {
     filteredTagList(): Tag[] {
-      if (this.filter.length === 0) {
-        return this.tags
-      }
+      if (this.filter.length === 0) return this.tags
       return this.tags.filter((tag: Tag) => tag.name.toLowerCase().includes(this.filter.toLowerCase()))
     },
   },
