@@ -7,7 +7,8 @@
 		"no-task-entered": "Please insert a task name!",
 		"no-task-found": "No task was found.",
 		"no-task-message": "Press the button to add a new task.",
-		"search-task": "Search for a task"
+		"search-task": "Search for a task",
+		"speak-to-interact": "This feature is only available in french"
 	},
 	"filters": {
 		"search-tag": "Search a tag",
