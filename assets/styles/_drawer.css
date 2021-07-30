@@ -1,7 +1,13 @@
 .ant-drawer-body {
   padding: 0;
+  height: inherit;
+  overflow: auto;
 }
 
 .ant-drawer-title {
   text-align: center;
+}
+
+.ant-drawer-wrapper-body {
+  overflow: hidden;
 }
