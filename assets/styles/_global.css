@@ -15,7 +15,7 @@ body {
   --font-color-primary: black;
   --font-color-secondary: white;
   --font-family-title: 'New Tegomin', serif;
-  --font-family-discussion: 'SanFrancisco, serif';
+  --font-family-discussion: 'SanFrancisco', serif;
   /* stylelint-enable color-no-hex */
 }
 
