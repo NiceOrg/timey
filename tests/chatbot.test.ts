@@ -1,7 +1,7 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import { strictEqual as equal, deepStrictEqual as deepEqual, throws } from 'assert'
-import { AnalyzeError, Intent, SpeechRequest } from '../models'
-import { analysis } from '../plugins'
+import { AnalyzeError, Intent, SpeechRequest, Tree } from '../models'
+import { analysis, generate } from '../plugins'
 
 describe('chabot', () => {
   describe('speech request model', () => {
@@ -9,6 +9,21 @@ describe('chabot', () => {
       const speechRequest = new SpeechRequest({})
       equal(speechRequest.response, '')
       equal(speechRequest.sentence, '')
+    })
+  })
+
+  describe('tree model', () => {
+    it('Instantiate new tree with default params', () => {
+      const tree = new Tree({})
+      equal(tree.childIndex, 0)
+      equal(tree.index, 0)
+      deepEqual(tree.children, [])
+      deepEqual(tree.intent, {})
+    })
+    it('add child', () => {
+      const tree = new Tree({})
+      tree.add(new Tree({ index: 1 }))
+      deepEqual(tree.children[0], new Tree({ index: 1 }))
     })
   })
 
@@ -142,6 +157,16 @@ describe('chabot', () => {
       throws(() => {
         analysis.analyze('ajoute une estimation de 3 heures')
       }, new AnalyzeError('A quelle tâche voulez-vous ajouter cette estimation ?'))
+    })
+  })
+
+  describe('generation', () => {
+    it('parse time', () => {
+      equal(generate.parseTime(generate.cleanTime('de')), 0)
+      equal(generate.parseTime(generate.cleanTime('2 semaines 3h30 10 secondes')), 1_222_210)
+      equal(generate.parseTime(generate.cleanTime('3h30 minutes 10 secondes')), 12_610)
+      equal(generate.parseTime(generate.cleanTime('de une semaine 5 jours 2 heures 2 minutes et une seconde')), 1_044_121)
+      equal(generate.parseTime(generate.cleanTime('un jour une heure et une minute')), 90_060)
     })
   })
 })
