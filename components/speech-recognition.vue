@@ -15,8 +15,8 @@
 <script lang="ts">
 import { on, sleep } from 'shuutils'
 import Vue from 'vue'
-import { SpeechRequest } from '~/models'
-import { speechToTextPlugin, STT_RESULT } from '~/plugins'
+import { AnalyzeError, SpeechRequest } from '~/models'
+import { speechToTextPlugin, STT_RESULT, analysis } from '~/plugins'
 export default Vue.extend({
   data() {
     return {
@@ -26,7 +26,13 @@ export default Vue.extend({
   },
   beforeMount() {
     on(STT_RESULT, (request: SpeechRequest) => {
-      const response = speechToTextPlugin.execute()
+      let response = ''
+      try {
+        response = speechToTextPlugin.execute(request.sentence)
+      } catch (error) {
+        response = error.message
+        if (error instanceof AnalyzeError) this.restartRecognition()
+      }
       this.requests.push({ sentence: request.sentence, response })
     })
   },
@@ -37,6 +43,7 @@ export default Vue.extend({
     },
     onClose() {
       this.stopRecognition()
+      analysis.reset()
       this.visible = false
     },
     async startRecognition() {
