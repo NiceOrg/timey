@@ -4,7 +4,8 @@
 /* eslint-disable no-undef */
 import { emit } from 'shuutils'
 import { SpeechRequest } from '../../models'
-import { STT_RESULT, parametersPlugin } from '../'
+import { parametersPlugin, analysis } from '../'
+import { STT_RESULT } from '../events.client'
 
 class SpeechToTextPlugin {
   public recognition = {} as SpeechRecognition
@@ -42,7 +43,9 @@ class SpeechToTextPlugin {
     this.recognition.stop()
   }
 
-  public execute() {
+  public execute(sentence: string) {
+    const intents = analysis.analyze(sentence, true)
+    console.log(intents)
     return 'WORK IN PROGRESS'
   }
 }
