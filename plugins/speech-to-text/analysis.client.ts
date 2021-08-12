@@ -1,10 +1,9 @@
-import { Intent, Intents, AnalyzeError } from '../../models'
+import { AnalyzeError, Intent, IntentName, INTENTS } from '../../models'
 
 class Analysis {
   private intents = [] as Intent[]
   private sentenceLeft = '' as string
   private sentenceRed = '' as string
-  private intentData = new Intents({})
 
   public analyze(sentence: string, sequential = false) {
     if (sequential) sentence = this.secondary(sentence)
@@ -166,10 +165,10 @@ class Analysis {
     return this.addIntent('identifier')
   }
 
-  private addIntent(tag: string, separateAnd = true) {
+  private addIntent(tag: IntentName, separateAnd = true) {
     const sentenceToAnalyse = separateAnd ? this.separateIntentsWithAnd() : this.sentenceLeft
     if (!sentenceToAnalyse) return
-    const pattern = '(?<' + tag + '>' + this.intentData.get(tag)!.join('|') + ')'
+    const pattern = '(?<' + tag + '>' + INTENTS[tag].join('|') + ')'
     const intent = new RegExp(pattern).exec(sentenceToAnalyse)?.groups
     if (!intent) return false
     const word = Object.values(intent)[0].trim()
@@ -183,7 +182,7 @@ class Analysis {
     return /.+?(?= et |ainsi que| a |$)/.exec(this.sentenceLeft)?.shift()
   }
 
-  private addIntentOfNextWord(tag: string) {
+  private addIntentOfNextWord(tag: IntentName) {
     const word = this.findIntentOfNextWord(tag)
     if (!word) return false
     this.intents.push(new Intent({ tag, word }))
@@ -192,9 +191,9 @@ class Analysis {
     return true
   }
 
-  private findIntentOfNextWord(tag: string) {
+  private findIntentOfNextWord(tag: IntentName) {
     const word = this.sentenceLeft.trim().split(' ')[0]
-    if (!this.intentData.get(tag)!.includes(word)) return false
+    if (!INTENTS[tag].includes(word)) return false
     return word
   }
 
