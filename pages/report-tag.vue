@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable import/named */
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
 // eslint-disable-next-line import/named

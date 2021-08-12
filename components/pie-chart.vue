@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable import/named */
 import Vue from 'vue'
 // eslint-disable-next-line import/named
 import { Chart, ChartData, ChartItem, ChartOptions, registerables } from 'chart.js'
