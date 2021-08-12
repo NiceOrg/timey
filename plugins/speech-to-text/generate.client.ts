@@ -1,4 +1,4 @@
-import { Intent, Tree } from '../../models'
+import { Intent, IntentName, Tree } from '../../models'
 
 /* istanbul ignore next */
 class Generate {
@@ -91,7 +91,8 @@ class Generate {
         this.start(tree)
         break
       case 'identifier': {
-        const intent = new Intent({ tag: 'identifier', word: this.sentence.shift()!.word })
+        const word = this.sentence.shift()?.word ?? ''
+        const intent = new Intent({ tag: 'identifier', word })
         this.newChildWithIntent(tree, this.cleanIdentifier(intent))
         break
       }
@@ -310,7 +311,7 @@ class Generate {
     return tree.add(child)
   }
 
-  private currentTag() {
+  private currentTag(): IntentName | undefined {
     return this.sentence[0]?.tag
   }
 }
