@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable import/named */
 import Vue from 'vue'
 import { Chart, ChartData, ChartItem, ChartOptions, registerables } from 'chart.js'
 import ChartJsPluginDataLabels from 'chartjs-plugin-datalabels'
