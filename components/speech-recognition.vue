@@ -25,7 +25,7 @@ export default Vue.extend({
     }
   },
   beforeMount() {
-    on(STT_RESULT, (request: SpeechRequest) => {
+    on(STT_RESULT, async (request: SpeechRequest) => {
       let response = ''
       try {
         response = speechToTextPlugin.execute(request.sentence)
@@ -34,6 +34,8 @@ export default Vue.extend({
         if (error instanceof AnalyzeError) this.restartRecognition()
       }
       this.requests.push({ sentence: request.sentence, response })
+      await sleep(100)
+      document.querySelector('.discussion-footer')?.scrollIntoView()
     })
   },
   methods: {

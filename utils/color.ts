@@ -1,40 +1,120 @@
-// https://stackoverflow.com/questions/3080421/javascript-color-gradient
-function hex(color: string) {
-  const s = '0123456789abcdef'
-  let index = Number.parseInt(color)
-  if (index === 0 || Number.isNaN(color)) {
-    return '00'
-  }
-  index = Math.round(Math.min(Math.max(0, index), 255))
-  return s.charAt((index - (index % 16)) / 16) + s.charAt(index % 16)
+export const colorToHex = {
+  beige: '#F5F5DC',
+  black: '#000000',
+  blue: '#0000FF',
+  blueviolet: '#8A2BE2',
+  brown: '#A52A2A',
+  chocolate: '#D2691E',
+  coral: '#FF7F50',
+  crimson: '#DC143C',
+  cyan: '#00FFFF',
+  darkblue: '#00008B',
+  darkcyan: '#008B8B',
+  darkgray: '#A9A9A9',
+  darkgreen: '#006400',
+  darkmagenta: '#8B008B',
+  darkorange: '#FF8C00',
+  darkred: '#8B0000',
+  darkturquoise: '#00CED1',
+  darkviolet: '#9400D3',
+  gold: '#FFD700',
+  gray: '#808080',
+  green: '#008000',
+  greenyellow: '#ADFF2F',
+  indigo: '#4B0082',
+  lightblue: '#ADD8E6',
+  lightcyan: '#E0FFFF',
+  lightgray: '#D3D3D3',
+  lightgreen: '#90EE90',
+  lightpink: '#FFB6C1',
+  lightskyblue: '#87CEFA',
+  lightyellow: '#FFFFE0',
+  magenta: '#FF00FF',
+  maroon: '#800000',
+  olive: '#808000',
+  orange: '#FFA500',
+  orangered: '#FF4500',
+  pink: '#FFC0CB',
+  purple: '#800080',
+  rebeccapurple: '#663399',
+  red: '#FF0000',
+  salmon: '#FA8072',
+  silver: '#C0C0C0',
+  skyblue: '#87CEEB',
+  snow: '#FFFAFA',
+  tomato: '#FF6347',
+  turquoise: '#40E0D0',
+  violet: '#EE82EE',
+  white: '#FFFFFF',
+  yellow: '#FFFF00',
+  yellowgreen: '#9ACD32',
 }
 
-function convertToHex(rgb: any[]) {
-  return '#' + hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2])
+export const colorsFr = {
+  argent: 'silver',
+  beige: 'beige',
+  blanc: 'white',
+  blanche: 'white',
+  bleu: 'blue',
+  bleue: 'blue',
+  'bleu ciel': 'skyblue',
+  'bleu ciel clair': 'lightskyblue',
+  'bleu clair': 'lightblue',
+  'bleu foncé': 'darkblue',
+  'bleu violet': 'blueviolet',
+  brun: 'brown',
+  chocolat: 'chocolate',
+  coral: 'coral',
+  cramoisi: 'crimson',
+  cyan: 'cyan',
+  'cyan clair': 'lightcyan',
+  'cyan foncé': 'darkcyan',
+  gris: 'gray',
+  'gris clair': 'lightgray',
+  'gris foncé': 'darkgray',
+  indigo: 'indigo',
+  jaune: 'yellow',
+  'jaune clair': 'lightyellow',
+  'jaune vert': 'yellowgreen',
+  magenta: 'magenta',
+  'magenta foncé': 'darkmagenta',
+  maron: 'maroon',
+  mauve: 'purple',
+  neige: 'snow',
+  noir: 'black',
+  noire: 'black',
+  olive: 'olive',
+  or: 'gold',
+  orange: 'orange',
+  'orange foncé': 'darkorange',
+  'rebecca purple': 'rebeccapurple',
+  rose: 'pink',
+  'rose clair': 'lightpink',
+  rouge: 'red',
+  'rouge foncé': 'darkred',
+  'rouge orange': 'orangered',
+  saumon: 'salmon',
+  tomate: 'tomato',
+  turquoise: 'turquoise',
+  'turquoise foncé': 'darkturquoise',
+  vert: 'green',
+  verte: 'green',
+  'vert clair': 'lightgreen',
+  'verte clair': 'lightgreen',
+  'vert foncé': 'darkgreen',
+  'verte foncé': 'darkgreen',
+  'vert jaune': 'greenyellow',
+  violet: 'violet',
+  violette: 'violet',
+  'violet foncé': 'darkviolet',
+  'violette foncé': 'darkviolet',
 }
 
-function convertToRGB(hex: string) {
-  const color = []
-  color[0] = Number.parseInt(hex.slice(1, 3), 16)
-  color[1] = Number.parseInt(hex.slice(3, 5), 16)
-  color[2] = Number.parseInt(hex.slice(5, 7), 16)
-  return color
-}
-
-export function generateColor(colorStart: string, colorEnd: string, colorNumber: number, colorIndex: number) {
-  if (colorIndex > colorNumber) {
-    return 'red'
-  }
-  const start = convertToRGB(colorStart)
-  const end = convertToRGB(colorEnd)
-  let alpha = 0
-
-  const c = []
-  alpha += ++colorIndex / colorNumber
-
-  c[0] = start[0] * alpha + (1 - alpha) * end[0]
-  c[1] = start[1] * alpha + (1 - alpha) * end[1]
-  c[2] = start[2] * alpha + (1 - alpha) * end[2]
-
-  return convertToHex(c)
+export function colorNameToHex(color: string) {
+  const colorList: any = colorsFr
+  let colorKey
+  for (const key in colorList) if (color === key) colorKey = colorList[key]
+  if (!colorKey) return
+  const hexList: any = colorToHex
+  for (const col in hexList) if (colorKey === col) return hexList[col]
 }

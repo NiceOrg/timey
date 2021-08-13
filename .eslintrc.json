@@ -1,0 +1,50 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:vue/recommended",
+    "@vue/typescript/recommended",
+    "plugin:unicorn/recommended",
+    "@nuxtjs/eslint-config-typescript",
+    "plugin:prettier/recommended",
+    "plugin:nuxt/recommended"
+  ],
+  "plugins": [
+    "unicorn",
+    "prettier"
+  ],
+  "rules": {
+    "no-console": "off",
+    "func-names": [
+      "error",
+      "always"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "curly": [
+      "error",
+      "multi"
+    ],
+    "capitalized-comments": "off",
+    "unicorn/prefer-module": "off",
+    "max-statements-per-line": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 150,
+        "ignoreUrls": true
+      }
+    ],
+    "vue/max-attributes-per-line": "off",
+    "vue/singleline-html-element-content-newline": "off",
+    "@typescript-eslint/consistent-type-assertions": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "no-unused-vars": "off"
+  }
+}

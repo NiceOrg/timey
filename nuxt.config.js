@@ -30,35 +30,30 @@ export default {
   plugins: ['@/plugins/antd-ui', '@/plugins/flag-icon.js', '@/plugins/tasks.client', '@/plugins/timer.client', '@/plugins/tags.client'],
   components: true,
   buildModules: ['@nuxt/typescript-build'],
-  modules: [
-    '@nuxtjs/pwa',
-    [
-      'nuxt-i18n',
+  modules: ['@nuxtjs/pwa', '@nuxtjs/i18n'],
+  i18n: {
+    locales: [
       {
-        locales: [
-          {
-            name: 'Français',
-            code: 'fr',
-            iso: 'fr-FR	',
-            file: 'fr.json',
-          },
-          {
-            name: 'English',
-            code: 'en',
-            iso: 'en-US',
-            file: 'en.json',
-          },
-        ],
-        langDir: 'lang/',
-        defaultLocale: 'fr',
-        detectBrowserLanguage: {
-          useCookie: true,
-          cookieKey: 'i18n_redirected',
-          alwaysRedirect: true,
-        },
+        name: 'Français',
+        code: 'fr',
+        iso: 'fr-FR	',
+        file: 'fr.json',
+      },
+      {
+        name: 'English',
+        code: 'en',
+        iso: 'en-US',
+        file: 'en.json',
       },
     ],
-  ],
+    langDir: 'lang/',
+    defaultLocale: 'fr',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      alwaysRedirect: true,
+    },
+  },
   pwa: {
     manifest: {
       lang: 'en',
@@ -66,7 +61,10 @@ export default {
   },
   build: {
     babel: {
-      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]],
+      plugins: [
+        ['@babel/plugin-proposal-private-methods', { loose: true }],
+        ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+      ],
     },
   },
 }
