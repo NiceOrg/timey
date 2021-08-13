@@ -42,7 +42,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    tagStyling(): any {
+    tagStyling(): Record<string, string> {
       return { background: this.newTag.color, color: this.newTag.isColorBright() ? 'black' : 'white' }
     },
   },

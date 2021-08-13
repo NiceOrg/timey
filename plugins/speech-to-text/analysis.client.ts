@@ -5,7 +5,7 @@ class Analysis {
   private sentenceLeft = '' as string
   private sentenceRed = '' as string
 
-  public analyze(sentence: string, sequential = false) {
+  public start(sentence: string, sequential = false) {
     if (sequential) sentence = this.secondary(sentence)
     this.reset()
     this.sentenceLeft = this.cleanSentence(sentence)

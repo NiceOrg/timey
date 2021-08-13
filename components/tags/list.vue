@@ -67,11 +67,13 @@ export default Vue.extend({
     firstTagEditMode(): Tag | undefined {
       return this.tags.find((tag: Tag) => tag.id === this.tagsSelected[0]?.id)
     },
-    tagStyling(): any {
-      return { background: this.firstTag!.color, color: this.firstTag!.isColorBright() ? 'black' : 'white' }
+    tagStyling(): Record<string, string> {
+      return this.firstTag ? { background: this.firstTag.color, color: this.firstTag.isColorBright() ? 'black' : 'white' } : {}
     },
-    tagStylingEditMode(): any {
-      return { background: this.firstTagEditMode!.color, color: this.firstTagEditMode!.isColorBright() ? 'black' : 'white' }
+    tagStylingEditMode(): Record<string, string> {
+      return this.firstTagEditMode
+        ? { background: this.firstTagEditMode.color, color: this.firstTagEditMode.isColorBright() ? 'black' : 'white' }
+        : {}
     },
     filteredTagList(): Tag[] {
       return this.tags.filter((tag: Tag) => tag.name.toLowerCase().includes(this.tagSearched.toLowerCase()))
@@ -90,7 +92,7 @@ export default Vue.extend({
       this.isTagChecked(tag) ? emit(TASK_DELETE_TAG, { task: this.task, tag }) : emit(TASK_ADD_TAG, { task: this.task, tag })
     },
     isTagChecked(tag: Tag) {
-      return this.task.tags.find((t: Tag) => t.id === tag.id) !== undefined
+      return this.task.tags.some((t: Tag) => t.id === tag.id)
     },
     addTag() {
       const tag = new Tag(-1, this.tagSearched, tagsPlugin.generateRandomColor())
