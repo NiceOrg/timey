@@ -35,11 +35,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import { User } from '~/models'
 import { authenticationPlugin } from '~/plugins'
 import { timeyService } from '~/services'
-export default {
+export default Vue.extend({
   layout: 'auth-layout',
   data() {
     return {
@@ -60,7 +61,6 @@ export default {
     async validate() {
       if (this.form.email === '') throw new Error('Veuillez entrer votre email.')
       if (this.form.password === '') throw new Error('Veuillez entrer un mot de passe.')
-
       const user = new User({ email: this.form.email, password: this.form.password })
       await timeyService.authenticate(user)
       this.$router.push(this.localePath('/dashboard'))
@@ -69,5 +69,5 @@ export default {
       if (authenticationPlugin.get().authenticated) this.$router.push(this.localePath('/dashboard'))
     },
   },
-}
+})
 </script>
