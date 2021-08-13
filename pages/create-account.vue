@@ -40,10 +40,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import { User } from '~/models'
 import { timeyService } from '~/services'
-export default {
+export default Vue.extend({
   layout: 'auth-layout',
   data() {
     return {
@@ -70,7 +71,7 @@ export default {
       this.$router.push(this.localePath('/dashboard'))
     },
   },
-}
+})
 </script>
 
 <style scoped>
