@@ -1,10 +1,9 @@
 import { Intent, IntentName, Tree } from '../../models'
 
-/* istanbul ignore next */
 class Generate {
   private sentence = [] as Intent[]
 
-  public generate(sentence: Intent[]) {
+  public start(sentence: Intent[]) {
     this.sentence = [...sentence]
     let tree = new Tree({})
     Tree.count = 0
@@ -28,13 +27,13 @@ class Generate {
       }
       case 'start': {
         const child = this.newChild(tree)
-        this.start(child)
+        this.startTask(child)
         this.action(tree)
         break
       }
       case 'stop': {
         const child = this.newChild(tree)
-        this.stop(child)
+        this.stopTask(child)
         this.action(tree)
         break
       }
@@ -84,11 +83,11 @@ class Generate {
     }
   }
 
-  private start(tree: Tree) {
+  private startTask(tree: Tree) {
     switch (this.currentTag()) {
       case 'task':
         this.sentence.shift()
-        this.start(tree)
+        this.startTask(tree)
         break
       case 'identifier': {
         const word = this.sentence.shift()?.word ?? ''
@@ -99,11 +98,11 @@ class Generate {
     }
   }
 
-  private stop(tree: Tree) {
+  private stopTask(tree: Tree) {
     switch (this.currentTag()) {
       case 'task':
         this.sentence.shift()
-        this.stop(tree)
+        this.stopTask(tree)
         break
       case 'identifier': {
         this.sentence.shift()
@@ -266,7 +265,8 @@ class Generate {
       case 'to': {
         const child = this.newChild(tree)
         if (this.currentTag() === 'task') this.sentence.shift()
-        const intent = new Intent({ tag: 'identifier', word: this.sentence.shift()!.word })
+        const word = this.sentence.shift()?.word ?? ''
+        const intent = new Intent({ tag: 'identifier', word })
         this.newChildWithIntent(child, this.cleanIdentifier(intent))
         this.tagOption(tree)
         break
@@ -281,7 +281,8 @@ class Generate {
         this.name(tree)
         break
       default: {
-        const intent = new Intent({ tag: 'identifier', word: this.sentence.shift()!.word })
+        const word = this.sentence.shift()?.word ?? ''
+        const intent = new Intent({ tag: 'identifier', word })
         this.newChildWithIntent(tree, this.cleanIdentifier(intent))
         break
       }

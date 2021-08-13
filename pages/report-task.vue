@@ -44,7 +44,7 @@ export default Vue.extend({
     emit(NAVBAR_SETTINGS, new Navbar({ title: this.$t('reports.task.tasks-report').toString() }))
   },
   methods: {
-    progressionBarSize(task: Task): any {
+    progressionBarSize(task: Task): Record<string, string> {
       return { width: (task.seconds / this.orderedTasks[0].seconds) * 65 + '%' }
     },
     orderTasks(tasks: Task[]) {
@@ -108,7 +108,7 @@ export default Vue.extend({
   border-radius: 0.4rem;
   color: var(--font-color-secondary, white);
   background-color: var(--primary-dark, grey);
-  border: 0.1rem solid var(--font-color-primary, black;);
+  border: 0.1rem solid var(--font-color-primary, black);
   height: 2rem;
 }
 

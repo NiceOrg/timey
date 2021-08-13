@@ -60,7 +60,7 @@ export default Vue.extend({
       emit(FILTERED_TAG_ADD, tag)
     },
     isTagChecked(tag: Tag) {
-      return (this.filters.tags as Tag[]).find((t: Tag) => t.id === tag.id) !== undefined
+      return this.filters.tags.some((t: Tag) => t.id === tag.id)
     },
   },
 })
