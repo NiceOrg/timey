@@ -12,6 +12,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
+// eslint-disable-next-line import/named
 import { ChartData, ChartOptions, ChartTypeRegistry, TooltipItem, TooltipModel } from 'chart.js'
 import { Navbar, TagExtended, Task } from '~/models'
 import { NAVBAR_SETTINGS, reportPlugin, tasksPlugin, TASK_GET, TASK_SEND } from '~/plugins'
