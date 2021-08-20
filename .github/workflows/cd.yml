@@ -33,3 +33,4 @@ jobs:
             git pull --ff-only 
             npm i 
             npm run build
+            cp -r * /usr/share/nginx/html/timey/
