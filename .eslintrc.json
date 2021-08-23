@@ -1,5 +1,4 @@
 {
-  "root": true,
   "env": {
     "browser": true,
     "mocha": true,
@@ -17,23 +16,19 @@
     "unicorn",
     "prettier"
   ],
+  "root": true,
   "rules": {
-    "no-console": "off",
-    "func-names": [
-      "error",
-      "always"
-    ],
-    "object-curly-spacing": [
-      "error",
-      "always"
-    ],
+    "@typescript-eslint/consistent-type-assertions": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "capitalized-comments": "off",
     "curly": [
       "error",
       "multi"
     ],
-    "capitalized-comments": "off",
-    "unicorn/prefer-module": "off",
-    "max-statements-per-line": "off",
+    "func-names": [
+      "error",
+      "always"
+    ],
     "max-len": [
       "error",
       {
@@ -41,10 +36,15 @@
         "ignoreUrls": true
       }
     ],
+    "max-statements-per-line": "off",
+    "no-console": "off",
+    "no-unused-vars": "off",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "unicorn/prefer-module": "off",
     "vue/max-attributes-per-line": "off",
-    "vue/singleline-html-element-content-newline": "off",
-    "@typescript-eslint/consistent-type-assertions": "off",
-    "@typescript-eslint/no-confusing-void-expression": "off",
-    "no-unused-vars": "off"
+    "vue/singleline-html-element-content-newline": "off"
   }
 }

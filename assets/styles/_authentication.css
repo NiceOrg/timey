@@ -1,16 +1,16 @@
 .authentication {
+  align-items: center;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
   height: 100%;
+  justify-content: space-between;
 }
 
 .send {
   margin-bottom: 2rem;
-  width: 100%;
   text-align: center;
+  width: 100%;
 }
 
 .form {
@@ -19,12 +19,12 @@
 
 .submit-button,
 .submit-button:hover, .submit-button:focus {
-  border-radius: 1rem;
-  width: 60%;
   background-color: var(--ternary, red);
-  color: var(--font-color-secondary, white);
   border: none;
+  border-radius: 1rem;
+  color: var(--font-color-secondary, white);
   font-weight: 500;
+  width: 60%;
 }
 
 .send a {
