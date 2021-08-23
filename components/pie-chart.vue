@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+// eslint-disable-next-line import/named
 import { Chart, ChartData, ChartItem, ChartOptions, registerables } from 'chart.js'
 import ChartJsPluginDataLabels from 'chartjs-plugin-datalabels'
 
