@@ -9,8 +9,7 @@
         />
       </a-form-item>
       <a-form-item :label="$t('global.color')">
-        <a-button icon="redo" size="small" :style="tagStyling" @click="changeColor(newTag)" />
-        <a-input v-decorator="['color']" class="tag-edit-color" size="small" :placeholder="$t('global.color')" />
+        <a-button icon="redo" :style="tagStyling" @click="newTag.color = generateRandomColor()" />
       </a-form-item>
       <div class="tag-edit-submit">
         <a-button type="primary" html-type="submit"> {{ $t('global.save') }}</a-button>
@@ -24,8 +23,8 @@
 import Vue from 'vue'
 import { emit } from 'shuutils'
 import { Tag } from '~/models'
-import { tagsPlugin } from '~/plugins/tags.client'
 import { CLOSE_CONTENT, TAG_EDITION_UPDATE } from '~/plugins'
+import { generateRandomColor } from '~/utils'
 
 export default Vue.extend({
   props: {
@@ -39,6 +38,7 @@ export default Vue.extend({
     return {
       newTag: new Tag(this.tag.id, this.tag.name, this.tag.color),
       form: this.$form.createForm(this, { name: 'tagForm' }),
+      generateRandomColor,
     }
   },
   computed: {
@@ -47,22 +47,18 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.form.setFieldsValue({ name: this.newTag.name, color: this.newTag.color })
+    this.form.setFieldsValue({ name: this.newTag.name })
   },
   methods: {
     updateTag(event: Event) {
       event.preventDefault()
       this.form.validateFields((error, values) => {
         if (!error) {
-          const tag = new Tag(this.tag.id, values.name, values.color)
+          const tag = new Tag(this.tag.id, values.name, this.newTag.color)
           emit(TAG_EDITION_UPDATE, tag)
           this.close()
         }
       })
-    },
-    changeColor(tag: Tag) {
-      tag.color = tagsPlugin.generateRandomColor()
-      this.form.setFieldsValue({ color: this.newTag.color })
     },
     close() {
       emit(CLOSE_CONTENT)
