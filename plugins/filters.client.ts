@@ -1,4 +1,5 @@
 import { emit, on, storage } from 'shuutils'
+import Fuse from 'fuse.js'
 import { Filters, Tag, Task } from '../models'
 import {
   FILTERS_STORE_KEY,
@@ -87,7 +88,7 @@ class FiltersPlugin {
       taskFiltered = taskFiltered.filter((task: Task) => this.filters.tags.every((tag: Tag) => task.tags.find((t: Tag) => t.id === tag.id)))
 
     if (this.filters.title !== '')
-      taskFiltered = taskFiltered.filter((task: Task) => task.name.toLowerCase().includes(this.filters.title.toLowerCase()))
+      taskFiltered = new Fuse(taskFiltered, { keys: [{ name: 'name', weight: 0.2 }] }).search(this.filters.title).map((result) => result.item)
 
     this.tasksFiltered = taskFiltered
   }
