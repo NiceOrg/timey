@@ -59,7 +59,7 @@
         <template slot="content">
           <p>{{ $t('global.wip') }}</p>
         </template>
-        <a-button class="heading">{{ $t('global.about') }}</a-button>
+        <a-button class="heading" @click="timmy">{{ $t('global.about') }}</a-button>
       </a-popover>
     </div>
   </div>
@@ -81,6 +81,7 @@ export default Vue.extend({
       showLanguages: false,
       connected: false,
       userPlugin,
+      aboutCount: 0,
     }
   },
   beforeMount() {
@@ -99,6 +100,14 @@ export default Vue.extend({
     },
     async deleteData() {
       await this.userPlugin.delete()
+    },
+    timmy() {
+      this.aboutCount++
+      if (this.aboutCount === 10) {
+        this.aboutCount = 0
+        const audio = new Audio('timmy.mp3')
+        audio.play()
+      }
     },
   },
 })

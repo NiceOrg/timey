@@ -1,8 +1,8 @@
 <template>
   <div class="page-dashboard">
     <filters v-if="filteredTask.length > 0 || filtersPlugin.isFilter()" />
-    <div v-if="filteredTask.length === 0 && !filtersPlugin.isFilter()" class="empty-data">{{ $t('dashboard.no-task-message') }}</div>
-    <div v-if="filteredTask.length === 0 && filtersPlugin.isFilter()" class="empty-data">{{ $t('dashboard.no-task-found') }}</div>
+    <div v-if="filteredTask.length === 0 && !filtersPlugin.isFilter()" class="text-info">{{ $t('dashboard.no-task-message') }}</div>
+    <div v-if="filteredTask.length === 0 && filtersPlugin.isFilter()" class="text-info">{{ $t('dashboard.no-task-found') }}</div>
     <tasks-list v-if="filteredTask.length > 0" :tasks="filteredTask" />
     <div class="footer">
       <div class="comp-task-add">

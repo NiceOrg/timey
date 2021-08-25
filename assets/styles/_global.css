@@ -41,7 +41,7 @@ p {
   white-space: nowrap;
 }
 
-.empty-data {
+.text-info {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,4 +91,27 @@ p {
 
 .danger {
   background-color: var(--danger, red);
+}
+
+.table {
+  margin: 0.3rem 0.6rem;
+  border: 0.1rem solid var(--accent, gray);
+  border-radius: 0.3rem;
+}
+
+.table-header {
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: var(--secondary-light, gray);
+  padding: 0.5rem 0 0.5rem 0.9rem;
+}
+
+.table-body {
+  border-top: 0.1rem solid var(--accent, gray);
+  padding: 0.9rem 0 0.9rem 0.9rem;
+  font-weight: 500;
+}
+
+.table-element-center {
+  justify-self: center;
 }
