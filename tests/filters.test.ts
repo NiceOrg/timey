@@ -68,7 +68,7 @@ describe('filters', () => {
       const task2 = new Task(2, 'work')
       tasksPlugin.addAll([task, task2])
       filtersPlugin.setTitle('sport')
-      equal(filtersPlugin.getHiddenTasksCount(), 5)
+      equal(filtersPlugin.getHiddenTasksCount(), 3)
       filtersPlugin.setTitle('design')
       equal(filtersPlugin.getHiddenTasksCount(), 7)
       filtersPlugin.setTitle('')
