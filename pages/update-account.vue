@@ -1,10 +1,10 @@
 <template>
   <div class="page-update-account">
     <div class="wrapper">
-      <div class="accent space-left center">{{ $t('global.eMail') }}</div>
+      <div class="font space-left center">{{ $t('global.eMail') }}</div>
       <div class="ellipsis center">{{ authentication.email }}</div>
       <div>
-        <a-button class="accent center" @click="emailVisible = true">{{ $t('global.update') }}</a-button>
+        <a-button class="font center" @click="emailVisible = true">{{ $t('global.update') }}</a-button>
         <a-modal
           v-model="emailVisible"
           :title="$t('user-account.email-update')"
@@ -24,10 +24,10 @@
         </a-modal>
       </div>
       <div class="line"></div>
-      <div class="accent space-left center">{{ $t('global.password') }}</div>
+      <div class="font space-left center">{{ $t('global.password') }}</div>
       <div class="center">************</div>
       <div>
-        <a-button class="accent center" @click="passwordVisible = true">{{ $t('global.update') }}</a-button>
+        <a-button class="font center" @click="passwordVisible = true">{{ $t('global.update') }}</a-button>
         <a-modal v-model="passwordVisible" :title="$t('user-account.password-update')" class="update-account-data" @ok="updatePassword()">
           <a-form-model :form="form" layout="inline">
             <a-form-model-item>
@@ -189,7 +189,7 @@ export default Vue.extend({
   padding-right: 0.5rem;
 }
 
-.accent {
+.font {
   font-weight: 600;
 }
 

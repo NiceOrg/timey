@@ -31,7 +31,7 @@
         <div class="spacer"></div>
         <div class="task-edit-submit">
           <a-button @click="close()">{{ $t('global.cancel') }}</a-button>
-          <a-button type="primary" html-type="submit">{{ $t('global.save') }}</a-button>
+          <a-button class="accent-light" html-type="submit">{{ $t('global.save') }}</a-button>
         </div>
       </div>
     </a-form>
