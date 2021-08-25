@@ -1,7 +1,7 @@
 import { tasksPlugin, tagsPlugin } from '..'
 import { ExecutionError, Tag, Task, TaskStatus, Tree } from '../../models'
 import { timeSlotsPlugin } from '../parameters/time-slots.client'
-import { colorNameToHex } from '../../utils'
+import { colorNameToHex, generateRandomColor } from '../../utils'
 
 class Execute {
   private resultMessage: string[] = []
@@ -102,7 +102,11 @@ class Execute {
   private addTag(tree: Tree) {
     const name = tree.children[0].intent.word
     let tag = tagsPlugin.findByName(name)
-    if (!tag) tag = tagsPlugin.add(new Tag(-1, name))
+    if (!tag) {
+      tag = new Tag(-1, name)
+      tag.color = generateRandomColor()
+      tag = tagsPlugin.add(tag)
+    }
     for (let index = 1; index < tree.children.length; index++) {
       const child = tree.children[index]
       switch (child.intent.tag) {

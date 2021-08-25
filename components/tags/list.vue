@@ -37,8 +37,8 @@
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
 import { Tag, Task } from '~/models'
-import { stopPropagation } from '~/utils'
-import { tagsPlugin, TAG_ADD, TAG_GET, TAG_LIST, TAG_SEND, TASK_ADD_TAG, TASK_DELETE_TAG } from '~/plugins'
+import { generateRandomColor, stopPropagation } from '~/utils'
+import { TAG_ADD, TAG_GET, TAG_LIST, TAG_SEND, TASK_ADD_TAG, TASK_DELETE_TAG } from '~/plugins'
 
 export default Vue.extend({
   props: {
@@ -95,13 +95,13 @@ export default Vue.extend({
       return this.task.tags.some((t: Tag) => t.id === tag.id)
     },
     addTag() {
-      const tag = new Tag(-1, this.tagSearched, tagsPlugin.generateRandomColor())
+      const tag = new Tag(-1, this.tagSearched, generateRandomColor())
       emit(TAG_ADD, tag)
       emit(TASK_ADD_TAG, { task: this.task, tag })
       this.tagSearched = ''
     },
     addTagEditMode() {
-      const tag = new Tag(-1, this.tagSearched, tagsPlugin.generateRandomColor())
+      const tag = new Tag(-1, this.tagSearched, generateRandomColor())
       emit(TAG_ADD, tag)
       this.tagsSelected.push(tag)
       emit(TAG_LIST, this.tagsSelected)

@@ -110,11 +110,19 @@ export const colorsFr = {
   'violette foncé': 'darkviolet',
 }
 
-export function colorNameToHex(color: string) {
+export function colorNameToHex(color: string): string | undefined {
   const colorList: any = colorsFr
   let colorKey
   for (const key in colorList) if (color === key) colorKey = colorList[key]
   if (!colorKey) return
   const hexList: any = colorToHex
   for (const col in hexList) if (colorKey === col) return hexList[col]
+}
+
+function rand(min = 0, max = 360) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+export function generateRandomColor(h = rand(), s = 80, l = 60): string {
+  return `hsl(${h}deg ${s}% ${l}%)`
 }
