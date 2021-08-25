@@ -4,7 +4,7 @@
       <a-input v-model="filter" type="text" :placeholder="$t('global.filter-tags')" />
     </div>
     <div class="tags-add">
-      <a-button type="primary" @click="showNewTag = !showNewTag"> {{ $t('settings.tags-edition.add-new-tag') }} </a-button>
+      <a-button class="accent-light" @click="showNewTag = !showNewTag"> {{ $t('settings.tags-edition.add-new-tag') }} </a-button>
     </div>
     <tags-edit v-if="showNewTag" :tag="newTag" />
     <div class="tags-table">

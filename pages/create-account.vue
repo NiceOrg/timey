@@ -23,7 +23,7 @@
     </div>
     <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
-      <a-button class="submit-button block" type="primary" @click="createAccount">{{ $t('global.sign-up') }}</a-button>
+      <a-button class="submit-button block" @click="createAccount">{{ $t('global.sign-up') }}</a-button>
       <h4>
         <NuxtLink :to="localePath('/')"
           >{{ $t('login.already-have-account') }}

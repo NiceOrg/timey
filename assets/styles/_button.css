@@ -1,0 +1,4 @@
+.ant-btn-primary {
+  background-color: var(--accent-light, grey);
+  border-color: var(--accent, grey);
+}

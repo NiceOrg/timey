@@ -23,6 +23,10 @@ body {
   height: 100%;
 }
 
+.ant-switch-checked {
+  background-color: var(--primary, dimgrey);
+}
+
 .block {
   margin: 1rem 0 1rem 0;
 }
@@ -63,6 +67,10 @@ p {
 
 .accent {
   background-color: var(--accent, gray);
+}
+
+.accent-light {
+  background-color: var(--accent-light, gray);
 }
 
 .warning-light {

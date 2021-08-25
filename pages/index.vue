@@ -18,7 +18,7 @@
     </div>
     <div class="error-message">{{ errorMessage }}</div>
     <div class="send">
-      <a-button class="submit-button block" type="primary" @click="authenticate">{{ $t('global.sign-in') }}</a-button>
+      <a-button class="submit-button block" @click="authenticate">{{ $t('global.sign-in') }}</a-button>
       <h4>
         <NuxtLink :to="localePath('/create-account')"
           >{{ $t('login.no-account') }}

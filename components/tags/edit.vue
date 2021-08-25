@@ -12,7 +12,7 @@
         <a-button icon="redo" :style="tagStyling" @click="newTag.color = generateRandomColor()" />
       </a-form-item>
       <div class="tag-edit-submit">
-        <a-button type="primary" html-type="submit"> {{ $t('global.save') }}</a-button>
+        <a-button class="accent-light" html-type="submit"> {{ $t('global.save') }}</a-button>
         <a-button @click="close()">{{ $t('global.cancel') }}</a-button>
       </div>
     </a-form>
