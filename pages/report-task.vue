@@ -1,6 +1,6 @@
 <template>
   <div class="page-report-task">
-    <div v-if="orderedTasks.length === 0" class="empty-data">{{ $t('reports.task.no-task-message') }}</div>
+    <div v-if="orderedTasks.length === 0" class="text-info">{{ $t('reports.task.no-task-message') }}</div>
     <div v-for="task in orderedTasks" :key="task.id">
       <div v-if="!task.seconds == 0" class="task-reported">
         <div class="task-name">{{ task.name }}</div>

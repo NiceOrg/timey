@@ -7,11 +7,9 @@
       <a-button class="accent-light" @click="showNewTag = !showNewTag"> {{ $t('settings.tags-edition.add-new-tag') }} </a-button>
     </div>
     <tags-edit v-if="showNewTag" :tag="newTag" />
-    <div class="tags-table">
-      <div class="tags-table-header">
-        <span class="tags-table-header-title"> {{ tags.length }} {{ $tc('global.tag', tags.length) }}</span>
-      </div>
-      <tags v-for="tag in filteredTagList" :key="tag.id" :tag="tag" />
+    <div class="table">
+      <div class="table-header">{{ tags.length }} {{ $tc('global.tag', tags.length) }}</div>
+      <tags v-for="tag in filteredTagList" :key="tag.id" class="table-body" :tag="tag" />
     </div>
   </div>
 </template>
@@ -69,33 +67,5 @@ export default Vue.extend({
   display: inline-block;
   margin: 0.6rem 0 0.6rem 0.6rem;
   width: 50%;
-}
-
-.tags-table {
-  margin: 0.3rem 0.6rem;
-  border: 0.1rem solid var(--accent, gray);
-  border-radius: 0.3rem;
-}
-
-.tags-table-header {
-  display: flex;
-  font-size: 0.9rem;
-  background-color: var(--secondary-light, gray);
-  padding: 0.6rem 0;
-}
-
-.tags-table-header-title {
-  padding-left: 0.9rem;
-  font-weight: 600;
-}
-
-.tags-table-header-sort {
-  margin-left: auto;
-  margin-right: 0.9rem;
-}
-
-.tags-table > .comp-tag {
-  border-top: 0.1rem solid var(--accent, gray);
-  padding: 0.9rem 0 0.9rem 0.9rem;
 }
 </style>
