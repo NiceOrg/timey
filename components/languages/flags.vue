@@ -1,12 +1,7 @@
 <template>
   <div class="comp-languages-flags">
-    <div @click="updateLanguage(Languages.fr)">
-      <flag iso="fr" />
-    </div>
-    <div class="space" />
-    <div @click="updateLanguage(Languages.en)">
-      <flag iso="gb" />
-    </div>
+    <img src="~assets/icons/fr.svg" @click="updateLanguage(Languages.fr)" />
+    <img src="~assets/icons/en.svg" @click="updateLanguage(Languages.en)" />
   </div>
 </template>
 
@@ -30,12 +25,14 @@ export default Vue.extend({
 <style>
 .comp-languages-flags {
   display: flex;
-  font-size: 2rem;
-  width: 100%;
-  margin-left: 1rem;
+  gap: 1rem;
+  padding: 1rem;
+  height: 5rem;
+  align-self: flex-start;
 }
 
-.space {
-  margin-left: 0.5rem;
+.comp-languages-flags img {
+  display: inline-block;
+  height: 100%;
 }
 </style>

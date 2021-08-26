@@ -27,7 +27,7 @@ export default {
     ],
   },
   css: ['ant-design-vue/dist/antd.css', '@/assets/styles/main.css'],
-  plugins: ['@/plugins/antd-ui', '@/plugins/flag-icon.js', '@/plugins/tasks.client', '@/plugins/timer.client', '@/plugins/tags.client'],
+  plugins: ['@/plugins/antd-ui', '@/plugins/tasks.client', '@/plugins/timer.client', '@/plugins/tags.client'],
   components: true,
   buildModules: ['@nuxt/typescript-build'],
   modules: ['@nuxtjs/pwa', '@nuxtjs/i18n'],
@@ -66,5 +66,6 @@ export default {
         ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
       ],
     },
+    // analyze: true,
   },
 }
