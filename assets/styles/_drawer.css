@@ -8,6 +8,10 @@
   text-align: center;
 }
 
-.ant-drawer-wrapper-body {
+.menu-drawer .ant-drawer-wrapper-body {
   overflow: hidden;
+}
+
+.speech-recognition-drawer .ant-drawer-content, .speech-recognition-drawer .ant-drawer-wrapper-body {
+  overflow: visible;
 }

@@ -8,7 +8,7 @@
       }"
     >
       <a-drawer
-        class="drawer"
+        class="menu-drawer"
         title="Menu"
         placement="left"
         :closable="false"

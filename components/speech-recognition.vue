@@ -1,8 +1,15 @@
 <template>
   <div class="comp-speech-recognition">
     <a-icon type="audio" @click="showDrawer" />
-    <a-drawer :title="$t('dashboard.speak-to-interact')" placement="bottom" :closable="false" :visible="visible" @close="onClose">
-      <!--TODO : add a button to start record and show if mic is on/off -->
+    <a-drawer
+      class="speech-recognition-drawer"
+      :title="$t('dashboard.speak-to-interact')"
+      placement="bottom"
+      :closable="false"
+      :visible="visible"
+      @close="onClose"
+    >
+      <a-icon class="toggle-mic" type="play-circle" />
       <div v-for="(request, index) in requests" :key="index" class="discussion overflow">
         <p class="from-me">{{ request.sentence }}</p>
         <p class="from-them">{{ request.response }}</p>
@@ -13,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { on, sleep } from 'shuutils'
+import { emit, on, sleep } from 'shuutils'
 import Vue from 'vue'
 import { AnalyzeError, SpeechRequest } from '~/models'
 import { speechToTextPlugin, STT_RESULT, analysis } from '~/plugins'
@@ -75,5 +82,12 @@ export default Vue.extend({
 
 .overflow {
   overflow-y: auto;
+}
+
+.toggle-mic {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.9rem;
+  font-size: 2.2rem;
 }
 </style>
