@@ -6,7 +6,7 @@ h1,h2,h3,h4 {
   margin-bottom: 0;
 }
 
-.title {
+h1.title {
   font-family: var(--font-family-title, serif);
   text-shadow: 0.3rem 0.3rem 0.1rem var(--primary, gray);
   font-size: 6rem;

@@ -13,10 +13,11 @@
 </template>
 
 <script lang="ts">
-import { on, sleep } from 'shuutils'
+import { sleep } from 'shuutils'
 import Vue from 'vue'
-import { AnalyzeError, SpeechRequest } from '~/models'
+import { SpeechRequest } from '~/models'
 import { speechToTextPlugin, STT_RESULT, analysis } from '~/plugins'
+import { off, on } from '~/utils'
 export default Vue.extend({
   data() {
     return {
@@ -25,40 +26,32 @@ export default Vue.extend({
     }
   },
   beforeMount() {
-    on(STT_RESULT, async (request: SpeechRequest) => {
-      let response = ''
-      try {
-        response = speechToTextPlugin.execute(request.sentence)
-      } catch (error) {
-        response = error.message
-        if (error instanceof AnalyzeError) this.restartRecognition()
-      }
-      this.requests.push({ sentence: request.sentence, response })
-      await sleep(100)
-      document.querySelector('.discussion-footer')?.scrollIntoView()
-    })
+    on(STT_RESULT, this.onSTTResult)
+  },
+  beforeDestroy() {
+    off(STT_RESULT, this.onSTTResult)
   },
   methods: {
     showDrawer() {
       this.visible = true
-      this.startRecognition()
-    },
-    onClose() {
-      this.stopRecognition()
-      analysis.reset()
-      this.visible = false
-    },
-    async startRecognition() {
-      if (this.$i18n.locale !== 'fr') return
-      await sleep(200)
       speechToTextPlugin.start()
     },
-    stopRecognition() {
-      speechToTextPlugin.end()
+    onClose() {
+      analysis.reset()
+      this.visible = false
+      speechToTextPlugin.end('closed drawer')
     },
-    restartRecognition() {
-      this.stopRecognition()
-      this.startRecognition()
+    async onSTTResult(event: CustomEvent): Promise<void> {
+      const request = event.detail
+      let response = ''
+      try {
+        response = speechToTextPlugin.executeIntents(request.sentence)
+      } catch (error) {
+        response = error.message
+      }
+      this.requests.push({ sentence: request.sentence, response })
+      await sleep(100)
+      document.querySelector('.discussion-footer')?.scrollIntoView()
     },
   },
 })

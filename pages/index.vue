@@ -1,7 +1,7 @@
 <template>
   <div class="page-login authentication">
     <languages-flags />
-    <div class="title">Timey</div>
+    <h1 class="title">Timey</h1>
     <div class="form">
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
