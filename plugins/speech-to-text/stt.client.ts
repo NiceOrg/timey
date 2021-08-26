@@ -21,7 +21,7 @@ class SpeechToTextPlugin {
     await parametersPlugin.load()
     recognition.lang = parametersPlugin.getParameters().language
     recognition.onresult = (event) => this.result(event.results[event.results.length - 1][0].transcript)
-    recognition.onspeechend = () => this.end()
+    recognition.onspeechend = () => this.end('onspeechend')
     this.recognition = recognition
   }
 
@@ -29,20 +29,21 @@ class SpeechToTextPlugin {
   public result(sentence: string) {
     const speechRequest = new SpeechRequest({ sentence })
     emit(STT_RESULT, speechRequest)
-    this.end()
   }
 
   /* istanbul ignore next */
   public start() {
+    console.log('start recognition')
     this.recognition.start()
   }
 
   /* istanbul ignore next */
-  public end() {
+  public end(reason: string) {
+    console.log('stop recognition:', reason)
     this.recognition.stop()
   }
 
-  public execute(sentence: string) {
+  public executeIntents(sentence: string) {
     const intents = analysis.start(sentence, true)
     const tree = generate.start(intents)
     return execute.start(tree)

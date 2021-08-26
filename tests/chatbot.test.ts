@@ -194,82 +194,85 @@ describe('chabot', () => {
   describe('execution', () => {
     it('basic sentences', () => {
       analysis.reset()
-      equal(speechToTextPlugin.execute('ajoute la tache sport'), "J'ajoute la tâche sport")
-      equal(speechToTextPlugin.execute('ajoute une estimation de 5h à la tache sport'), "J'ajoute l'estimation à sport")
-      equal(speechToTextPlugin.execute('ajoute une estimation de 5h sport'), "J'ajoute l'estimation à sport")
-      equal(speechToTextPlugin.execute('ajoute le tag c cool'), "J'ajoute un tag c cool")
-      equal(speechToTextPlugin.execute('ajoute le tag c cool à la tache sport'), "J'ajoute le tag c cool à la tâche sport")
-      equal(speechToTextPlugin.execute('ajoute le tag c cool à sport'), "J'ajoute le tag c cool à la tâche sport")
-      equal(speechToTextPlugin.execute('lance la tache sport'), 'Je lance la tâche sport')
-      equal(speechToTextPlugin.execute('stop'), "J'arrête la tâche sport")
-      equal(speechToTextPlugin.execute('supprime la tache sport'), 'Je supprime la tâche sport')
-      equal(speechToTextPlugin.execute('ajoute la tache nommee musculation avec un tag x'), "J'ajoute la tâche musculation")
-      equal(speechToTextPlugin.execute('ajoute la tache t avec un tag x de couleur noir et avec une estimation de 5h30'), "J'ajoute la tâche t")
-      equal(speechToTextPlugin.execute('ajoute une etiquette z avec une couleur verte'), "J'ajoute un tag z")
-      equal(speechToTextPlugin.execute('supprime le tag x'), 'Je supprime le tag x')
-      equal(speechToTextPlugin.execute('supprime la tache musculation et la tache t et le tag z et le tag c cool'), "c'est fait")
-      equal(speechToTextPlugin.execute('ajoute une plage horaire de pause à 12h'), "J'ajoute la plage horaire de pause")
-      equal(speechToTextPlugin.execute('supprime la plage horaire de pause à 12h'), 'Je supprime la plage horaire de pause')
-      equal(speechToTextPlugin.execute('ajoute une plage horaire de reprise à 18h'), "J'ajoute la plage horaire de reprise")
-      equal(speechToTextPlugin.execute('supprime la plage horaire de reprise à 18h'), 'Je supprime la plage horaire de reprise')
+      equal(speechToTextPlugin.executeIntents('ajoute la tache sport'), "J'ajoute la tâche sport")
+      equal(speechToTextPlugin.executeIntents('ajoute une estimation de 5h à la tache sport'), "J'ajoute l'estimation à sport")
+      equal(speechToTextPlugin.executeIntents('ajoute une estimation de 5h sport'), "J'ajoute l'estimation à sport")
+      equal(speechToTextPlugin.executeIntents('ajoute le tag c cool'), "J'ajoute un tag c cool")
+      equal(speechToTextPlugin.executeIntents('ajoute le tag c cool à la tache sport'), "J'ajoute le tag c cool à la tâche sport")
+      equal(speechToTextPlugin.executeIntents('ajoute le tag c cool à sport'), "J'ajoute le tag c cool à la tâche sport")
+      equal(speechToTextPlugin.executeIntents('lance la tache sport'), 'Je lance la tâche sport')
+      equal(speechToTextPlugin.executeIntents('stop'), "J'arrête la tâche sport")
+      equal(speechToTextPlugin.executeIntents('supprime la tache sport'), 'Je supprime la tâche sport')
+      equal(speechToTextPlugin.executeIntents('ajoute la tache nommee musculation avec un tag x'), "J'ajoute la tâche musculation")
+      equal(
+        speechToTextPlugin.executeIntents('ajoute la tache t avec un tag x de couleur noir et avec une estimation de 5h30'),
+        "J'ajoute la tâche t"
+      )
+      equal(speechToTextPlugin.executeIntents('ajoute une etiquette z avec une couleur verte'), "J'ajoute un tag z")
+      equal(speechToTextPlugin.executeIntents('supprime le tag x'), 'Je supprime le tag x')
+      equal(speechToTextPlugin.executeIntents('supprime la tache musculation et la tache t et le tag z et le tag c cool'), "c'est fait")
+      equal(speechToTextPlugin.executeIntents('ajoute une plage horaire de pause à 12h'), "J'ajoute la plage horaire de pause")
+      equal(speechToTextPlugin.executeIntents('supprime la plage horaire de pause à 12h'), 'Je supprime la plage horaire de pause')
+      equal(speechToTextPlugin.executeIntents('ajoute une plage horaire de reprise à 18h'), "J'ajoute la plage horaire de reprise")
+      equal(speechToTextPlugin.executeIntents('supprime la plage horaire de reprise à 18h'), 'Je supprime la plage horaire de reprise')
     })
     it('semantic errors', () => {
       throws(() => {
-        speechToTextPlugin.execute('stoppe la tache machin')
+        speechToTextPlugin.executeIntents('stoppe la tache machin')
       }, new ExecutionError("Aucune tâche n'est lancée"))
 
       throws(() => {
-        speechToTextPlugin.execute('lance la tache machin')
+        speechToTextPlugin.executeIntents('lance la tache machin')
       }, new ExecutionError("La tâche n'existe pas"))
 
-      speechToTextPlugin.execute('ajoute la tache sport')
-      speechToTextPlugin.execute('lance la tache sport')
+      speechToTextPlugin.executeIntents('ajoute la tache sport')
+      speechToTextPlugin.executeIntents('lance la tache sport')
 
       throws(() => {
-        speechToTextPlugin.execute('lance la tache sport')
+        speechToTextPlugin.executeIntents('lance la tache sport')
       }, new ExecutionError('La tâche est déjà lancée'))
 
-      speechToTextPlugin.execute('supprime la tache sport')
+      speechToTextPlugin.executeIntents('supprime la tache sport')
 
       throws(() => {
-        speechToTextPlugin.execute('ajoute un tag xx de couleur blanc creme')
+        speechToTextPlugin.executeIntents('ajoute un tag xx de couleur blanc creme')
       }, new ExecutionError('Je ne connais pas cette couleur.'))
 
-      speechToTextPlugin.execute('supprime le tag xx')
+      speechToTextPlugin.executeIntents('supprime le tag xx')
 
       throws(() => {
-        speechToTextPlugin.execute("supprime la tache qui n'existe pas")
+        speechToTextPlugin.executeIntents("supprime la tache qui n'existe pas")
       }, new ExecutionError("Cette tâche n'existe pas"))
 
       throws(() => {
-        speechToTextPlugin.execute("supprime le tag qui n'existe pas")
+        speechToTextPlugin.executeIntents("supprime le tag qui n'existe pas")
       }, new ExecutionError("Ce tag n'existe pas"))
 
-      speechToTextPlugin.execute('ajoute une plage horaire de pause à 12h')
+      speechToTextPlugin.executeIntents('ajoute une plage horaire de pause à 12h')
       throws(() => {
-        speechToTextPlugin.execute('ajoute une plage horaire de pause à 12h')
+        speechToTextPlugin.executeIntents('ajoute une plage horaire de pause à 12h')
       }, new ExecutionError('La plage horaire existe déjà'))
-      speechToTextPlugin.execute('supprime une plage horaire de pause à 12h')
+      speechToTextPlugin.executeIntents('supprime une plage horaire de pause à 12h')
       throws(() => {
-        speechToTextPlugin.execute('supprime une plage horaire de pause à 12h')
+        speechToTextPlugin.executeIntents('supprime une plage horaire de pause à 12h')
       }, new ExecutionError("La plage horaire n'existe pas"))
 
-      speechToTextPlugin.execute('ajoute une plage horaire de reprise à 14h')
+      speechToTextPlugin.executeIntents('ajoute une plage horaire de reprise à 14h')
       throws(() => {
-        speechToTextPlugin.execute('ajoute une plage horaire de reprise à 14h')
+        speechToTextPlugin.executeIntents('ajoute une plage horaire de reprise à 14h')
       }, new ExecutionError('La plage horaire existe déjà'))
-      speechToTextPlugin.execute('supprime une plage horaire de reprise à 14h')
+      speechToTextPlugin.executeIntents('supprime une plage horaire de reprise à 14h')
       throws(() => {
-        speechToTextPlugin.execute('supprime une plage horaire de reprise à 14h')
+        speechToTextPlugin.executeIntents('supprime une plage horaire de reprise à 14h')
       }, new ExecutionError("La plage horaire n'existe pas"))
 
       throws(() => {
-        speechToTextPlugin.execute('ajoute le tag la à la tache qui existe pas')
+        speechToTextPlugin.executeIntents('ajoute le tag la à la tache qui existe pas')
       }, new ExecutionError("La tâche n'existe pas"))
-      speechToTextPlugin.execute('supprime le tag la')
+      speechToTextPlugin.executeIntents('supprime le tag la')
 
       throws(() => {
-        speechToTextPlugin.execute('ajoute une estimation de 3h à la tache ZZZ')
+        speechToTextPlugin.executeIntents('ajoute une estimation de 3h à la tache ZZZ')
       }, new ExecutionError("La tâche n'existe pas"))
     })
   })

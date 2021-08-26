@@ -1,7 +1,7 @@
 <template>
   <div class="page-create-account authentication">
     <languages-flags />
-    <div class="title create-account-header">{{ $t('global.registration') }}</div>
+    <h1 class="title create-account-header">{{ $t('global.registration') }}</h1>
     <div class="form">
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
