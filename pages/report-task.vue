@@ -21,8 +21,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { on, emit } from 'shuutils'
-import { formatDistance } from 'date-fns'
-import { fr, enUS } from 'date-fns/locale'
+import formatDistance from 'date-fns/formatDistance'
+import fr from 'date-fns/locale/fr'
+import enUS from 'date-fns/locale/en-US'
 import { Navbar, Task } from '~/models'
 import { TASK_GET, TASK_SEND, tasksPlugin, NAVBAR_SETTINGS } from '~/plugins'
 
