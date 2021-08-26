@@ -68,7 +68,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { emit } from 'shuutils'
-import { message } from 'ant-design-vue'
 import { stopPropagation } from '~/utils'
 import { timeSlotsPlugin, exportPlugin, NAVBAR_SETTINGS, authenticationPlugin, userPlugin } from '~/plugins'
 import { Navbar, TimeSlots } from '~/models'
@@ -100,7 +99,6 @@ export default Vue.extend({
     },
     async deleteData() {
       await this.userPlugin.delete()
-      message.success(this.$t('settings.data-deleted').toString())
     },
   },
 })
