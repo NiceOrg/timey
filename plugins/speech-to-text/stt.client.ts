@@ -2,9 +2,9 @@
 // https://stackoverflow.com/questions/38087013/angular2-web-speech-api-voice-recognition
 
 /* eslint-disable no-undef */
-import { emit } from 'shuutils'
+import { emit, sleep } from 'shuutils'
 import { SpeechRequest } from '../../models'
-import { parametersPlugin, analysis, generate, execute, STT_RESULT } from '../'
+import { parametersPlugin, analysis, generate, execute, STT_RESULT, STT_END } from '../'
 
 class SpeechToTextPlugin {
   public recognition = {} as SpeechRecognition
@@ -21,7 +21,9 @@ class SpeechToTextPlugin {
     await parametersPlugin.load()
     recognition.lang = parametersPlugin.getParameters().language
     recognition.onresult = (event) => this.result(event.results[event.results.length - 1][0].transcript)
-    recognition.onspeechend = () => this.end('onspeechend')
+    recognition.onspeechend = () => this.end()
+    // eslint-disable-next-line unicorn/prefer-add-event-listener
+    recognition.onerror = () => this.end()
     this.recognition = recognition
   }
 
@@ -32,14 +34,14 @@ class SpeechToTextPlugin {
   }
 
   /* istanbul ignore next */
-  public start() {
-    console.log('start recognition')
+  public async start() {
+    await sleep(10)
     this.recognition.start()
   }
 
   /* istanbul ignore next */
-  public end(reason: string) {
-    console.log('stop recognition:', reason)
+  public end() {
+    emit(STT_END)
     this.recognition.stop()
   }
 
