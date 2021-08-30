@@ -94,7 +94,8 @@
 			"tag-name": "Nom de la tag",
 			"tags-edition": "Édition des tags"
 		},
-		"time-slots-submessage": "Définir une plage horaire de pause fixe"
+		"time-slots-no-data": "Appuyer sur le bouton pour ajouter une nouvelle plage horaire.",
+		"time-slots-submessage": "Définir une plage horaire de pause fixe."
 	},
 	"user-account": {
 		"actual-password": "Mot de passe actuel",

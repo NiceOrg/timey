@@ -94,7 +94,8 @@
 			"tag-name": "Tag name",
 			"tags-edition": "Tags edition"
 		},
-		"time-slots-submessage": "Define a fixed break time slot"
+		"time-slots-no-data": "Click on the button to add a new time slot.",
+		"time-slots-submessage": "Define a fixed break time slot."
 	},
 	"user-account": {
 		"actual-password": "Actual password",

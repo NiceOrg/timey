@@ -1,33 +1,37 @@
 <template>
   <div class="page-time-slots">
-    <p>{{ $t('settings.time-slots-submessage') }}</p>
-    <div class="grid-container">
-      <div class="pause">
-        {{ $t('global.break') }}
-        <a-button type="primary" size="small" @click="pauseTimeStamp.push('00h00')">{{ $t('global.add') }}</a-button>
-        <div v-for="(pause, index) in pauseTimeStamp" :key="'pause' + index">
-          <a-input v-model="pauseTimeStamp[index]" class="input" />
-          <a-icon type="close" @click="pauseTimeStamp.splice(index, 1)" />
-        </div>
+    <div class="text-info">{{ $t('settings.time-slots-submessage') }}</div>
+    <div v-if="timeSlotsToUpdate.length === 0" class="text-info">{{ $t('settings.time-slots-no-data') }}</div>
+    <div v-else class="table">
+      <div class="table-header wrapper">
+        <div>{{ $t('global.break') }}</div>
+        <div>{{ $t('global.resume') }}</div>
       </div>
-      <div class="resume">
-        {{ $t('global.resume') }}
-        <a-button type="primary" size="small" @click="resumeTimeStamp.push('00h00')">{{ $t('global.add') }}</a-button>
-        <div v-for="(resume, index) in resumeTimeStamp" :key="'resume' + index">
-          <a-input v-model="resumeTimeStamp[index]" class="input" />
-          <a-icon type="close" @click="resumeTimeStamp.splice(index, 1)" />
-        </div>
+      <div v-for="(timeSlot, index) in timeSlotsToUpdate" :key="index" class="table-body wrapper">
+        <template v-if="timeSlot.edit">
+          <a-input v-model="timeSlot.pause" class="input" />
+          <a-input v-model="timeSlot.resume" class="input" />
+          <div class="table-element-center" @click="save(index)">{{ $t('global.save') }}</div>
+          <div class="table-element-center" @click="cancel(index)">{{ $t('global.cancel') }}</div>
+        </template>
+        <template v-else>
+          <div>{{ timeSlot.pause }}</div>
+          <div>{{ timeSlot.resume }}</div>
+          <div class="table-element-center" @click="update(index)">{{ $t('global.edit') }}</div>
+          <div class="table-element-center" @click="remove(index)">{{ $t('global.delete') }}</div>
+        </template>
       </div>
     </div>
-    <br />
-    <a-button type="primary" size="small" @click="save">{{ $t('global.save') }}</a-button>
+    <div class="add-button">
+      <a-button shape="circle" size="large" icon="plus" @click="add()" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { emit, on } from 'shuutils'
-import { Navbar, TimeSlots } from '~/models'
+import { Navbar, TimeSlots, TimeSlotsUpdate } from '~/models'
 import { NAVBAR_SETTINGS, timeSlotsPlugin, TIME_SLOT_GET, TIME_SLOT_SEND } from '~/plugins'
 import { hours, minutes } from '~/utils'
 
@@ -35,52 +39,75 @@ export default Vue.extend({
   data() {
     return {
       timeSlots: {} as TimeSlots,
-      pauseTimeStamp: [] as string[],
-      resumeTimeStamp: [] as string[],
+      timeSlotsToUpdate: [] as TimeSlotsUpdate[],
     }
   },
   beforeMount() {
     on(TIME_SLOT_SEND, (timeSlots: TimeSlots) => (this.timeSlots = timeSlots))
     emit(TIME_SLOT_GET)
     emit(NAVBAR_SETTINGS, new Navbar({ title: 'Plage horaire', backButton: true }))
-
-    this.pauseTimeStamp = this.convertTimestampsToStrings(this.timeSlots.pause)
-    this.resumeTimeStamp = this.convertTimestampsToStrings(this.timeSlots.resume)
+    this.fillTimeSlotsToUpdate(this.timeSlots.pause, this.timeSlots.resume)
   },
   methods: {
-    save() {
-      this.timeSlots.pause = this.convertStringsToTimestamps(this.pauseTimeStamp)
-      this.timeSlots.resume = this.convertStringsToTimestamps(this.resumeTimeStamp)
+    update(index: number) {
+      this.timeSlotsToUpdate[index].edit = true
+    },
+    cancel(index: number) {
+      this.fillTimeSlotsToUpdate(this.timeSlots.pause, this.timeSlots.resume)
+      if (this.timeSlotsToUpdate[index]) this.timeSlotsToUpdate[index].edit = false
+    },
+    save(index: number) {
+      this.timeSlots.pause[index] = this.stringToTimestamp(this.timeSlotsToUpdate[index].pause)
+      this.timeSlots.resume[index] = this.stringToTimestamp(this.timeSlotsToUpdate[index].resume)
+      timeSlotsPlugin.update(this.timeSlots)
+      this.timeSlotsToUpdate[index].edit = false
+    },
+    remove(index: number) {
+      this.timeSlotsToUpdate.splice(index, 1)
+      this.timeSlots.pause.splice(index, 1)
+      this.timeSlots.resume.splice(index, 1)
       timeSlotsPlugin.update(this.timeSlots)
     },
-    // Convert a list of timestamp to a list of string in format 00h00
-    convertTimestampsToStrings(timestamps: number[]) {
-      const times = [] as string[]
-      for (const timestamp of timestamps) times.push(hours(timestamp) + 'h' + minutes(timestamp))
-      return times
+    add() {
+      this.timeSlotsToUpdate.push(new TimeSlotsUpdate())
     },
-    // Convert a list of string in format 00h00 to a list of timestamp
-    convertStringsToTimestamps(times: string[]) {
-      const timestamps = [] as number[]
-      for (const time of times) {
-        const [hours, minutes] = time.split('h')
-        timestamps.push((Number(hours) * 3600 + Number(minutes) * 60) * 1000)
+    fillTimeSlotsToUpdate(pauseTimeStamps: number[], resumeTimeStamps: number[]) {
+      this.timeSlotsToUpdate = []
+      for (const [index, pauseTimeStamp] of pauseTimeStamps.entries()) {
+        const timeSlot = {} as TimeSlotsUpdate
+        timeSlot.pause = hours(pauseTimeStamp) + 'h' + minutes(pauseTimeStamp)
+        timeSlot.resume = hours(resumeTimeStamps[index]) + 'h' + minutes(resumeTimeStamps[index])
+        timeSlot.edit = false
+        this.timeSlotsToUpdate.push(timeSlot)
       }
-      return timestamps
+    },
+    stringToTimestamp(time: string) {
+      const [hours, minutes] = time.split('h')
+      return (Number(hours) * 3600 + Number(minutes) * 60) * 1000
     },
   },
 })
 </script>
 
 <style>
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
+.text-info {
+  height: 4rem;
 }
 
 .input {
-  text-align: center;
-  width: 4.5rem;
+  width: 4rem;
+}
+
+.add-button {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 2rem;
 }
 </style>

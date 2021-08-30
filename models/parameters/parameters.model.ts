@@ -1,5 +1,5 @@
 import { Languages } from './languages.enum'
-import { TimeSlots } from './time-slots.model'
+import { TimeSlots } from './time-slots/time-slots.model'
 
 export class Parameters {
   timeSlot = new TimeSlots({})

@@ -105,7 +105,7 @@ export default Vue.extend({
       this.aboutCount++
       if (this.aboutCount === 10) {
         this.aboutCount = 0
-        const audio = new Audio('timmy.mp3')
+        const audio = new Audio('timmy.wav')
         audio.play()
       }
     },
