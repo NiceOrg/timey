@@ -1,7 +1,7 @@
 <template>
   <div class="comp-task" :class="taskStatusClass">
     <div class="task">
-      <div class="task-name ellipsis">{{ task.name }}</div>
+      <div class="task-name ellipsis bold">{{ task.name }}</div>
       <div class="time-passed">{{ tasksPlugin.getTime(task.seconds) }}</div>
       <tags-list :task="task" />
       <div class="more-options" @click="stopPropagation($event)">
@@ -103,7 +103,6 @@ export default Vue.extend({
 .task-name {
   width: 50%;
   padding-left: 1rem;
-  font-weight: 500;
 }
 
 .more-options {

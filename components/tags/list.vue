@@ -2,32 +2,32 @@
   <div class="comp-tag" @click="stopPropagation($event)">
     <a-popover trigger="click" :placement="edit ? 'bottom' : 'bottomRight'" arrow-point-at-center>
       <a slot="content">
-        <a-input v-model="tagSearched" class="tag-input font" type="text" :placeholder="$t('settings.tags-edition.add-new-tag')" />
+        <a-input v-model="tagSearched" class="tag-input font bold" type="text" :placeholder="$t('settings.tags-edition.add-new-tag')" />
         <a-list class="tag-list" item-layout="horizontal" :data-source="filteredTagList">
           <a-list-item slot="renderItem" slot-scope="tag" @click="edit ? changeTagsEditMode(tag) : changeTags(tag)">
             <a-list-item-meta>
-              <a slot="title" class="ellipsis font">{{ tag.name }}</a>
+              <a slot="title" class="ellipsis font bold">{{ tag.name }}</a>
               <a-avatar slot="avatar" size="large" :style="{ background: tag.color }" />
             </a-list-item-meta>
             <div v-if="edit ? isTagCheckedEditMode(tag) : isTagChecked(tag)"><a-icon type="check" /></div>
           </a-list-item>
         </a-list>
         <div class="tag-options">
-          <div v-if="showCreateTag" class="font wrap-overflow" @click="edit ? addTagEditMode() : addTag()">
+          <div v-if="showCreateTag" class="font wrap-overflow bold" @click="edit ? addTagEditMode() : addTag()">
             {{ $t('dashboard.create-new-tag') }} '{{ tagSearched }}'
           </div>
           <NuxtLink :to="localePath('/tags-edition')"
-            ><div class="font">{{ $t('dashboard.edit-tags') }}</div></NuxtLink
+            ><div class="font bold">{{ $t('dashboard.edit-tags') }}</div></NuxtLink
           >
         </div>
       </a>
       <div v-if="edit">
         <a-icon v-if="!firstTagEditMode" type="plus" />
-        <a-avatar v-else class="tag-logo font" :style="tagStylingEditMode"> {{ firstTagEditMode.name.charAt(0).toUpperCase() }}</a-avatar>
+        <a-avatar v-else class="tag-logo font bold" :style="tagStylingEditMode"> {{ firstTagEditMode.name.charAt(0).toUpperCase() }}</a-avatar>
       </div>
       <div v-else>
         <a-icon v-if="!firstTag" type="plus" />
-        <a-avatar v-else class="tag-logo font" :style="tagStyling"> {{ firstTag.name.charAt(0).toUpperCase() }}</a-avatar>
+        <a-avatar v-else class="tag-logo font bold" :style="tagStyling"> {{ firstTag.name.charAt(0).toUpperCase() }}</a-avatar>
       </div>
     </a-popover>
   </div>
@@ -137,7 +137,6 @@ export default Vue.extend({
 }
 
 .font {
-  font-weight: 500;
   font-size: 1.1rem;
   color: var(--primary, gray);
 }

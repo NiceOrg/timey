@@ -2,7 +2,7 @@
   <div class="comp-filters">
     <filters-tags />
     <a-divider />
-    <div v-if="hiddenTasks > 0" class="search-message">{{ hiddenTasks }} {{ $tc('filters.tasks-hidden-by-filters', hiddenTasks) }}</div>
+    <div v-if="hiddenTasks > 0" class="search-message bold">{{ hiddenTasks }} {{ $tc('filters.tasks-hidden-by-filters', hiddenTasks) }}</div>
   </div>
 </template>
 
@@ -25,6 +25,5 @@ export default Vue.extend({
 <style scoped>
 .search-message {
   text-align: center;
-  font-weight: 500;
 }
 </style>

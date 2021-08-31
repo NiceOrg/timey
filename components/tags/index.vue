@@ -1,5 +1,5 @@
 <template>
-  <div class="comp-tag">
+  <div class="comp-tag bold">
     <div class="tag-infos">
       <div class="tag-infos-name" :style="{ background: tag.color }">
         <span :style="{ background: tag.color, color: tag.isColorBright() ? 'black' : 'white' }">{{ tag.name }}</span>
@@ -43,7 +43,6 @@ export default Vue.extend({
 
 <style>
 .comp-tag {
-  font-weight: 500;
   font-size: 1rem;
 }
 

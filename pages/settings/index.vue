@@ -1,7 +1,7 @@
 <template>
   <div class="page-settings">
     <div class="parameter highlight" @click="$router.push(localePath('/settings/time-slots'))">
-      <div class="flex heading">
+      <div class="flex heading bold">
         <div><a-icon type="clock-circle" /> {{ $t('global.time-slots') }}</div>
         <div class="switch" @click="stopPropagation($event)">
           <a-switch :checked="timeSlots.isActive" size="small" @change="changeTimeSlots" />
@@ -10,7 +10,7 @@
       <p>{{ $t('settings.time-slots-submessage') }}</p>
     </div>
     <div class="parameter highlight" @click="$router.push(localePath('/tags-edition'))">
-      <div class="heading"><a-icon type="tag" /> {{ $t('settings.tags-edition.tags-edition') }}</div>
+      <div class="heading bold"><a-icon type="tag" /> {{ $t('settings.tags-edition.tags-edition') }}</div>
       <p>{{ $t('settings.tag-edition-submessage') }}</p>
     </div>
     <a-popconfirm
@@ -20,27 +20,27 @@
       @confirm="exportPlugin.downloadCSV()"
     >
       <div class="parameter highlight">
-        <div class="heading"><a-icon type="database" /> {{ $t('settings.data-export') }}</div>
+        <div class="heading bold"><a-icon type="database" /> {{ $t('settings.data-export') }}</div>
         <p>{{ $t('settings.export-data-submessage') }}</p>
       </div>
     </a-popconfirm>
     <div class="parameter highlight" @click="showLanguages = true">
-      <div class="heading"><a-icon type="global" /> {{ $t('global.language') }}</div>
+      <div class="heading bold"><a-icon type="global" /> {{ $t('global.language') }}</div>
       <p>{{ $t('settings.change-application-language') }}</p>
       <a-modal v-model="showLanguages" :title="$t('settings.select-language')" :footer="null">
         <languages v-if="showLanguages" />
       </a-modal>
     </div>
     <div v-if="connected" class="parameter highlight" @click="$router.push(localePath('/update-account'))">
-      <div class="heading"><a-icon type="tool" /> {{ $t('settings.manage-account') }}</div>
+      <div class="heading bold"><a-icon type="tool" /> {{ $t('settings.manage-account') }}</div>
       <p>{{ $t('settings.manage-account-submessage') }}</p>
     </div>
     <div v-if="!connected" class="parameter highlight" @click="$router.push(localePath('/'))">
-      <div class="heading"><a-icon type="user" /> {{ $t('global.connection') }}</div>
+      <div class="heading bold"><a-icon type="user" /> {{ $t('global.connection') }}</div>
       <p>{{ $t('global.sign-in') }}</p>
     </div>
     <div v-if="connected" class="parameter highlight" @click="disconnects">
-      <div class="heading"><a-icon type="disconnect" /> {{ $t('global.disconnect') }}</div>
+      <div class="heading bold"><a-icon type="disconnect" /> {{ $t('global.disconnect') }}</div>
       <p>{{ $t('global.log-out') }}</p>
     </div>
     <a-popconfirm
@@ -50,17 +50,12 @@
       @confirm="deleteData"
     >
       <div v-if="!connected" class="parameter highlight">
-        <div class="heading"><a-icon type="delete" /> {{ $t('settings.delete-data') }}</div>
+        <div class="heading bold"><a-icon type="delete" /> {{ $t('settings.delete-data') }}</div>
         <p>{{ $t('settings.delete-data-submessage') }}</p>
       </div>
     </a-popconfirm>
     <div class="about">
-      <a-popover>
-        <template slot="content">
-          <p>{{ $t('global.wip') }}</p>
-        </template>
-        <a-button class="heading" @click="timmy">{{ $t('global.about') }}</a-button>
-      </a-popover>
+      <a-button class="heading bold" @click="$router.push(localePath('/settings/about'))">{{ $t('global.about') }}</a-button>
     </div>
   </div>
 </template>
@@ -121,7 +116,6 @@ export default Vue.extend({
 }
 
 .heading {
-  font-weight: 500;
   align-items: center;
 }
 

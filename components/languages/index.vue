@@ -1,8 +1,8 @@
 <template>
   <div class="comp-language">
-    <div class="selection" @click="updateLanguage(Languages.fr)"><input v-model="language" :value="Languages.fr" type="radio" /> Français</div>
+    <div class="selection bold" @click="updateLanguage(Languages.fr)"><input v-model="language" :value="Languages.fr" type="radio" /> Français</div>
     <br />
-    <div class="selection" @click="updateLanguage(Languages.en)"><input v-model="language" :value="Languages.en" type="radio" /> English</div>
+    <div class="selection bold" @click="updateLanguage(Languages.en)"><input v-model="language" :value="Languages.en" type="radio" /> English</div>
   </div>
 </template>
 
@@ -37,7 +37,6 @@ export default Vue.extend({
 
 <style>
 .selection {
-  font-weight: 600;
   font-size: 1.3rem;
 }
 </style>

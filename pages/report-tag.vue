@@ -3,7 +3,7 @@
     <div v-if="reportData.size === 0" class="text-info">{{ $t('reports.tag.no-tags-message') }}</div>
     <client-only v-else>
       <pie-chart v-if="dataLoaded" class="chart" :data="chartData" :options="chartOptions" />
-      <div v-if="dataLoaded" class="information-message">{{ $t('reports.tag.information-message') }}</div>
+      <div v-if="dataLoaded" class="information-message bold">{{ $t('reports.tag.information-message') }}</div>
       <div v-if="!dataLoaded" class="text-info">{{ $t('reports.tag.not-enough-information') }}</div>
     </client-only>
   </div>
@@ -110,6 +110,5 @@ export default Vue.extend({
 .information-message {
   margin-top: 2rem;
   text-align: center;
-  font-weight: 500;
 }
 </style>

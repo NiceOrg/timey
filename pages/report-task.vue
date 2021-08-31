@@ -3,7 +3,7 @@
     <div v-if="orderedTasks.length === 0" class="text-info">{{ $t('reports.task.no-task-message') }}</div>
     <div v-for="task in orderedTasks" :key="task.id">
       <div v-if="!task.seconds == 0" class="task-reported">
-        <div class="task-name">{{ task.name }}</div>
+        <div class="task-name bold">{{ task.name }}</div>
         <div class="task-infos">
           <div class="progression-bar" :style="progressionBarSize(task)">
             <div v-if="roomForTime(task)" class="task-time">{{ tasksPlugin.getTime(task.seconds) }}</div>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="task-exceeded-button" @click="increaseMaxTaskCount()">
-      <a-button v-if="tasks.length > maxTaskDisplayed" class="max-tasks-exceeded">{{ $t('reports.task.tasks-exceeded-message') }}</a-button>
+      <a-button v-if="tasks.length > maxTaskDisplayed" class="max-tasks-exceeded bold">{{ $t('reports.task.tasks-exceeded-message') }}</a-button>
     </div>
   </div>
 </template>
@@ -87,7 +87,6 @@ export default Vue.extend({
 }
 
 .task-name {
-  font-weight: 500;
   font-size: 1.2rem;
 }
 
@@ -121,7 +120,6 @@ export default Vue.extend({
 .max-tasks-exceeded {
   margin-top: 2rem;
   text-align: center;
-  font-weight: 500;
 }
 
 .task-exceeded-button {

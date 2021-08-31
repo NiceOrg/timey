@@ -92,3 +92,11 @@ p {
 .danger {
   background-color: var(--danger, red);
 }
+
+.bold {
+  font-weight: 500;
+}
+
+a {
+  color: inherit;
+}

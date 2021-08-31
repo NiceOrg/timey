@@ -19,7 +19,7 @@
               <p class="account-param" @click="disconnect">{{ authentication.authenticated ? $t('global.log-out') : $t('global.sign-in') }}</p>
             </a>
             <a-avatar v-if="authentication.authenticated" shape="square">
-              <div class="user-icon">{{ authentication.email.charAt(0).toUpperCase() }}</div>
+              <div class="user-icon bold">{{ authentication.email.charAt(0).toUpperCase() }}</div>
             </a-avatar>
             <a-avatar v-else shape="square" icon="user" size="large" />
           </a-popover>
@@ -31,7 +31,7 @@
       <a-input
         v-model="filter"
         auto-focus
-        class="input-filter"
+        class="input-filter bold"
         :placeholder="$t('dashboard.search-task')"
         @change="emit(NAVBAR_SEARCH, filter)"
       ></a-input>
@@ -126,7 +126,6 @@ export default Vue.extend({
 
 .input-filter {
   font-size: 1.3rem;
-  font-weight: 500;
   width: 80%;
 }
 
@@ -151,7 +150,6 @@ export default Vue.extend({
 }
 
 .user-icon {
-  font-weight: 500;
   font-size: 1.7rem;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="page-update-account">
     <div class="wrapper">
-      <div class="font space-left center">{{ $t('global.eMail') }}</div>
+      <div class="bold space-left center">{{ $t('global.eMail') }}</div>
       <div class="ellipsis center">{{ authentication.email }}</div>
       <div>
-        <a-button class="font center" @click="emailVisible = true">{{ $t('global.update') }}</a-button>
+        <a-button class="bold center" @click="emailVisible = true">{{ $t('global.update') }}</a-button>
         <a-modal
           v-model="emailVisible"
           :title="$t('user-account.email-update')"
@@ -24,10 +24,10 @@
         </a-modal>
       </div>
       <div class="line"></div>
-      <div class="font space-left center">{{ $t('global.password') }}</div>
+      <div class="bold space-left center">{{ $t('global.password') }}</div>
       <div class="center">************</div>
       <div>
-        <a-button class="font center" @click="passwordVisible = true">{{ $t('global.update') }}</a-button>
+        <a-button class="bold center" @click="passwordVisible = true">{{ $t('global.update') }}</a-button>
         <a-modal v-model="passwordVisible" :title="$t('user-account.password-update')" class="update-account-data" @ok="updatePassword()">
           <a-form-model :form="form" layout="inline">
             <a-form-model-item>
@@ -85,7 +85,7 @@ import Vue from 'vue'
 import { emit, on } from 'shuutils'
 import { AUTHENTICATION_GET, AUTHENTICATION_SEND, NAVBAR_SETTINGS } from '~/plugins'
 import { Authentication, Navbar, UserUpdate } from '~/models'
-import { timeyService } from '~/services'
+import { usersService } from '~/services'
 import { validateEmail } from '~/utils'
 export default Vue.extend({
   data() {
@@ -124,7 +124,7 @@ export default Vue.extend({
         this.errorMessage = "L'adresse e-mail est incorrecte"
         return
       }
-      await timeyService
+      await usersService
         .updateEmail(user)
         .then(() => {
           this.emailVisible = false
@@ -139,7 +139,7 @@ export default Vue.extend({
         newPassword: this.form.newPassword,
         repeatPassword: this.form.repeatPassword,
       })
-      await timeyService
+      await usersService
         .updatePassword(user)
         .then(() => {
           this.passwordVisible = false
@@ -152,7 +152,7 @@ export default Vue.extend({
     },
     async deleteAccount() {
       const user = new UserUpdate({ actualPassword: this.form.actualPassword })
-      await timeyService
+      await usersService
         .deleteAccount(user)
         .then(() => this.$router.push(this.localePath('/')))
         .catch((error) => (this.errorMessage = error.message))
@@ -192,10 +192,6 @@ export default Vue.extend({
 
 .space-right {
   padding-right: 0.5rem;
-}
-
-.font {
-  font-weight: 600;
 }
 
 .suppr-button {
