@@ -2,3 +2,13 @@
   background-color: var(--accent-light, grey);
   border-color: var(--accent, grey);
 }
+
+.ant-btn {
+  border-color: var(--accent-light, grey);
+  color: inherit;
+}
+
+.ant-btn:active, .ant-btn.active, .ant-btn:hover, .ant-btn:focus {
+  border-color: var(--accent-light, grey);
+  color: inherit;
+}

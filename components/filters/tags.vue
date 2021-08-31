@@ -1,12 +1,12 @@
 <template>
   <div class="comp-filters">
-    <a-button v-if="tags.length > 0" class="filters" @click="showModal = true">{{ $t('global.filter-tags') }}</a-button>
+    <a-button v-if="tags.length > 0" class="filters bold" @click="showModal = true">{{ $t('global.filter-tags') }}</a-button>
     <a-modal v-model="showModal" :title="$t('global.filter-tags')" :footer="null">
-      <a-input v-model="tagSearched" class="search font" type="text" :placeholder="$t('filters.search-tag')" />
+      <a-input v-model="tagSearched" class="search font bold" type="text" :placeholder="$t('filters.search-tag')" />
       <a-list class="list" item-layout="horizontal" :data-source="filteredTagList">
         <a-list-item slot="renderItem" slot-scope="tag" @click="updateFilteredTag(tag)">
           <a-list-item-meta>
-            <a slot="title" class="name font">{{ tag.name }}</a>
+            <a slot="title" class="name font bold">{{ tag.name }}</a>
             <a-avatar slot="avatar" size="large" :style="{ background: tag.color }" />
           </a-list-item-meta>
           <div v-if="isTagChecked(tag)"><a-icon type="check" /></div>
@@ -70,7 +70,6 @@ export default Vue.extend({
 .filters {
   margin: 0.5rem 0 0 1rem;
   font-size: 1rem;
-  font-weight: 500;
   color: var(--primary-dark, lightblue);
 }
 
@@ -117,7 +116,6 @@ export default Vue.extend({
 }
 
 .font {
-  font-weight: 500;
   font-size: 1rem;
   color: var(--dark-gray-blue, gray);
 }
