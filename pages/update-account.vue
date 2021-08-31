@@ -86,6 +86,7 @@ import { emit, on } from 'shuutils'
 import { AUTHENTICATION_GET, AUTHENTICATION_SEND, NAVBAR_SETTINGS } from '~/plugins'
 import { Authentication, Navbar, UserUpdate } from '~/models'
 import { timeyService } from '~/services'
+import { validateEmail } from '~/utils'
 export default Vue.extend({
   data() {
     return {
@@ -119,6 +120,10 @@ export default Vue.extend({
   methods: {
     async updateEmail() {
       const user = new UserUpdate({ actualEmail: this.authentication.email, newEmail: this.form.email, actualPassword: this.form.actualPassword })
+      if (!validateEmail(user.newEmail)) {
+        this.errorMessage = "L'adresse e-mail est incorrecte"
+        return
+      }
       await timeyService
         .updateEmail(user)
         .then(() => {
