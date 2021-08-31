@@ -43,7 +43,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { User } from '~/models'
-import { timeyService } from '~/services'
+import { usersService } from '~/services'
 import { validateEmail } from '~/utils'
 export default Vue.extend({
   layout: 'auth-layout',
@@ -68,7 +68,7 @@ export default Vue.extend({
       if (this.form.password !== this.form.repPassword) throw new Error('Les mots de passes ne correspondent pas.')
       if (!validateEmail(this.form.email)) throw new Error("L'adresse mail n'est pas valide.")
       const user = new User({ password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
-      await timeyService.add(user)
+      await usersService.add(user)
       this.$router.push(this.localePath('/dashboard'))
     },
   },

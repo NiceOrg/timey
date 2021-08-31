@@ -1,5 +1,6 @@
 export * from './authentication.model'
 export * from './filters.model'
+export * from './feedback.model'
 export * from './navbar.model'
 export * from './parameters/languages.enum'
 export * from './parameters/parameters.model'
