@@ -5,7 +5,7 @@
     <div class="form">
       <a-form-model layout="inline" :model="form">
         <a-form-model-item>
-          <a-input v-model="form.email" size="small" :placeholder="$t('global.eMail')">
+          <a-input v-model="form.email" size="small" :placeholder="$t('global.eMail')" type="email" required>
             <a-icon slot="prefix" class="secondary-color" type="mail" />
           </a-input>
         </a-form-model-item>
@@ -44,6 +44,7 @@
 import Vue from 'vue'
 import { User } from '~/models'
 import { timeyService } from '~/services'
+import { validateEmail } from '~/utils'
 export default Vue.extend({
   layout: 'auth-layout',
   data() {
@@ -65,7 +66,7 @@ export default Vue.extend({
       if (this.form.password === '') throw new Error('Veuillez entrer un mot de passe.')
       if (this.form.repPassword === '') throw new Error('Veuillez confirmer votre mot de passe.')
       if (this.form.password !== this.form.repPassword) throw new Error('Les mots de passes ne correspondent pas.')
-
+      if (!validateEmail(this.form.email)) throw new Error("L'adresse mail n'est pas valide.")
       const user = new User({ password: this.form.password, repeatPassword: this.form.repPassword, email: this.form.email })
       await timeyService.add(user)
       this.$router.push(this.localePath('/dashboard'))
