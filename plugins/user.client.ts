@@ -1,5 +1,5 @@
 import { emit, on, storage } from 'shuutils'
-import { timeyService } from '../services'
+import { usersService } from '../services'
 import { Parameters, Tag, Task, UserMini } from '../models'
 import { USER_GET, USER_SEND } from './events.client'
 import { authenticationPlugin } from './authentication.client'
@@ -65,7 +65,7 @@ class UserPlugin {
     storage.set(authenticationPlugin.getUserToken(), JSON.stringify(this.user))
 
     /* istanbul ignore next */
-    if (authenticationPlugin.get().authenticated) timeyService.update(this.user)
+    if (authenticationPlugin.get().authenticated) usersService.update(this.user)
     this.send()
   }
 

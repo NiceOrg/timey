@@ -3,7 +3,7 @@ import { Authentication, User, UserMini, UserUpdate } from '../../models'
 import { authenticationPlugin, userPlugin } from '../../plugins'
 
 /* istanbul ignore next */
-class TimeyService {
+class UsersService {
   usersUrl = environment.apiUrl + '/users'
 
   public async getAll() {
@@ -61,4 +61,4 @@ class TimeyService {
     return data
   }
 }
-export const timeyService = new TimeyService()
+export const usersService = new UsersService()
