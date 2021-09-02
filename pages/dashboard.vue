@@ -12,9 +12,7 @@
         </a-modal>
       </div>
       <div class="foot">
-        <div class="speech-icon">
-          <speech-recognition />
-        </div>
+        <speech-recognition v-if="language === 'fr'" class="speech-icon" />
       </div>
     </div>
   </div>
@@ -41,10 +39,12 @@ export default Vue.extend({
       filters: {} as Filters,
       filtersPlugin,
       filteredTask: [] as Task[],
+      language: {} as Languages,
     }
   },
   beforeMount() {
-    parametersPlugin.updateLanguage(this.$i18n.locale as Languages)
+    this.language = this.$i18n.locale as Languages
+    parametersPlugin.updateLanguage(this.language)
     on(CLOSE_CONTENT, () => (this.showEdit = false))
     on(NAVBAR_SEARCH, (search: string) => emit(FILTERS_SET_TITLE, search))
     on(FILTERS_SEND, () => (this.filteredTask = filtersPlugin.getTasksFiltered()))
