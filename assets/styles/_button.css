@@ -12,3 +12,7 @@
   border-color: var(--accent-light, grey);
   color: inherit;
 }
+
+.send .ant-btn {
+  color: var(--font-color-secondary, white);
+}
